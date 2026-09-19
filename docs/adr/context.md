@@ -1,0 +1,6 @@
+# External System and Stakeholder Boundary Inventory
+Individual Investor — in/out — financial goals, profile data, risk-questionnaire responses, approvals, and rebalancing preferences in; risk score, target allocation, security recommendations, portfolio status, and scenario results out.
+Brokerage or Custodian — in/out — account-link authorization and authorized investment instructions out; account positions, balances, order confirmations, and execution status in, through a brokerage API or sandbox.
+Market Data Provider — in/out — market-data requests out; historical price data, security metadata, and adjusted prices in, through a structured data API.
+Regulatory Authority — in — regulatory rules, restrictions, and compliance obligations represented as controlled policy inputs; no direct trade instruction enters from this actor.
+System Administrator — in/out — configuration, data-source settings, operational commands, and maintenance actions in; system status, audit information, and configuration results out.
