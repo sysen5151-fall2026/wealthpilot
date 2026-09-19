@@ -1,4 +1,5 @@
 # UC.1 — Investor obtains target allocation and securities recommendations
+# Internally, the wealthpilot_service is decomposed into four functional modules—risk_engine, allocation_engine, screening_engine, and ai_explanation_model—which are not external systems on the context diagram.
 1. Investor → investor_interface: initiate_session()
 2. investor_interface → wealthpilot_service: request_financial_profile(session_id)
 3. Investor → investor_interface: provide_financial_profile(profile_data)
