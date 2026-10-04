@@ -1,10 +1,20 @@
 # WealthPilot
 
 ## Operational Concept
-An individual investor uses WealthPilot to develop an investment plan. The investor enters financial goals, how long they plan to invest, available funds, and planned regular contributions. They also answer questions about how much risk they are willing and able to take. With the investor's permission, WealthPilot retrieves current holdings and available cash from a linked brokerage or custodian. It then requests market data to help assess risk and develop a proposed investment mix.
 
-WealthPilot suggests a mix of stocks and exchange-traded funds (ETFs), taking the investor's existing holdings into account. It explains the proposed plan, its assumptions, and its main risks in plain language. The investor reviews the plan and can change their information or investment limits before approving it. A recommendation alone does not give WealthPilot permission to place a transaction.
+WealthPilot is an **educational investment-planning simulator for novice investors**. It does not connect to a real brokerage account, place real trades, transfer funds, or authorize real investment execution.
 
-Once the investor has approved the plan and authorized the relevant actions, WealthPilot saves the plan and supports regular investments through the brokerage or custodian. It tracks progress toward the investor's goals and checks whether the portfolio has moved away from the target investment mix. When this difference exceeds a set limit, WealthPilot proposes adjustments for the investor to review. The investor can pause or disable automation at any time.
+An Individual Investor starts a planning session and provides a financial profile, including a stated goal, investment horizon, financial capacity, liquidity needs, investment experience, and hypothetical current holdings. The investor also completes a structured risk questionnaire. WealthPilot uses these inputs to determine a risk score and corresponding risk level.
 
-A system administrator manages system settings and checks that WealthPilot is running properly. WealthPilot operates within market conditions and applicable regulatory rules.
+WealthPilot requests historical market data from a Market Data Provider, determines a target allocation, filters candidate securities, and presents an educational investment plan. The plan includes the proposed allocation, candidate securities, material risks, and an explanation of how the investor profile and risk assessment influenced the result. The investor explicitly confirms whether the proposed plan should be saved as the reference plan.
+
+The saved plan remains separate from later simulated portfolio actions. Additional course use cases support simulated recurring planning, simulated portfolio drift/rebalancing review, what-if analysis, and administrative maintenance. A System Administrator manages approved educational baselines and recovery. Market and regulatory conditions constrain the simulator through the Market and Regulatory Environment.
+
+## Task 2 / Chapter 3 Repository Artifacts
+
+- `SPEC.md` — stakeholder needs, traces to stakeholder requirements, acceptance criteria, Data Contract, and Model Response Contract.
+- `tests/test_spec_acceptance.py` — intentionally failing acceptance-test skeletons for N-01 through N-08.
+- `.github/workflows/tests.yml` — CI workflow that runs the Task 2 acceptance tests.
+- `docs/adr/prompt-log.md` — cumulative prompt log, including the Task 2 repository update.
+
+The acceptance suite is intentionally **red** at this project increment. Later build increments should replace the placeholder failures with executable evidence as the corresponding capabilities are implemented.
