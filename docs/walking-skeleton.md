@@ -23,3 +23,9 @@ The walking skeleton below mirrors the current UC.1 model and preserves the educ
 19. **UC.1.19** Individual Investor: Review Saved Plan
 
 No step connects to a brokerage or custodian, and no step executes a real transaction.
+
+## Current Walking-Skeleton Implementation
+
+The current Python implementation exercises the primary UC.1 path with hard-coded or stubbed participant behavior. It includes financial-profile and risk-response inputs, hypothetical current holdings, risk assessment, profile-interpretation confirmation, historical market data, target allocation, candidate-security filtering, educational explanation, plan presentation, plan-save request, and simulated plan saving.
+
+The implementation is a walking skeleton rather than full acceptance verification. Historical market data, risk calculation, allocation, screening, explanation, confirmations, holdings, and plan saving remain stubbed or hard-coded at this increment.
