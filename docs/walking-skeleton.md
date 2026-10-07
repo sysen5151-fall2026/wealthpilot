@@ -1,22 +1,31 @@
-# UC.1 — Investor obtains target allocation and securities recommendations
-# Internally, the wealthpilot_service is decomposed into four functional modules—risk_engine, allocation_engine, screening_engine, and ai_explanation_model—which are not external systems on the context diagram.
-1. Investor → investor_interface: initiate_session()
-2. investor_interface → wealthpilot_service: request_financial_profile(session_id)
-3. Investor → investor_interface: provide_financial_profile(profile_data)
-4. wealthpilot_service → investor_interface: request_risk_questionnaire()
-5. Investor → investor_interface: provide_risk_questionnaire(response)
-6. wealthpilot_service → risk_engine: determine_risk_score(profile, questionnaire)
-7. risk_engine → wealthpilot_service: returns risk_score
-8. wealthpilot_service → investor_interface: present_risk_score(risk_score)
-9. Investor → investor_interface: confirm_risk_score()
-10. wealthpilot_service → market_data_provider: get_historical_prices(tickers, period)
-11. market_data_provider → wealthpilot_service: returns historical_price_data
-12. wealthpilot_service → allocation_engine: determine_allocation(risk_score, profile, market_data)
-13. allocation_engine → wealthpilot_service: returns target_allocation
-14. wealthpilot_service → screening_engine: filter_securities(target_allocation, market_data)
-15. screening_engine → wealthpilot_service: returns recommendation_list
-16. wealthpilot_service → ai_explanation_model: compose_explanation(allocation, recommendations)
-17. ai_explanation_model → wealthpilot_service: returns explanation_text
-18. wealthpilot_service → investor_interface: provide_investment_plan(allocation, recommendations, explanation)
-19. Investor → investor_interface: save_and_confirm()
-20. wealthpilot_service → investor_interface: save_investment_plan(plan_data)
+# UC.1 — Investor obtains a simulated investment plan and candidate securities
+
+The walking skeleton below mirrors the current UC.1 model and preserves the educational-simulation boundary.
+
+1. **UC.1.1** Individual Investor → WealthPilot: Initiate Session
+2. **UC.1.2** WealthPilot → Individual Investor: Request Financial Profile
+3. **UC.1.3** Individual Investor → WealthPilot: Provide Financial Profile
+4. **UC.1.4** WealthPilot → Individual Investor: Request Risk Responses
+5. **UC.1.5** Individual Investor → WealthPilot: Provide Risk Responses
+6. **UC.1.6** WealthPilot → Individual Investor: Request Current Holdings
+7. **UC.1.7** Individual Investor → WealthPilot: Provide Current Holdings (hypothetical / simulated planning input)
+8. **UC.1.8** WealthPilot: Determine Risk Score
+9. **UC.1.9** WealthPilot → Individual Investor: Present Risk Assessment
+10. **UC.1.10** Individual Investor → WealthPilot: Confirm Profile Interpretation
+11. **UC.1.11** WealthPilot → Market Data Provider: Request Market Data
+12. **UC.1.12** Market Data Provider → WealthPilot: Provide Market Data
+13. **UC.1.13** WealthPilot: Determine Target Allocation
+14. **UC.1.14** WealthPilot: Filter Candidate Securities
+15. **UC.1.15** WealthPilot: Explain Plan Rationale and Risks
+16. **UC.1.16** WealthPilot → Individual Investor: Present Investment Plan
+17. **UC.1.17** Individual Investor → WealthPilot: Request Plan Save
+18. **UC.1.18** WealthPilot: Save Plan and Confirm
+19. **UC.1.19** Individual Investor: Review Saved Plan
+
+No step connects to a brokerage or custodian, and no step executes a real transaction.
+
+## Current Walking-Skeleton Implementation
+
+The current Python implementation exercises the primary UC.1 path with hard-coded or stubbed participant behavior. It includes financial-profile and risk-response inputs, hypothetical current holdings, risk assessment, profile-interpretation confirmation, historical market data, target allocation, candidate-security filtering, educational explanation, plan presentation, plan-save request, and simulated plan saving.
+
+The implementation is a walking skeleton rather than full acceptance verification. Historical market data, risk calculation, allocation, screening, explanation, confirmations, holdings, and plan saving remain stubbed or hard-coded at this increment.

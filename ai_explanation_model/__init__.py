@@ -1,2 +1,5 @@
-def compose_explanation(allocation: dict, recommendations: list) -> str:
-    return "Based on your moderate risk score, we suggest a balanced portfolio of stocks and ETFs."
+def compose_explanation(allocation: dict, candidates: list) -> str:
+    return (
+        "This simulated educational plan uses a moderate-risk profile "
+        "to illustrate a balanced allocation across stocks and ETFs."
+    )
