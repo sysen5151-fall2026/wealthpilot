@@ -22,27 +22,35 @@ def provide_risk_questionnaire_response() -> dict:
     }
 
 
-def present_risk_score(risk_score: int) -> None:
+def provide_current_holdings() -> list:
+    return [
+        {"ticker": "VTI", "value": 5000}
+    ]
+
+
+def present_risk_assessment(risk_score: int) -> None:
+    print("SIMULATED EDUCATIONAL OUTPUT")
     print(f"Risk score: {risk_score}")
 
 
-def confirm_risk_score(risk_score: int) -> bool:
+def confirm_profile_interpretation() -> bool:
     confirmed = True
-    print("Risk score confirmed:", confirmed)
+    print("Profile interpretation confirmed:", confirmed)
     return confirmed
 
 
 def provide_investment_plan(
     allocation: dict,
-    recommendations: list,
+    candidates: list,
     explanation: str,
 ) -> None:
+    print("SIMULATED EDUCATIONAL PLAN")
     print("Allocation:", allocation)
-    print("Recommendations:", recommendations)
+    print("Candidate securities:", candidates)
     print("Explanation:", explanation)
 
 
-def confirm_investment_plan() -> bool:
-    confirmed = True
-    print("Investment plan confirmed:", confirmed)
-    return confirmed
+def request_plan_save() -> bool:
+    requested = True
+    print("Plan save requested:", requested)
+    return requested
