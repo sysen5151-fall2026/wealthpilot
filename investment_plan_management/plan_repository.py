@@ -9,12 +9,14 @@ ICOM from the second-level IDEF0 of F.6:
     mechanism  C.6.4 Plan Repository Component, given a plan store
 
 The plan store holds saved plans only. It never reads or writes simulated cash
-or holdings, and nothing here contacts a brokerage (1.4.8, CS6.2.4).
+or holdings, and nothing here contacts a brokerage (SR-05, 1.4.8, CS6.2.4).
 """
 
 import json
-import os
+import sqlite3
+from contextlib import closing
 from dataclasses import asdict
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Protocol
 
@@ -36,27 +38,63 @@ class PlanStore(Protocol):
     def read(self, plan_id: str) -> dict | None: ...
 
 
-class JsonPlanStore:
-    """Keeps each saved plan in its own JSON file: <directory>/<plan_id>.json."""
+class SqlitePlanStore:
+    """Keeps saved plans in one SQLite database file, in the table saved_plans.
 
-    def __init__(self, directory: Path) -> None:
-        self.directory = Path(directory)
+    The record is stored as JSON text exactly as F.6.4 wrote it; the time of
+    the save is kept beside it, not inside it, so a read-back can be compared
+    with what was written.
+    """
+
+    def __init__(self, database_path: Path) -> None:
+        self.database_path = Path(database_path)
 
     def write(self, plan_id: str, record: dict) -> None:
-        self.directory.mkdir(parents=True, exist_ok=True)
-        path = self._path(plan_id)
-        temporary = path.with_name(path.name + ".tmp")
-        temporary.write_text(json.dumps(record, indent=2, sort_keys=True))
-        os.replace(temporary, path)  # the final file is never half-written
+        saved_at = datetime.now(timezone.utc).isoformat(timespec="seconds")
+        with closing(self._connect()) as connection, connection:  # one transaction: all or nothing
+            connection.execute(
+                "INSERT INTO saved_plans (plan_id, saved_at, record) VALUES (?, ?, ?) "
+                "ON CONFLICT(plan_id) DO UPDATE SET saved_at = excluded.saved_at, record = excluded.record",
+                (plan_id, saved_at, json.dumps(record)),  # key order kept, so the plan reads back as shown
+            )
 
     def read(self, plan_id: str) -> dict | None:
         try:
-            return json.loads(self._path(plan_id).read_text())
-        except (OSError, json.JSONDecodeError):  # missing, unreadable or half-written
+            with closing(self._connect()) as connection:
+                row = connection.execute("SELECT record FROM saved_plans WHERE plan_id = ?", (plan_id,)).fetchone()
+            return None if row is None else json.loads(row[0])
+        except (OSError, sqlite3.Error, ValueError):  # unreadable, or not a whole JSON record
             return None
 
-    def _path(self, plan_id: str) -> Path:
-        return self.directory / f"{plan_id}.json"
+    def list_saved(self, limit: int = 20) -> list[dict]:
+        """The most recent saved plans, newest first, for the investor to review."""
+        with closing(self._connect()) as connection:
+            rows = connection.execute(
+                "SELECT plan_id, saved_at, record FROM saved_plans ORDER BY saved_at DESC, plan_id LIMIT ?", (limit,)
+            ).fetchall()
+        listing = []
+        for plan_id, saved_at, text in rows:
+            try:
+                record = json.loads(text)
+            except ValueError:
+                continue
+            listing.append({
+                "plan_id": plan_id,
+                "saved_at": saved_at,
+                "risk_category": record.get("risk_category"),
+                "risk_score": record.get("risk_score"),
+                "target_allocation": record.get("target_allocation", {}),
+            })
+        return listing
+
+    def _connect(self) -> sqlite3.Connection:
+        self.database_path.parent.mkdir(parents=True, exist_ok=True)
+        connection = sqlite3.connect(self.database_path)
+        connection.execute(
+            "CREATE TABLE IF NOT EXISTS saved_plans "
+            "(plan_id TEXT PRIMARY KEY, saved_at TEXT NOT NULL, record TEXT NOT NULL)"
+        )
+        return connection
 
 
 def persist_reviewed_investment_plan(
@@ -83,7 +121,7 @@ def persist_reviewed_investment_plan(
     record = asdict(authorized_plan_save_payload.reviewed_plan)
     try:
         plan_store.write(plan_id, record)
-    except OSError as error:
+    except (OSError, sqlite3.Error) as error:
         return result(FAILED, f"write failed: {error}")
 
     stored = plan_store.read(plan_id)

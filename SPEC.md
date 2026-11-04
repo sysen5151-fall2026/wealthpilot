@@ -126,6 +126,11 @@ Missing observations or insufficient interval coverage are surfaced as a **histo
 ### Provider unavailable
 If the Market Data Provider is unavailable, WealthPilot does not fabricate historical observations. The learner is shown the applicable data-source limitation and the affected analysis is withheld.
 
+### Current implementation status
+- `scripts/fetch_price_snapshot.py` downloads daily adjusted closes from Yahoo Finance (yfinance) once and writes `data/prices/prices-<date>.csv` with a manifest holding the source, date range and SHA-256 fingerprint. WealthPilot reads only the snapshot (`market_data_provider/`) and refuses one whose fingerprint does not match.
+- Every admission rule above is applied per symbol; a symbol that fails is left out and named in a historical-data limitation. With no admissible data the plan is withheld.
+- The minimum observation count is `security_screening_criteria.min_observations` in `config/rules.json` (placeholder: 750 trading days).
+
 ---
 
 ## Model Response Contract
@@ -138,8 +143,8 @@ This contract governs the language-model explanation layer. The language model e
 - The explanation layer may explain those outputs but must not silently alter them.
 - Brokerage credentials, real orders, real fund transfers, and live-account execution are out of scope.
 
-### Current scaffold status
-F.6.1 (`investment_plan_management/explanation_engine.py`) currently builds the explanation from a deterministic template governed by Explanation Rules, using the output fields below. No language model is called yet, so the language-model path of this contract is **not yet satisfied**; this is captured by the red acceptance-test suite.
+### Current implementation status
+F.6.1 (`investment_plan_management/explanation_engine.py`) always builds the deterministic template from the approved planning result. When `WEALTHPILOT_LLM_MODEL` names a model served by LM Studio (`investment_plan_management/language_model.py`), the model is given the input below and asked for the output schema; its response is used only if every field is present, `material_risks` is non-empty, `data_limitations` repeats the upstream limitations exactly, `scope_notice` is the approved notice, no prohibited phrase appears, and every number it states appears in the supplied facts. Otherwise the template is used and the explanation records why. The model itself has not been selected; until it is, the template path runs.
 
 ### Input schema
 

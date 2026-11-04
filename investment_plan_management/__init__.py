@@ -8,8 +8,9 @@ F.6 is decomposed on its second-level IDEF0 into five functions, one module each
     F.6.4 Persist Reviewed Investment Plan      plan_repository.py      C.6.4 Plan Repository Component
     F.6.5 Confirm Successful Plan Save          save_confirmation.py    C.6.5 Save Confirmation Component
 
-The flows between them are defined in io_types.py. Requirements come from the
-CS.6 component specification in the Innoslate model.
+The flows between them are defined in io_types.py. language_model.py is the
+optional LM Studio model that C.6.1 can use (ADR-0001). Requirements come from
+the CS.6 component specification in the Innoslate model.
 """
 
 from .explanation_engine import explain_investment_plan
@@ -30,8 +31,9 @@ from .io_types import (
     SavedInvestmentPlan,
     SavedPlanConfirmation,
 )
+from .language_model import LanguageModel, LanguageModelError, LmStudioModel, language_model_from_environment
 from .plan_presentation import present_investment_plan
-from .plan_repository import JsonPlanStore, PlanStore, persist_reviewed_investment_plan
+from .plan_repository import PlanStore, SqlitePlanStore, persist_reviewed_investment_plan
 from .save_authorization import plan_save_request_problem, validate_explicit_plan_save_request
 from .save_confirmation import confirm_successful_plan_save
 
@@ -44,7 +46,9 @@ __all__ = [
     "ExplanationRules",
     "InvestmentPlanExplanation",
     "InvestmentRecommendationsAndWeights",
-    "JsonPlanStore",
+    "LanguageModel",
+    "LanguageModelError",
+    "LmStudioModel",
     "PlanPersistenceResult",
     "PlanSaveRequest",
     "PlanStore",
@@ -53,8 +57,10 @@ __all__ = [
     "ReviewedPlanSnapshot",
     "SavedInvestmentPlan",
     "SavedPlanConfirmation",
+    "SqlitePlanStore",
     "confirm_successful_plan_save",
     "explain_investment_plan",
+    "language_model_from_environment",
     "persist_reviewed_investment_plan",
     "plan_save_request_problem",
     "present_investment_plan",
