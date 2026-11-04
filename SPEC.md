@@ -139,7 +139,7 @@ This contract governs the language-model explanation layer. The language model e
 - Brokerage credentials, real orders, real fund transfers, and live-account execution are out of scope.
 
 ### Current scaffold status
-The current `ai_explanation_model.compose_explanation()` function returns a fixed demonstration string. It does **not yet satisfy** the structured response contract below. This is expected at the Task 2 increment and is captured by the red acceptance-test suite.
+F.6.1 (`investment_plan_management/explanation_engine.py`) currently builds the explanation from a deterministic template governed by Explanation Rules, using the output fields below. No language model is called yet, so the language-model path of this contract is **not yet satisfied**; this is captured by the red acceptance-test suite.
 
 ### Input schema
 

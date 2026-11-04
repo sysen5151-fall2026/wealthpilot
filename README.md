@@ -18,3 +18,13 @@ The saved plan remains separate from later simulated portfolio actions. Addition
 - `docs/prompt-log.md` — cumulative prompt log, including AI-assisted repository and walking-skeleton updates.
 
 The acceptance suite is intentionally **red** at this project increment. Later build increments should replace the placeholder failures with executable evidence as the corresponding capabilities are implemented.
+
+## Running the Walking Skeleton
+
+```bash
+python app.py            # UC.1 with an explicit Plan Save Request
+python app.py --no-save  # the investor never asks to save, so nothing is saved
+pytest tests/test_cs6_requirements.py -v
+```
+
+Each output line is tagged with the function and asset from the model, for example `[F.6.3 | C.6.3]`. Saved plans are written to `saved_plans/`, which git ignores. `docs/traceability.md` maps each IDEF0 function to its module, requirements and tests.
