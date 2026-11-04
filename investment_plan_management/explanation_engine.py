@@ -122,8 +122,13 @@ def _summary(plan: InvestmentRecommendationsAndWeights) -> str:
     return f"This simulated {plan.risk_category} plan{purpose} puts {_describe_allocation(plan.target_allocation)}."
 
 
+def share_text(share: float) -> str:
+    """A share as a percentage, with one decimal only when a whole number would misstate it."""
+    return f"{share:.0%}" if abs(share * 100 - round(share * 100)) < 0.05 else f"{share:.1%}"
+
+
 def _describe_allocation(target_allocation: dict[str, float]) -> str:
-    parts = [f"{share:.0%} in {asset_class}" for asset_class, share in target_allocation.items()]
+    parts = [f"{share_text(share)} in {asset_class}" for asset_class, share in target_allocation.items()]
     if len(parts) == 1:
         return parts[0]
     return ", ".join(parts[:-1]) + " and " + parts[-1]
@@ -146,11 +151,11 @@ def _describe_adjustments(plan: InvestmentRecommendationsAndWeights) -> list[str
 
 def _describe_asset_class(asset_class: str, share: float, plan: InvestmentRecommendationsAndWeights) -> str:
     holdings = ", ".join(
-        f"{r.symbol} {r.weight:.0%}" + (f" ({r.name})" if r.name else "")
+        f"{r.symbol} {share_text(r.weight)}" + (f" ({r.name})" if r.name else "")
         for r in plan.recommendations
         if r.asset_class == asset_class
     )
-    return f"{asset_class} {share:.0%}: {holdings}."
+    return f"{asset_class} {share_text(share)}: {holdings}."
 
 
 def _describe_planning_inputs(basis: dict) -> list[str]:

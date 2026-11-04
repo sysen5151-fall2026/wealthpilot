@@ -117,6 +117,20 @@ def test_CS6_1_4_1_explanation_has_rationale_and_risk():
     assert explanation.generated_by == "template"
 
 
+def test_CS6_1_4_1_shares_add_up_as_written():
+    plan = make_recommendations(
+        target_allocation={"US Stocks": 0.75, "Bonds": 0.25},
+        recommendations=[
+            Recommendation("VTI", "US Stocks", 0.75, "Vanguard Total Stock Market ETF", "ETF"),
+            Recommendation("BND", "Bonds", 0.125, "Vanguard Total Bond Market ETF", "ETF"),
+            Recommendation("AGG", "Bonds", 0.125, "iShares Core U.S. Aggregate Bond ETF", "ETF"),
+        ],
+    )
+    explanation = explain_investment_plan(plan, explanation_rules=RULES)
+    bonds = next(line for line in explanation.allocation_rationale if line.startswith("Bonds"))
+    assert bonds.startswith("Bonds 25%: BND 12.5%") and "AGG 12.5%" in bonds
+
+
 def test_CS6_1_4_1_plan_without_identified_risk_is_not_explained():
     with pytest.raises(ValueError):
         explain_investment_plan(make_recommendations(identified_risks=[]), explanation_rules=RULES)

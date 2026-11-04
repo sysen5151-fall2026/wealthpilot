@@ -31,6 +31,7 @@ from investment_plan_management import (
     persist_reviewed_investment_plan,
     plan_save_request_problem,
     present_investment_plan,
+    share_text,
     validate_explicit_plan_save_request,
 )
 from investor_interface import collect_investor_information, requests_for_investor_input
@@ -244,7 +245,7 @@ class Planner:
             "F.5 | C.5",
             "Generate Investment Recommendations",
             "Investment Recommendations and Weights: "
-            + ", ".join(f"{r.symbol} {r.weight:.0%}" for r in recommendations.recommendations),
+            + ", ".join(f"{r.symbol} {share_text(r.weight)}" for r in recommendations.recommendations),
         )
 
         explanation = explain_investment_plan(
@@ -339,7 +340,7 @@ def _count(number: int, noun: str) -> str:
 
 
 def _shares(weights: dict) -> str:
-    return ", ".join(f"{asset_class} {share:.0%}" for asset_class, share in weights.items())
+    return ", ".join(f"{asset_class} {share_text(share)}" for asset_class, share in weights.items())
 
 
 def _now() -> str:

@@ -13,7 +13,7 @@ optional LM Studio model that C.6.1 can use (ADR-0001). Requirements come from
 the CS.6 component specification in the Innoslate model.
 """
 
-from .explanation_engine import explain_investment_plan
+from .explanation_engine import explain_investment_plan, share_text
 from .io_types import (
     EXPLICIT_SAVE,
     FAILED,
@@ -64,5 +64,6 @@ __all__ = [
     "persist_reviewed_investment_plan",
     "plan_save_request_problem",
     "present_investment_plan",
+    "share_text",
     "validate_explicit_plan_save_request",
 ]

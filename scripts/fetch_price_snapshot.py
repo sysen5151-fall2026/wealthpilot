@@ -17,6 +17,7 @@ import hashlib
 import json
 import math
 import sys
+import warnings
 from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 
@@ -33,6 +34,10 @@ def configured_symbols(rules_path: Path = RULES_PATH) -> list[str]:
             if symbol not in symbols:
                 symbols.append(symbol)
     return symbols
+
+
+# yfinance 1.7.0 still uses pandas calls that pandas 3.1 has deprecated; the warnings are not about the data.
+warnings.filterwarnings("ignore", message=r"The inplace keyword", module=r"yfinance")
 
 
 def download_rows(yfinance, symbols: list[str], start: date, end: date) -> tuple[list[dict], list[str], dict]:

@@ -138,6 +138,8 @@ def _consistency_problems(raw: dict) -> list[str]:
             problems.append(f"allocation_rules {key} must be one of the asset classes")
     if not 0 < allocation["loss_tolerance_step"] <= allocation["loss_tolerance_max_shift"] <= 1:
         problems.append("allocation_rules need 0 < loss_tolerance_step <= loss_tolerance_max_shift <= 1")
+    if not 0 <= allocation["loss_tolerance_min_improvement"] < 1:
+        problems.append("allocation_rules loss_tolerance_min_improvement must be at least 0 and below 1")
     if not set(raw["portfolio_construction_rules"]["cash_classes"]) <= set(allocation["asset_classes"]):
         problems.append("portfolio_construction_rules cash_classes must be asset classes")
     known_risks = set(raw["explanation_rules"]["risk_language"])

@@ -18,6 +18,7 @@ weight means for the investor's cash plus current holdings; nothing moves.
 
 from dataclasses import asdict
 
+from .explanation_engine import share_text
 from .io_types import (
     ExplanationRules,
     InvestmentPlanExplanation,
@@ -100,7 +101,7 @@ def _simulated_amounts(plan: InvestmentRecommendationsAndWeights) -> dict:
 def _render(snapshot: ReviewedPlanSnapshot, learner_actions: list[str]) -> str:
     """Display text, built only from the snapshot so the two cannot disagree."""
     explanation = snapshot.explanation
-    allocation = ", ".join(f"{asset_class} {share:.0%}" for asset_class, share in snapshot.target_allocation.items())
+    allocation = ", ".join(f"{asset_class} {share_text(share)}" for asset_class, share in snapshot.target_allocation.items())
     amounts = {row["symbol"]: row for row in snapshot.simulated_amounts.get("by_symbol", [])}
     risk = snapshot.risk_category + (f" (risk score {snapshot.risk_score} of 100)" if snapshot.risk_score is not None else "")
 
@@ -118,7 +119,7 @@ def _render(snapshot: ReviewedPlanSnapshot, learner_actions: list[str]) -> str:
         )
     lines.append("Candidate securities:")
     for r in snapshot.recommendations:
-        line = f"  {r.symbol:<6}{r.asset_class:<22}{r.weight:>5.0%}"
+        line = f"  {r.symbol:<6}{r.asset_class:<22}{share_text(r.weight):>6}"
         if r.symbol in amounts:
             line += f"  {_usd(amounts[r.symbol]['plan']):>12}"
             if amounts[r.symbol]["current"]:

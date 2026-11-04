@@ -225,7 +225,22 @@ def test_1_4_3_loss_tolerance_moves_stocks_to_bonds(configuration, investor, sna
     assert worst(target.weights) > worst(target.base_weights)
     moved = target.weights["Bonds"] - target.base_weights["Bonds"]
     assert moved <= rules["loss_tolerance_max_shift"] + 1e-4
-    assert any(f"moved from stocks to {rules['defensive_class']}" in note for note in target.adjustments)
+    assert any(f"moved from stocks to {rules['defensive_class'].lower()}" in note for note in target.adjustments)
+
+
+def test_1_4_3_mix_is_kept_and_the_risk_disclosed_when_bonds_would_not_help(configuration, investor, tmp_path):
+    # bonds that fall exactly like stocks: moving money into them cannot reduce the loss
+    rows = synthetic_rows()
+    vti = [r for r in rows if r["symbol"] == "VTI"]
+    rows = [r for r in rows if r["symbol"] != "BND"] + [{**r, "symbol": "BND"} for r in vti]
+    write_snapshot_files(tmp_path, rows)
+    investor["risk_questionnaire_responses"]["max_loss"] = "loss_10"
+
+    target = allocate(configuration, assess(configuration, investor), market_data(tmp_path))
+
+    assert target.weights == target.base_weights
+    assert "loss_tolerance" in target.planning_flags
+    assert any("would hardly have reduced that loss" in note for note in target.adjustments)
 
 
 def test_1_4_3_missing_benchmark_skips_the_loss_check_with_a_limitation(configuration, investor, snapshot_directory):

@@ -282,7 +282,8 @@
       }
     },
     "loss_tolerance_step": 0.05,
-    "loss_tolerance_max_shift": 0.25
+    "loss_tolerance_max_shift": 0.25,
+    "loss_tolerance_min_improvement": 0.005
   },
   "security_screening_criteria": {
     "version": "SSC-0.1",

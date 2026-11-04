@@ -18,8 +18,10 @@ F.6.1 explains: a short horizon caps stocks, a likely early need keeps a
 minimum in cash, and the loss-tolerance check moves money from stocks to bonds
 while the mix's worst historical one-year result exceeds the investor's limit.
 The check measures each asset class by its benchmark fund, moves at most
-loss_tolerance_max_shift, and stops when a further move no longer reduces the
-historical loss; if the limit is still exceeded, the plan carries that risk.
+loss_tolerance_max_shift, and stops when a further move would cut the
+historical loss by less than loss_tolerance_min_improvement (in 2022, for
+example, bonds fell almost as much as stocks). If the limit is still exceeded,
+the mix is kept as it stands, a note says why, and the plan carries that risk.
 """
 
 from historical_analysis import mix_value_path, worst_one_year_return
@@ -86,8 +88,7 @@ def determine_target_asset_allocation(
 
     if constraints["loss_tolerance_check"]:
         _apply_loss_tolerance(
-            weights, risk, historical_market_data, classes, equity, defensive,
-            allocation_rules["loss_tolerance_step"], allocation_rules["loss_tolerance_max_shift"],
+            weights, risk, historical_market_data, classes, equity, defensive, allocation_rules,
             adjustments, limitations, flags,
         )
 
@@ -101,9 +102,7 @@ def determine_target_asset_allocation(
     )
 
 
-def _apply_loss_tolerance(
-    weights, risk, data, classes, equity, defensive, step, max_shift, adjustments, limitations, flags
-):
+def _apply_loss_tolerance(weights, risk, data, classes, equity, defensive, rules, adjustments, limitations, flags):
     benchmarks = {c: classes[c]["benchmark"] for c, w in weights.items() if w > 0 or c == defensive}
     missing = sorted(b for b in benchmarks.values() if b not in data.series)
     if missing:
@@ -116,26 +115,41 @@ def _apply_loss_tolerance(
         active = {benchmarks[c]: w for c, w in mix.items() if w > 0}
         return worst_one_year_return(mix_value_path(data.series, active)[1])
 
-    limit = risk.max_one_year_loss
+    limit, step, max_shift = risk.max_one_year_loss, rules["loss_tolerance_step"], rules["loss_tolerance_max_shift"]
     original = current = worst(weights)
     if current is None:
         limitations.append("The historical sample is shorter than one year, so the loss-tolerance check was not made.")
+        return
+    if current >= -limit:
         return
     moved = 0.0
     while current < -limit and moved < max_shift - 1e-9 and sum(weights[c] for c in equity) > 1e-9:
         trial = dict(weights)
         amount = _shift(trial, equity, [defensive], min(step, max_shift - moved))
         result = worst(trial)
-        if result <= current + 1e-4:  # moving more would not reduce the historical loss
-            break
+        if result - current < rules["loss_tolerance_min_improvement"]:
+            break  # moving more would hardly reduce the historical loss
         weights.update(trial)
         moved, current = moved + amount, result
-    if moved:
+
+    found = (
+        f"In the historical sample the starting mix lost up to {-original:.0%} in one year, more than "
+        f"the {limit:.0%} you said you could accept"
+    )
+    if not moved:
         adjustments.append(
-            f"In the historical sample the starting mix lost up to {-original:.0%} in one year, more than "
-            f"the {limit:.0%} you said you could accept, so {moved:.0%} was moved from stocks to {defensive}; "
-            f"the adjusted mix's worst one-year loss was {max(-current, 0):.0%}."
+            f"{found}. Moving money from stocks to {defensive.lower()} would hardly have reduced that loss in this "
+            "sample, so the mix was kept and the risk is listed with the plan."
         )
+    else:
+        most = ", the most the rules allow," if moved >= max_shift - 1e-9 else ""
+        note = (
+            f"{found}, so {moved:.0%}{most} was moved from stocks to {defensive.lower()}; "
+            f"the adjusted mix's worst one-year loss was {-current:.0%}."
+        )
+        if current < -limit:
+            note += " That is still above your limit, so the risk is listed with the plan."
+        adjustments.append(note)
     if current < -limit:
         flags.append("loss_tolerance")
 
