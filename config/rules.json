@@ -1,0 +1,403 @@
+{
+  "configuration_id": "WP-RULES-0.1-PLACEHOLDER",
+  "status": "PLACEHOLDER. Every value in this file is an assistant-proposed starting point. The team must review, change and approve it before any pilot; record the decision in docs/prompt-log.md.",
+  "investment_planning_constraints": {
+    "version": "IPC-0.1",
+    "financial_profile_fields": {
+      "age": {
+        "label": "Age",
+        "type": "integer",
+        "min": 18,
+        "max": 100
+      },
+      "annual_income": {
+        "label": "Annual income (USD)",
+        "type": "number",
+        "min": 0,
+        "max": 10000000
+      },
+      "investable_savings": {
+        "label": "Cash available to invest (USD)",
+        "type": "number",
+        "min": 100,
+        "max": 10000000
+      },
+      "monthly_contribution": {
+        "label": "Monthly contribution (USD)",
+        "type": "number",
+        "min": 0,
+        "max": 100000
+      },
+      "horizon_years": {
+        "label": "Years until you need the money",
+        "type": "integer",
+        "min": 1,
+        "max": 50
+      },
+      "goal": {
+        "label": "Goal",
+        "type": "choice",
+        "options": {
+          "retirement": "Retirement",
+          "home_purchase": "Buying a home",
+          "education": "Education",
+          "general_wealth": "Building general wealth"
+        }
+      },
+      "liquidity_needs": {
+        "label": "How likely you are to need this money early",
+        "type": "choice",
+        "options": {
+          "low": "Unlikely",
+          "medium": "Possible",
+          "high": "Likely"
+        }
+      }
+    },
+    "risk_questionnaire": [
+      {
+        "id": "drop_reaction",
+        "text": "If your portfolio fell 20% in one month, what would you most likely do?",
+        "options": {
+          "sell_all": "Sell everything",
+          "sell_some": "Sell some of it",
+          "hold": "Hold and wait",
+          "buy_more": "Buy more"
+        }
+      },
+      {
+        "id": "experience",
+        "text": "How much investing experience do you have?",
+        "options": {
+          "none": "None",
+          "a_little": "A little",
+          "some": "Some",
+          "a_lot": "A lot"
+        }
+      },
+      {
+        "id": "max_loss",
+        "text": "What is the largest one-year loss you could accept on this money?",
+        "options": {
+          "loss_5": "5%",
+          "loss_10": "10%",
+          "loss_20": "20%",
+          "loss_30": "30% or more"
+        }
+      },
+      {
+        "id": "objective",
+        "text": "What matters most for this money?",
+        "options": {
+          "preserve": "Keeping it safe",
+          "income": "Steady income",
+          "balanced": "Balanced growth",
+          "growth": "Long-term growth"
+        }
+      },
+      {
+        "id": "income_stability",
+        "text": "How stable is your income?",
+        "options": {
+          "unstable": "Very unstable",
+          "somewhat_unstable": "Somewhat unstable",
+          "somewhat_stable": "Somewhat stable",
+          "stable": "Very stable"
+        }
+      }
+    ],
+    "max_holdings": 20,
+    "short_horizon_years": 3,
+    "short_horizon_max_equity": 0.3,
+    "min_cash_by_liquidity": {
+      "low": 0.0,
+      "medium": 0.1,
+      "high": 0.2
+    },
+    "loss_tolerance_check": true
+  },
+  "risk_scoring_rules": {
+    "version": "RSR-0.1",
+    "question_points": {
+      "drop_reaction": {
+        "sell_all": 1,
+        "sell_some": 2,
+        "hold": 3,
+        "buy_more": 4
+      },
+      "experience": {
+        "none": 1,
+        "a_little": 2,
+        "some": 3,
+        "a_lot": 4
+      },
+      "max_loss": {
+        "loss_5": 1,
+        "loss_10": 2,
+        "loss_20": 3,
+        "loss_30": 4
+      },
+      "objective": {
+        "preserve": 1,
+        "income": 2,
+        "balanced": 3,
+        "growth": 4
+      },
+      "income_stability": {
+        "unstable": 1,
+        "somewhat_unstable": 2,
+        "somewhat_stable": 3,
+        "stable": 4
+      }
+    },
+    "max_loss_values": {
+      "loss_5": 0.05,
+      "loss_10": 0.1,
+      "loss_20": 0.2,
+      "loss_30": 0.3
+    },
+    "horizon_points": [
+      {
+        "max_years": 2,
+        "points": 1
+      },
+      {
+        "max_years": 5,
+        "points": 2
+      },
+      {
+        "max_years": 10,
+        "points": 3
+      },
+      {
+        "max_years": 50,
+        "points": 4
+      }
+    ],
+    "liquidity_points": {
+      "high": 1,
+      "medium": 2,
+      "low": 3
+    },
+    "factor_labels": {
+      "drop_reaction": "how you would react to a 20% drop",
+      "experience": "your investing experience",
+      "max_loss": "the largest one-year loss you could accept",
+      "objective": "what matters most for this money",
+      "income_stability": "how stable your income is",
+      "horizon": "how many years until you need the money",
+      "liquidity": "how likely you are to need the money early"
+    },
+    "categories": [
+      {
+        "name": "Conservative",
+        "max_score": 30
+      },
+      {
+        "name": "Moderately Conservative",
+        "max_score": 45
+      },
+      {
+        "name": "Moderate",
+        "max_score": 60
+      },
+      {
+        "name": "Moderately Aggressive",
+        "max_score": 75
+      },
+      {
+        "name": "Aggressive",
+        "max_score": 100
+      }
+    ]
+  },
+  "allocation_rules": {
+    "version": "AR-0.1",
+    "asset_classes": {
+      "US Stocks": {
+        "benchmark": "VTI",
+        "equity": true,
+        "instruments": [
+          "VTI",
+          "AAPL",
+          "MSFT",
+          "TQQQ"
+        ]
+      },
+      "International Stocks": {
+        "benchmark": "VXUS",
+        "equity": true,
+        "instruments": [
+          "VXUS"
+        ]
+      },
+      "Bonds": {
+        "benchmark": "BND",
+        "equity": false,
+        "instruments": [
+          "BND",
+          "AGG"
+        ]
+      },
+      "Cash": {
+        "benchmark": "BIL",
+        "equity": false,
+        "instruments": [
+          "BIL"
+        ]
+      }
+    },
+    "cash_class": "Cash",
+    "defensive_class": "Bonds",
+    "by_category": {
+      "Conservative": {
+        "US Stocks": 0.15,
+        "International Stocks": 0.05,
+        "Bonds": 0.6,
+        "Cash": 0.2
+      },
+      "Moderately Conservative": {
+        "US Stocks": 0.25,
+        "International Stocks": 0.1,
+        "Bonds": 0.5,
+        "Cash": 0.15
+      },
+      "Moderate": {
+        "US Stocks": 0.4,
+        "International Stocks": 0.15,
+        "Bonds": 0.35,
+        "Cash": 0.1
+      },
+      "Moderately Aggressive": {
+        "US Stocks": 0.5,
+        "International Stocks": 0.2,
+        "Bonds": 0.25,
+        "Cash": 0.05
+      },
+      "Aggressive": {
+        "US Stocks": 0.6,
+        "International Stocks": 0.25,
+        "Bonds": 0.1,
+        "Cash": 0.05
+      }
+    },
+    "loss_tolerance_step": 0.05,
+    "loss_tolerance_max_shift": 0.25,
+    "loss_tolerance_min_improvement": 0.005
+  },
+  "security_screening_criteria": {
+    "version": "SSC-0.1",
+    "min_observations": 750,
+    "category_order": [
+      "Conservative",
+      "Moderately Conservative",
+      "Moderate",
+      "Moderately Aggressive",
+      "Aggressive"
+    ],
+    "individual_stocks_from_category": "Moderate",
+    "max_annualized_volatility": {
+      "US Stocks": 0.45,
+      "International Stocks": 0.35,
+      "Bonds": 0.12,
+      "Cash": 0.03
+    },
+    "instruments": {
+      "VTI": {
+        "name": "Vanguard Total Stock Market ETF",
+        "type": "ETF",
+        "asset_class": "US Stocks"
+      },
+      "AAPL": {
+        "name": "Apple Inc.",
+        "type": "Stock",
+        "asset_class": "US Stocks"
+      },
+      "MSFT": {
+        "name": "Microsoft Corporation",
+        "type": "Stock",
+        "asset_class": "US Stocks"
+      },
+      "TQQQ": {
+        "name": "ProShares UltraPro QQQ",
+        "type": "ETF",
+        "asset_class": "US Stocks",
+        "leveraged": true
+      },
+      "VXUS": {
+        "name": "Vanguard Total International Stock ETF",
+        "type": "ETF",
+        "asset_class": "International Stocks"
+      },
+      "BND": {
+        "name": "Vanguard Total Bond Market ETF",
+        "type": "ETF",
+        "asset_class": "Bonds"
+      },
+      "AGG": {
+        "name": "iShares Core U.S. Aggregate Bond ETF",
+        "type": "ETF",
+        "asset_class": "Bonds"
+      },
+      "BIL": {
+        "name": "SPDR Bloomberg 1-3 Month T-Bill ETF",
+        "type": "ETF",
+        "asset_class": "Cash"
+      }
+    }
+  },
+  "market_and_regulatory_constraints": {
+    "version": "MRC-0.1",
+    "exclude_leveraged_or_inverse": true,
+    "allowed_types": [
+      "ETF",
+      "Stock"
+    ]
+  },
+  "portfolio_construction_rules": {
+    "version": "PCR-0.1",
+    "single_stock_max_weight": 0.05,
+    "max_stock_share_of_class": 0.5,
+    "concentration_flag_weight": 0.1,
+    "cash_inflation_flag_weight": 0.2,
+    "class_risks": {
+      "US Stocks": [
+        "market_volatility"
+      ],
+      "International Stocks": [
+        "market_volatility",
+        "currency"
+      ],
+      "Bonds": [
+        "interest_rate"
+      ],
+      "Cash": []
+    },
+    "cash_classes": [
+      "Cash"
+    ]
+  },
+  "explanation_rules": {
+    "version": "ER-0.1",
+    "scope_notice": "Educational simulation only. No real trade is placed and no money moves.",
+    "risk_language": {
+      "market_volatility": "Stock prices rise and fall, sometimes sharply. The simulated portfolio can lose value, especially over short periods.",
+      "interest_rate": "Bond prices usually fall when interest rates rise, so the bond part of the plan can lose value too.",
+      "currency": "International stocks are priced in other currencies, so exchange-rate moves can add gains or losses.",
+      "inflation": "Cash is stable, but rising prices can make it buy less over time.",
+      "concentration": "A single company makes up a noticeable part of this plan, so news about that one company can move the whole portfolio.",
+      "short_horizon": "You need this money within a few years, which leaves little time to recover from a fall.",
+      "loss_tolerance": "In the historical sample, this mix's worst one-year result was a bigger loss than the limit you gave."
+    },
+    "prohibited_phrases": [
+      "guaranteed",
+      "risk-free",
+      "order placed",
+      "funds transferred",
+      "buy now"
+    ],
+    "learner_actions": [
+      "Save this simulated plan"
+    ]
+  }
+}

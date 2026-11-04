@@ -1,0 +1,3 @@
+# Only for scripts/fetch_price_snapshot.py, run once with internet access to create data/prices/.
+# WealthPilot itself never calls Yahoo Finance.
+yfinance==1.7.0
