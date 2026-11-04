@@ -24,3 +24,15 @@ Prompt: Review the Milestone 1 self-assessment for inconsistencies between claim
 Reviewed by: Yicheng Yang.
 Assistant assumptions: Self-ratings should not exceed the evidence currently available in the model and repository.
 Disposition: Use Proficient rather than Exemplary where the evidence does not support the higher rubric threshold; make UC.1 step references explicit; distinguish traced-to, satisfied-by, and RVTM evidence; and ensure self-assessment wording matches the runnable walking skeleton.
+## 2026-11-03 — Yicheng Yang — Claude (claude-opus-5-5)
+Built from: Innoslate second-level IDEF0 of F.6 (F.6.1–F.6.5 performed by C.6.1–C.6.5; internal flows IO.6.1–IO.6.3); CS.6 component specification (CS6.1.1.1–CS6.1.4.5, CS6.2.1–CS6.2.4); first-level ICOMs of F.5; SPEC.md Model Response Contract.
+Prompt: Claude conversation on 2026-11-03 asking for product code that carries out F.6 for the PMC2 demo (investment_plan_management/, portfolio_construction_engine/, requirement-named tests, docs/traceabilitqy.md).
+Reviewed by: Fangziyue Zhang
+Assistant assumptions:
+- Plan identity is a hash of the Investment Recommendations and Weights content, so a save request for a superseded plan no longer matches.
+- F.5 has no Risk Score input on the IDEF0, so F.3 records the risk score and category in Target Asset Allocation and they travel to F.6.1.
+- The Explanation Rules and Portfolio Construction Rules in system_administration/ are placeholder fixtures.
+- Each saved plan is one JSON file, written atomically and read back before success is reported.
+- The explanation is a deterministic template; no language model is called.
+- The code was generated iteratively with full project context, so it is not the Chapter 9 one-pass exercise.
+Disposition: Accepting the model becomes a requirement.
