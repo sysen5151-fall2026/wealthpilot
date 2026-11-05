@@ -68,7 +68,7 @@ def create_app(planner: Planner | None = None) -> FastAPI:
         return {
             "scope_notice": scope_notice,
             "configuration_id": planner.configuration.configuration_id,
-            "placeholder_rules": "PLACEHOLDER" in planner.configuration.configuration_id,
+            "rules_status": planner.configuration.status,
             "market_data": snapshot_status(planner.snapshot_directory),
             "explanation": {"mode": "language model" if model else "template", "model": model.name if model else None},
             "learner_actions": planner.configuration.explanation_rules.learner_actions,

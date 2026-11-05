@@ -65,9 +65,9 @@ pytest tests/test_spec_acceptance.py                   # stakeholder-need accept
 
 Tests use synthetic prices in temporary folders, never `data/prices/`.
 
-### What is a placeholder
+### Rules and what is not built yet
 
-- Every number in `config/rules.json` (questionnaire points, category bands, mixes, screening limits, weights, wording) is a placeholder proposed by the AI assistant. The configuration ID ends in `PLACEHOLDER` and the app says so on every page until the team approves its own values.
+- `config/rules.json` holds every rule value (questionnaire points, category bands, mixes, screening limits, weights, wording). The AI assistant proposed them; they were reviewed on 2026-11-05 against the installed price snapshot, and `docs/rules-rationale.md` gives the reason for each. Its `status` line, shown at the bottom of every page, says "team sign-off pending" until the team approves them.
 - Only UC.1 is implemented. What-if scenarios, simulated portfolio changes and administration use cases are not.
 - In-progress sessions live in memory, so restarting the server ends them; saved plans stay in `data/wealthpilot.db` (git ignores it).
 - The app has no sign-in and is meant to run on one computer (it listens on 127.0.0.1 only). See `docs/deployment.md` before hosting it anywhere else.
@@ -75,7 +75,7 @@ Tests use synthetic prices in temporary folders, never `data/prices/`.
 ## Repository map
 
 - `SPEC.md`: stakeholder needs, requirements, acceptance criteria, Data Contract and Model Response Contract.
-- `config/rules.json`: the approved configuration (X.3), currently placeholders.
+- `config/rules.json`: the configuration X.3 supplies; `docs/rules-rationale.md` explains each value.
 - `model_flows/`: one class per flow on the first-level IDEF0.
 - `investor_interface/` F.1, `risk_engine/` F.2, `allocation_engine/` F.3, `screening_engine/` F.4, `portfolio_construction_engine/` F.5, `investment_plan_management/` F.6.1 to F.6.5.
 - `market_data_provider/` X.2 boundary and data contract, `system_administration/` X.3 configuration, `historical_analysis/` shared calculations.

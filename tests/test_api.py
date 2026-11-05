@@ -40,9 +40,10 @@ def plan(client, investor) -> tuple[str, dict]:
     return session_id, response.json()
 
 
-def test_status_reports_configuration_snapshot_and_mode(client):
+def test_status_reports_configuration_snapshot_and_mode(client, configuration):
     status = client.get("/api/status").json()
-    assert status["configuration_id"] == "WP-RULES-0.1-PLACEHOLDER" and status["placeholder_rules"] is True
+    assert status["configuration_id"] == configuration.configuration_id
+    assert status["rules_status"] == configuration.status != ""
     assert status["market_data"]["available"] is True
     assert status["market_data"]["snapshot_id"] == "synthetic-test"
     assert status["explanation"]["mode"] == "template"

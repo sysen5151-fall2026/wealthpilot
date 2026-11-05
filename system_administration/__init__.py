@@ -11,10 +11,11 @@ Constraints from ENV.1, are read from config/rules.json:
     Portfolio Construction Rules         F.5
     Explanation Rules                    F.6.1, F.6.2
 
-Every value in that file is a placeholder until the team approves it. The
-file is checked for internal consistency when it is loaded (1.1.1, 1.1.3,
-1.1.6, 1.1.7, 1.1.9, 1.1.12, 1.1.13), so an edit that breaks it is refused
-instead of producing a wrong plan.
+docs/rules-rationale.md gives the reason for every value, and the status line
+in the file says whether the team has signed them off. The file is checked for
+internal consistency when it is loaded (1.1.1, 1.1.3, 1.1.6, 1.1.7, 1.1.9,
+1.1.12, 1.1.13), so an edit that breaks it is refused instead of producing a
+wrong plan.
 """
 
 import json
@@ -29,6 +30,7 @@ DEFAULT_RULES_PATH = Path(__file__).resolve().parent.parent / "config" / "rules.
 @dataclass(frozen=True)
 class ApprovedConfiguration:
     configuration_id: str
+    status: str
     investment_planning_constraints: dict
     risk_scoring_rules: dict
     allocation_rules: dict
@@ -52,6 +54,7 @@ def load_configuration(path: Path = DEFAULT_RULES_PATH) -> ApprovedConfiguration
 
     return ApprovedConfiguration(
         configuration_id=raw["configuration_id"],
+        status=raw.get("status", ""),
         investment_planning_constraints=control("investment_planning_constraints"),
         risk_scoring_rules=control("risk_scoring_rules"),
         allocation_rules=control("allocation_rules"),

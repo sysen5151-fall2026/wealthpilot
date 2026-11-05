@@ -1,6 +1,7 @@
 {
-  "configuration_id": "WP-RULES-0.1-PLACEHOLDER",
-  "status": "PLACEHOLDER. Every value in this file is an assistant-proposed starting point. The team must review, change and approve it before any pilot; record the decision in docs/prompt-log.md.",
+  "configuration_id": "WP-RULES-0.2",
+  "status": "reviewed 2026-11-05, team sign-off pending",
+  "rationale": "docs/rules-rationale.md",
   "investment_planning_constraints": {
     "version": "IPC-0.1",
     "financial_profile_fields": {
@@ -212,7 +213,7 @@
     ]
   },
   "allocation_rules": {
-    "version": "AR-0.1",
+    "version": "AR-0.2",
     "asset_classes": {
       "US Stocks": {
         "benchmark": "VTI",
