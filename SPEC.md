@@ -129,7 +129,7 @@ If the Market Data Provider is unavailable, WealthPilot does not fabricate histo
 ### Current implementation status
 - `scripts/fetch_price_snapshot.py` downloads daily adjusted closes from Yahoo Finance (yfinance) once and writes `data/prices/prices-<date>.csv` with a manifest holding the source, date range and SHA-256 fingerprint. WealthPilot reads only the snapshot (`market_data_provider/`) and refuses one whose fingerprint does not match.
 - Every admission rule above is applied per symbol; a symbol that fails is left out and named in a historical-data limitation. With no admissible data the plan is withheld.
-- The minimum observation count is `security_screening_criteria.min_observations` in `config/rules.json` (placeholder: 750 trading days).
+- The minimum observation count is `security_screening_criteria.min_observations` in `config/rules.json`: 750 trading days, about three years (reason in `docs/rules-rationale.md`).
 
 ---
 

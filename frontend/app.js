@@ -448,7 +448,7 @@
     if (!status) { colophon.innerHTML = ""; return; }
     const data = status.market_data;
     colophon.innerHTML = `
-      <p>Rules: ${esc(status.configuration_id)}${status.placeholder_rules ? " (placeholder values, not yet approved by the team)" : ""}.</p>
+      <p>Rules: ${esc(status.configuration_id)}${status.rules_status ? `, ${esc(status.rules_status)}` : ""}.</p>
       <p>Prices: ${data.available ? `${esc(data.snapshot_id)}, ${esc(data.source)}, ${esc(data.start)} to ${esc(data.end)}` : "no snapshot installed"}.</p>
       <p>Explanations: ${status.explanation.mode === "language model" ? `local language model ${esc(status.explanation.model)}, checked against the approved template` : "approved template"}.</p>`;
   }

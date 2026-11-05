@@ -3,7 +3,7 @@
 Test names start with the requirement they check: 1.4.1 to 1.4.5 are the
 function requirements of F.1 to F.5 in the Innoslate model, SR-09 and SR-10 are
 the historical-data requirements in SPEC.md. All prices are synthetic
-(tests/synthetic_market.py). The rules are the placeholder config/rules.json,
+(tests/synthetic_market.py). The rules come from config/rules.json,
 so these tests check that the code applies the rules, not that the rules are
 right.
 """
@@ -209,7 +209,7 @@ def test_1_4_3_likely_early_need_keeps_cash(configuration, investor, snapshot_di
     assert any("cash" in note for note in target.adjustments)
 
 
-def test_1_4_3_loss_tolerance_moves_stocks_to_bonds(configuration, investor, snapshot_directory):
+def test_1_4_3_loss_tolerance_moves_stocks_to_the_defensive_class(configuration, investor, snapshot_directory):
     investor["risk_questionnaire_responses"]["max_loss"] = "loss_10"
     risk = assess(configuration, investor)
     data = market_data(snapshot_directory)
@@ -220,19 +220,22 @@ def test_1_4_3_loss_tolerance_moves_stocks_to_bonds(configuration, investor, sna
         mix = {rules["asset_classes"][c]["benchmark"]: w for c, w in weights.items() if w > 0}
         return worst_one_year_return(mix_value_path(data.series, mix)[1])
 
+    defensive = rules["defensive_class"]
     assert worst(target.base_weights) < -risk.max_one_year_loss  # the synthetic crash breaks the 10% limit
-    assert target.weights["Bonds"] > target.base_weights["Bonds"]
+    assert target.weights[defensive] > target.base_weights[defensive]
     assert worst(target.weights) > worst(target.base_weights)
-    moved = target.weights["Bonds"] - target.base_weights["Bonds"]
+    moved = target.weights[defensive] - target.base_weights[defensive]
     assert moved <= rules["loss_tolerance_max_shift"] + 1e-4
     assert any(f"moved from stocks to {rules['defensive_class'].lower()}" in note for note in target.adjustments)
 
 
-def test_1_4_3_mix_is_kept_and_the_risk_disclosed_when_bonds_would_not_help(configuration, investor, tmp_path):
-    # bonds that fall exactly like stocks: moving money into them cannot reduce the loss
+def test_1_4_3_mix_is_kept_and_the_risk_disclosed_when_moving_would_not_help(configuration, investor, tmp_path):
+    # a defensive benchmark that falls exactly like stocks: moving money into it cannot reduce the loss
+    rules = configuration.allocation_rules
+    defensive_benchmark = rules["asset_classes"][rules["defensive_class"]]["benchmark"]
     rows = synthetic_rows()
     vti = [r for r in rows if r["symbol"] == "VTI"]
-    rows = [r for r in rows if r["symbol"] != "BND"] + [{**r, "symbol": "BND"} for r in vti]
+    rows = [r for r in rows if r["symbol"] != defensive_benchmark] + [{**r, "symbol": defensive_benchmark} for r in vti]
     write_snapshot_files(tmp_path, rows)
     investor["risk_questionnaire_responses"]["max_loss"] = "loss_10"
 

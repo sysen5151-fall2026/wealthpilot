@@ -37,3 +37,27 @@ Assistant assumptions:
 - The explanation is a deterministic template; no language model is called.
 - The code was generated iteratively with full project context, so it is not the Chapter 9 one-pass exercise.
 Disposition: Accepting the model becomes a requirement.
+
+## 2026-11-04 — Yicheng Yang — Claude (claude-opus-5-5)
+Built from: first-level IDEF0 of F.0 (ICOMs of F.1–F.5); second-level IDEF0 of F.6; UC.1 (UC.1.1–UC.1.20); SPEC.md (SR-01–SR-15, Historical Market Data Contract, Model Response Contract); ADR-0001 (LM Studio); the F.6 code from 2026-11-03.
+Prompt: Claude conversation on 2026-11-04 asking for a program that real users can run. Choices made in the conversation: a local web page (FastAPI, SQLite, static front end), UC.1 implemented end to end, a Yahoo Finance price snapshot, placeholder rules, and LM Studio kept with the template as fallback.
+Reviewed by: Yicheng Yang
+Assistant assumptions:
+- Every value in config/rules.json was an assistant placeholder (WP-RULES-0.1-PLACEHOLDER).
+- Current holdings count toward the planned amount. The amounts are illustrative, and saving a plan never changes the simulated cash or holdings.
+- The loss-tolerance check measures each asset class by its benchmark fund, moves at most 25 points from stocks to bonds, and lists the risk if the limit is still exceeded.
+- Individual stocks are offered from the Moderate category up, capped at 5% each.
+- Instrument universe: VTI, AAPL, MSFT, TQQQ (excluded as leveraged), VXUS, BND, AGG, BIL.
+- A language-model explanation is rejected if it states a number that is not in the supplied facts, drops a limitation or changes the scope notice; the template is used instead.
+- The code was generated iteratively with full project context, so it is not the Chapter 9 one-pass exercise.
+Disposition: Accepted. Yicheng Yang ran the 108 requirement tests, downloaded the snapshot yahoo-2026-11-04 and ran the app. The assistant then checked the rules on that snapshot and found that moving stocks to bonds barely reduced losses (bonds fell almost as far as stocks in 2022). A follow-up fix keeps the mix unless a move cuts the worst one-year loss by at least 0.5 points, and shows 12.5% shares exactly. Merged to main as PR #6 on 2026-11-04.
+
+## 2026-11-05 — Yicheng Yang — Claude (claude-opus-5-5)
+Built from: config/rules.json (WP-RULES-0.1-PLACEHOLDER); the installed snapshot yahoo-2026-11-04; SPEC.md Historical Market Data Contract; yfinance 1.7.0 source.
+Prompt: Claude conversation on 2026-11-05 asking the assistant to carry out its three recommended follow-ups: review the placeholder rules (including whether defensive_class should be Cash), add the prompt-log entries, and record the data provider in docs/environment.md.
+Reviewed by: Yicheng Yang
+Assistant assumptions:
+- Keep defensive_class = Bonds with the 0.5-point stop rule. In this snapshot no move passes it, so plans keep their category mix and list the loss-tolerance risk when the stated limit is exceeded. The reasons and the Bonds/Cash comparison are in docs/rules-rationale.md.
+- No rule value changed. The configuration becomes WP-RULES-0.2 (allocation rules AR-0.2 for the stop rule added on 2026-11-04), with status "reviewed 2026-11-05, team sign-off pending".
+- The Yahoo endpoint recorded in docs/environment.md is the one yfinance 1.7.0 calls, read from the library source.
+Disposition: Pending team sign-off of WP-RULES-0.2.

@@ -10,7 +10,7 @@ ICOM from the first-level IDEF0 of F.0:
 
 Each questionnaire answer, the horizon and the liquidity need earn points; the
 total is scaled to 0-100 and mapped to the first category whose upper bound it
-does not exceed. The rules are placeholders in config/rules.json.
+does not exceed. The rules are in config/rules.json; docs/rules-rationale.md explains them.
 """
 
 from model_flows import InvestorProfileAndResponses, RiskFactor, RiskScoreAndCategory
