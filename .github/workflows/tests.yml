@@ -1,63 +1,32 @@
-name: Requirement tests
+name: Milestone 2 requirement verification
 
 on:
   push:
   pull_request:
+  workflow_dispatch:
 
 jobs:
-  # Stakeholder-need acceptance tests (N-01 to N-08). Intentionally red until
-  # later increments provide the evidence; kept as its own job so it does not
-  # hide the component results below.
-  task2-acceptance:
+  requirements:
     runs-on: ubuntu-latest
     steps:
-      - name: Check out repository
-        uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
         with:
-          python-version: "3.12"
-
-      - name: Install test runner
-        run: python -m pip install --upgrade pip pytest
-
-      - name: Run stakeholder-need acceptance tests
-        run: pytest tests/test_spec_acceptance.py -v
-
-  # Component requirement tests for C.6 (CS6.x), expected green.
-  cs6-component-requirements:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out repository
-        uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
+          python-version: '3.12'
+      - name: Install verification dependencies
+        run: python -m pip install -r requirements-dev.txt
+      - name: Verify all implementation and coursework checks
+        run: python -m pytest -v -rs --junitxml=evidence/ci.xml
+      - name: Generate coursework role observations
+        run: python scripts/coursework_exercise.py
+      - name: Describe verification scope
+        if: always()
+        run: echo 'AI-authored role protocols exercise real application responses. Method and limitations are in SPEC.md. These are not recruited human trials or cloud-model approval.' >> "$GITHUB_STEP_SUMMARY"
+      - name: Retain verification reports
+        if: always()
+        uses: actions/upload-artifact@v4
         with:
-          python-version: "3.12"
-
-      - name: Install dependencies
-        run: python -m pip install --upgrade pip && pip install -r requirements-dev.txt
-
-      - name: Run C.6 component requirement tests
-        run: pytest tests/test_cs6_requirements.py tests/test_explanation_language_model.py -v
-
-  # Function requirements of F.1 to F.5 (1.4.x), the historical-data contract
-  # (SR-09, SR-10), the configuration check, and UC.1 through the HTTP interface.
-  uc1-system-requirements:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out repository
-        uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
-
-      - name: Install dependencies
-        run: python -m pip install --upgrade pip && pip install -r requirements-dev.txt
-
-      - name: Run F.1 to F.5, data-contract and UC.1 tests
-        run: pytest tests/test_uc1_functions.py tests/test_api.py tests/test_fetch_snapshot.py -v
+          name: milestone2-verification
+          path: |
+            evidence/*.xml
+            evidence/acceptance/coursework-role-report.json
