@@ -1,0 +1,449 @@
+{
+  "need": "N-01",
+  "status": "READY_FOR_INDEPENDENT_REVIEW_NOT_ACCEPTED",
+  "automated_cases_passed": 10,
+  "acceptance_requires": "Independent review: at least 9 of 10 profiles consistent in all four inputs.",
+  "cases": [
+    {
+      "case_id": "N01-01",
+      "synthetic_input": {
+        "financial_profile": {
+          "age": 34,
+          "annual_income": 30000,
+          "investable_savings": 1000,
+          "monthly_contribution": 0,
+          "horizon_years": 1,
+          "goal": "retirement",
+          "liquidity_needs": "low"
+        },
+        "risk_questionnaire_responses": {
+          "drop_reaction": "hold",
+          "experience": "a_little",
+          "max_loss": "loss_20",
+          "objective": "balanced",
+          "income_stability": "somewhat_stable"
+        },
+        "current_holdings": []
+      },
+      "automated_consistency_checks": {
+        "goal": true,
+        "horizon": true,
+        "financial_capacity": true,
+        "holdings": true
+      },
+      "plan_id": "plan-fac2a8bb04",
+      "display_text": "=== SIMULATED EDUCATIONAL PLAN plan-fac2a8bb04 ===\nEducational simulation only. No real trade is placed and no money moves.\nRisk category: Moderate (risk score 55 of 100)\nTarget allocation: US Stocks 21.8%, International Stocks 8.2%, Bonds 54.4%, Cash 15.6%\nPlanned amount: $1,000 ($1,000 cash + $0 current holdings)\nCandidate securities:\n  VTI   US Stocks              11.8%          $118\n  AAPL  US Stocks                 5%           $50\n  MSFT  US Stocks                 5%           $50\n  VXUS  International Stocks    8.2%           $82\n  BND   Bonds                  27.2%          $272\n  AGG   Bonds                  27.2%          $272\n  BIL   Cash                   15.6%          $156\nSummary: This simulated Moderate plan for retirement in 1 year puts 21.8% in US Stocks, 8.2% in International Stocks, 54.4% in Bonds and 15.6% in Cash.\nWhy this plan:\n  - Your answers gave a risk score of 55 out of 100, which places you in the Moderate category.\n  - Your answer about how many years until you need the money (\u201c1 years\u201d) pulled your score down.\n  - Your answer about how likely you are to need the money early (\u201cUnlikely\u201d) pushed your score up.\n  - You need the money in 1 year, so stocks were capped at 30% instead of 55%.\n  - US Stocks 21.8%: VTI 11.8% (Vanguard Total Stock Market ETF), AAPL 5% (Apple Inc.), MSFT 5% (Microsoft Corporation).\n  - International Stocks 8.2%: VXUS 8.2% (Vanguard Total International Stock ETF).\n  - Bonds 54.4%: BND 27.2% (Vanguard Total Bond Market ETF), AGG 27.2% (iShares Core U.S. Aggregate Bond ETF).\n  - Cash 15.6%: BIL 15.6% (SPDR Bloomberg 1-3 Month T-Bill ETF).\n  - The plan covers the $1,000 of cash you entered; you listed no current holdings.\n  - Saving this plan does not change your simulated cash or holdings.\nRisks to know:\n  - Stock prices rise and fall, sometimes sharply. The simulated portfolio can lose value, especially over short periods.\n  - International stocks are priced in other currencies, so exchange-rate moves can add gains or losses.\n  - Bond prices usually fall when interest rates rise, so the bond part of the plan can lose value too.\n  - You need this money within a few years, which leaves little time to recover from a fall.\nWhat the historical sample shows:\n  - From 2022-01-03 to 2026-10-30 (1,260 trading days in price snapshot synthetic-test), this mix gained 3.0% a year on average, and its yearly volatility (how much its value typically moved) was 5.8%.\n  - Its worst one-year result in that period was a 10.7% loss; you said you could accept a one-year loss of up to 20%.\n  - These figures describe the historical sample only and do not predict future results.\nData limitations:\n  - none reported\nExplanation written by: template\nYour options: Save this simulated plan",
+      "independent_review": {
+        "reviewer_id": null,
+        "date": null,
+        "all_four_inputs_consistent": null,
+        "notes": ""
+      }
+    },
+    {
+      "case_id": "N01-02",
+      "synthetic_input": {
+        "financial_profile": {
+          "age": 34,
+          "annual_income": 37000,
+          "investable_savings": 4000,
+          "monthly_contribution": 50,
+          "horizon_years": 3,
+          "goal": "home_purchase",
+          "liquidity_needs": "medium"
+        },
+        "risk_questionnaire_responses": {
+          "drop_reaction": "hold",
+          "experience": "a_little",
+          "max_loss": "loss_20",
+          "objective": "balanced",
+          "income_stability": "somewhat_stable"
+        },
+        "current_holdings": [
+          {
+            "symbol": "VTI",
+            "value": 1000
+          },
+          {
+            "symbol": "BND",
+            "value": 200
+          }
+        ]
+      },
+      "automated_consistency_checks": {
+        "goal": true,
+        "horizon": true,
+        "financial_capacity": true,
+        "holdings": true
+      },
+      "plan_id": "plan-2219edeeb4",
+      "display_text": "=== SIMULATED EDUCATIONAL PLAN plan-2219edeeb4 ===\nEducational simulation only. No real trade is placed and no money moves.\nRisk category: Moderate (risk score 55 of 100)\nTarget allocation: US Stocks 40%, International Stocks 15%, Bonds 35%, Cash 10%\nPlanned amount: $5,200 ($4,000 cash + $1,200 current holdings)\nCandidate securities:\n  VTI   US Stocks                30%        $1,560  (you hold $1,000)\n  AAPL  US Stocks                 5%          $260\n  MSFT  US Stocks                 5%          $260\n  VXUS  International Stocks     15%          $780\n  BND   Bonds                  17.5%          $910  (you hold $200)\n  AGG   Bonds                  17.5%          $910\n  BIL   Cash                     10%          $520\nSummary: This simulated Moderate plan for buying a home in 3 years puts 40% in US Stocks, 15% in International Stocks, 35% in Bonds and 10% in Cash.\nWhy this plan:\n  - Your answers gave a risk score of 55 out of 100, which places you in the Moderate category.\n  - Your answer about how you would react to a 20% drop (\u201cHold and wait\u201d) pushed your score up.\n  - Your answer about your investing experience (\u201cA little\u201d) pulled your score down.\n  - The starting mix for the Moderate category needed no change for your horizon, your chance of needing the money early, or your loss limit.\n  - US Stocks 40%: VTI 30% (Vanguard Total Stock Market ETF), AAPL 5% (Apple Inc.), MSFT 5% (Microsoft Corporation).\n  - International Stocks 15%: VXUS 15% (Vanguard Total International Stock ETF).\n  - Bonds 35%: BND 17.5% (Vanguard Total Bond Market ETF), AGG 17.5% (iShares Core U.S. Aggregate Bond ETF).\n  - Cash 10%: BIL 10% (SPDR Bloomberg 1-3 Month T-Bill ETF).\n  - The plan covers $5,200: $4,000 of cash plus your current holdings (VTI $1,000, BND $200).\n  - Your $50 monthly contribution is recorded with the plan; the amounts shown cover what you have today.\n  - Saving this plan does not change your simulated cash or holdings.\nRisks to know:\n  - Stock prices rise and fall, sometimes sharply. The simulated portfolio can lose value, especially over short periods.\n  - International stocks are priced in other currencies, so exchange-rate moves can add gains or losses.\n  - Bond prices usually fall when interest rates rise, so the bond part of the plan can lose value too.\nWhat the historical sample shows:\n  - From 2022-01-03 to 2026-10-30 (1,260 trading days in price snapshot synthetic-test), this mix gained 1.9% a year on average, and its yearly volatility (how much its value typically moved) was 9.5%.\n  - Its worst one-year result in that period was a 18.4% loss; you said you could accept a one-year loss of up to 20%.\n  - These figures describe the historical sample only and do not predict future results.\nData limitations:\n  - none reported\nExplanation written by: template\nYour options: Save this simulated plan",
+      "independent_review": {
+        "reviewer_id": null,
+        "date": null,
+        "all_four_inputs_consistent": null,
+        "notes": ""
+      }
+    },
+    {
+      "case_id": "N01-03",
+      "synthetic_input": {
+        "financial_profile": {
+          "age": 34,
+          "annual_income": 44000,
+          "investable_savings": 7000,
+          "monthly_contribution": 100,
+          "horizon_years": 5,
+          "goal": "education",
+          "liquidity_needs": "high"
+        },
+        "risk_questionnaire_responses": {
+          "drop_reaction": "hold",
+          "experience": "a_little",
+          "max_loss": "loss_20",
+          "objective": "balanced",
+          "income_stability": "somewhat_stable"
+        },
+        "current_holdings": [
+          {
+            "symbol": "VTI",
+            "value": 2000
+          },
+          {
+            "symbol": "BND",
+            "value": 400
+          }
+        ]
+      },
+      "automated_consistency_checks": {
+        "goal": true,
+        "horizon": true,
+        "financial_capacity": true,
+        "holdings": true
+      },
+      "plan_id": "plan-e0d70057f4",
+      "display_text": "=== SIMULATED EDUCATIONAL PLAN plan-e0d70057f4 ===\nEducational simulation only. No real trade is placed and no money moves.\nRisk category: Moderate (risk score 50 of 100)\nTarget allocation: US Stocks 35.6%, International Stocks 13.3%, Bonds 31.1%, Cash 20%\nPlanned amount: $9,400 ($7,000 cash + $2,400 current holdings)\nCandidate securities:\n  VTI   US Stocks              25.6%        $2,404  (you hold $2,000)\n  AAPL  US Stocks                 5%          $470\n  MSFT  US Stocks                 5%          $470\n  VXUS  International Stocks   13.3%        $1,253\n  BND   Bonds                  15.6%        $1,462  (you hold $400)\n  AGG   Bonds                  15.6%        $1,462\n  BIL   Cash                     20%        $1,880\nSummary: This simulated Moderate plan for education in 5 years puts 35.6% in US Stocks, 13.3% in International Stocks, 31.1% in Bonds and 20% in Cash.\nWhy this plan:\n  - Your answers gave a risk score of 50 out of 100, which places you in the Moderate category.\n  - Your answer about how likely you are to need the money early (\u201cLikely\u201d) pulled your score down.\n  - Your answer about how you would react to a 20% drop (\u201cHold and wait\u201d) pushed your score up.\n  - Because you may need this money early, 20% is kept in cash.\n  - US Stocks 35.6%: VTI 25.6% (Vanguard Total Stock Market ETF), AAPL 5% (Apple Inc.), MSFT 5% (Microsoft Corporation).\n  - International Stocks 13.3%: VXUS 13.3% (Vanguard Total International Stock ETF).\n  - Bonds 31.1%: BND 15.6% (Vanguard Total Bond Market ETF), AGG 15.6% (iShares Core U.S. Aggregate Bond ETF).\n  - Cash 20%: BIL 20% (SPDR Bloomberg 1-3 Month T-Bill ETF).\n  - The plan covers $9,400: $7,000 of cash plus your current holdings (VTI $2,000, BND $400).\n  - Your $100 monthly contribution is recorded with the plan; the amounts shown cover what you have today.\n  - Saving this plan does not change your simulated cash or holdings.\nRisks to know:\n  - Stock prices rise and fall, sometimes sharply. The simulated portfolio can lose value, especially over short periods.\n  - International stocks are priced in other currencies, so exchange-rate moves can add gains or losses.\n  - Bond prices usually fall when interest rates rise, so the bond part of the plan can lose value too.\n  - Cash is stable, but rising prices can make it buy less over time.\nWhat the historical sample shows:\n  - From 2022-01-03 to 2026-10-30 (1,260 trading days in price snapshot synthetic-test), this mix gained 2.2% a year on average, and its yearly volatility (how much its value typically moved) was 8.5%.\n  - Its worst one-year result in that period was a 16.4% loss; you said you could accept a one-year loss of up to 20%.\n  - These figures describe the historical sample only and do not predict future results.\nData limitations:\n  - none reported\nExplanation written by: template\nYour options: Save this simulated plan",
+      "independent_review": {
+        "reviewer_id": null,
+        "date": null,
+        "all_four_inputs_consistent": null,
+        "notes": ""
+      }
+    },
+    {
+      "case_id": "N01-04",
+      "synthetic_input": {
+        "financial_profile": {
+          "age": 34,
+          "annual_income": 51000,
+          "investable_savings": 10000,
+          "monthly_contribution": 150,
+          "horizon_years": 8,
+          "goal": "general_wealth",
+          "liquidity_needs": "low"
+        },
+        "risk_questionnaire_responses": {
+          "drop_reaction": "hold",
+          "experience": "a_little",
+          "max_loss": "loss_20",
+          "objective": "balanced",
+          "income_stability": "somewhat_stable"
+        },
+        "current_holdings": [
+          {
+            "symbol": "VTI",
+            "value": 3000
+          },
+          {
+            "symbol": "BND",
+            "value": 600
+          }
+        ]
+      },
+      "automated_consistency_checks": {
+        "goal": true,
+        "horizon": true,
+        "financial_capacity": true,
+        "holdings": true
+      },
+      "plan_id": "plan-834b3dbbb5",
+      "display_text": "=== SIMULATED EDUCATIONAL PLAN plan-834b3dbbb5 ===\nEducational simulation only. No real trade is placed and no money moves.\nRisk category: Moderately Aggressive (risk score 65 of 100)\nTarget allocation: US Stocks 46.4%, International Stocks 18.6%, Bonds 30%, Cash 5%\nPlanned amount: $13,600 ($10,000 cash + $3,600 current holdings)\nCandidate securities:\n  VTI   US Stocks              36.4%        $4,954  (you hold $3,000)\n  AAPL  US Stocks                 5%          $680\n  MSFT  US Stocks                 5%          $680\n  VXUS  International Stocks   18.6%        $2,526\n  BND   Bonds                    15%        $2,040  (you hold $600)\n  AGG   Bonds                    15%        $2,040\n  BIL   Cash                      5%          $680\nSummary: This simulated Moderately Aggressive plan for building general wealth in 8 years puts 46.4% in US Stocks, 18.6% in International Stocks, 30% in Bonds and 5% in Cash.\nWhy this plan:\n  - Your answers gave a risk score of 65 out of 100, which places you in the Moderately Aggressive category.\n  - Your answer about how likely you are to need the money early (\u201cUnlikely\u201d) pushed your score up.\n  - Your answer about how you would react to a 20% drop (\u201cHold and wait\u201d) pushed your score up.\n  - In the historical sample the starting mix lost up to 21% in one year, more than the 20% you said you could accept, so 5% was moved from stocks to bonds; the adjusted mix's worst one-year loss was 19%.\n  - US Stocks 46.4%: VTI 36.4% (Vanguard Total Stock Market ETF), AAPL 5% (Apple Inc.), MSFT 5% (Microsoft Corporation).\n  - International Stocks 18.6%: VXUS 18.6% (Vanguard Total International Stock ETF).\n  - Bonds 30%: BND 15% (Vanguard Total Bond Market ETF), AGG 15% (iShares Core U.S. Aggregate Bond ETF).\n  - Cash 5%: BIL 5% (SPDR Bloomberg 1-3 Month T-Bill ETF).\n  - The plan covers $13,600: $10,000 of cash plus your current holdings (VTI $3,000, BND $600).\n  - Your $150 monthly contribution is recorded with the plan; the amounts shown cover what you have today.\n  - Saving this plan does not change your simulated cash or holdings.\nRisks to know:\n  - Stock prices rise and fall, sometimes sharply. The simulated portfolio can lose value, especially over short periods.\n  - International stocks are priced in other currencies, so exchange-rate moves can add gains or losses.\n  - Bond prices usually fall when interest rates rise, so the bond part of the plan can lose value too.\n  - In the historical sample, this mix's worst one-year result was a bigger loss than the limit you gave.\nWhat the historical sample shows:\n  - From 2022-01-03 to 2026-10-30 (1,260 trading days in price snapshot synthetic-test), this mix gained 1.2% a year on average, and its yearly volatility (how much its value typically moved) was 11.1%.\n  - Its worst one-year result in that period was a 21.5% loss; you said you could accept a one-year loss of up to 20%, so this plan went beyond your limit in that period.\n  - These figures describe the historical sample only and do not predict future results.\nData limitations:\n  - none reported\nExplanation written by: template\nYour options: Save this simulated plan",
+      "independent_review": {
+        "reviewer_id": null,
+        "date": null,
+        "all_four_inputs_consistent": null,
+        "notes": ""
+      }
+    },
+    {
+      "case_id": "N01-05",
+      "synthetic_input": {
+        "financial_profile": {
+          "age": 34,
+          "annual_income": 58000,
+          "investable_savings": 13000,
+          "monthly_contribution": 200,
+          "horizon_years": 10,
+          "goal": "retirement",
+          "liquidity_needs": "medium"
+        },
+        "risk_questionnaire_responses": {
+          "drop_reaction": "hold",
+          "experience": "a_little",
+          "max_loss": "loss_20",
+          "objective": "balanced",
+          "income_stability": "somewhat_stable"
+        },
+        "current_holdings": [
+          {
+            "symbol": "VTI",
+            "value": 4000
+          },
+          {
+            "symbol": "BND",
+            "value": 800
+          }
+        ]
+      },
+      "automated_consistency_checks": {
+        "goal": true,
+        "horizon": true,
+        "financial_capacity": true,
+        "holdings": true
+      },
+      "plan_id": "plan-44ba3cd789",
+      "display_text": "=== SIMULATED EDUCATIONAL PLAN plan-44ba3cd789 ===\nEducational simulation only. No real trade is placed and no money moves.\nRisk category: Moderate (risk score 60 of 100)\nTarget allocation: US Stocks 40%, International Stocks 15%, Bonds 35%, Cash 10%\nPlanned amount: $17,800 ($13,000 cash + $4,800 current holdings)\nCandidate securities:\n  VTI   US Stocks                30%        $5,340  (you hold $4,000)\n  AAPL  US Stocks                 5%          $890\n  MSFT  US Stocks                 5%          $890\n  VXUS  International Stocks     15%        $2,670\n  BND   Bonds                  17.5%        $3,115  (you hold $800)\n  AGG   Bonds                  17.5%        $3,115\n  BIL   Cash                     10%        $1,780\nSummary: This simulated Moderate plan for retirement in 10 years puts 40% in US Stocks, 15% in International Stocks, 35% in Bonds and 10% in Cash.\nWhy this plan:\n  - Your answers gave a risk score of 60 out of 100, which places you in the Moderate category.\n  - Your answer about how you would react to a 20% drop (\u201cHold and wait\u201d) pushed your score up.\n  - Your answer about your investing experience (\u201cA little\u201d) pulled your score down.\n  - The starting mix for the Moderate category needed no change for your horizon, your chance of needing the money early, or your loss limit.\n  - US Stocks 40%: VTI 30% (Vanguard Total Stock Market ETF), AAPL 5% (Apple Inc.), MSFT 5% (Microsoft Corporation).\n  - International Stocks 15%: VXUS 15% (Vanguard Total International Stock ETF).\n  - Bonds 35%: BND 17.5% (Vanguard Total Bond Market ETF), AGG 17.5% (iShares Core U.S. Aggregate Bond ETF).\n  - Cash 10%: BIL 10% (SPDR Bloomberg 1-3 Month T-Bill ETF).\n  - The plan covers $17,800: $13,000 of cash plus your current holdings (VTI $4,000, BND $800).\n  - Your $200 monthly contribution is recorded with the plan; the amounts shown cover what you have today.\n  - Saving this plan does not change your simulated cash or holdings.\nRisks to know:\n  - Stock prices rise and fall, sometimes sharply. The simulated portfolio can lose value, especially over short periods.\n  - International stocks are priced in other currencies, so exchange-rate moves can add gains or losses.\n  - Bond prices usually fall when interest rates rise, so the bond part of the plan can lose value too.\nWhat the historical sample shows:\n  - From 2022-01-03 to 2026-10-30 (1,260 trading days in price snapshot synthetic-test), this mix gained 1.9% a year on average, and its yearly volatility (how much its value typically moved) was 9.5%.\n  - Its worst one-year result in that period was a 18.4% loss; you said you could accept a one-year loss of up to 20%.\n  - These figures describe the historical sample only and do not predict future results.\nData limitations:\n  - none reported\nExplanation written by: template\nYour options: Save this simulated plan",
+      "independent_review": {
+        "reviewer_id": null,
+        "date": null,
+        "all_four_inputs_consistent": null,
+        "notes": ""
+      }
+    },
+    {
+      "case_id": "N01-06",
+      "synthetic_input": {
+        "financial_profile": {
+          "age": 34,
+          "annual_income": 65000,
+          "investable_savings": 16000,
+          "monthly_contribution": 250,
+          "horizon_years": 15,
+          "goal": "home_purchase",
+          "liquidity_needs": "high"
+        },
+        "risk_questionnaire_responses": {
+          "drop_reaction": "hold",
+          "experience": "a_little",
+          "max_loss": "loss_20",
+          "objective": "balanced",
+          "income_stability": "somewhat_stable"
+        },
+        "current_holdings": [
+          {
+            "symbol": "VTI",
+            "value": 5000
+          },
+          {
+            "symbol": "BND",
+            "value": 1000
+          }
+        ]
+      },
+      "automated_consistency_checks": {
+        "goal": true,
+        "horizon": true,
+        "financial_capacity": true,
+        "holdings": true
+      },
+      "plan_id": "plan-7e4549845e",
+      "display_text": "=== SIMULATED EDUCATIONAL PLAN plan-7e4549845e ===\nEducational simulation only. No real trade is placed and no money moves.\nRisk category: Moderate (risk score 60 of 100)\nTarget allocation: US Stocks 35.6%, International Stocks 13.3%, Bonds 31.1%, Cash 20%\nPlanned amount: $22,000 ($16,000 cash + $6,000 current holdings)\nCandidate securities:\n  VTI   US Stocks              25.6%        $5,625  (you hold $5,000)\n  AAPL  US Stocks                 5%        $1,100\n  MSFT  US Stocks                 5%        $1,100\n  VXUS  International Stocks   13.3%        $2,933\n  BND   Bonds                  15.6%        $3,421  (you hold $1,000)\n  AGG   Bonds                  15.6%        $3,421\n  BIL   Cash                     20%        $4,400\nSummary: This simulated Moderate plan for buying a home in 15 years puts 35.6% in US Stocks, 13.3% in International Stocks, 31.1% in Bonds and 20% in Cash.\nWhy this plan:\n  - Your answers gave a risk score of 60 out of 100, which places you in the Moderate category.\n  - Your answer about how many years until you need the money (\u201c15 years\u201d) pushed your score up.\n  - Your answer about how likely you are to need the money early (\u201cLikely\u201d) pulled your score down.\n  - Because you may need this money early, 20% is kept in cash.\n  - US Stocks 35.6%: VTI 25.6% (Vanguard Total Stock Market ETF), AAPL 5% (Apple Inc.), MSFT 5% (Microsoft Corporation).\n  - International Stocks 13.3%: VXUS 13.3% (Vanguard Total International Stock ETF).\n  - Bonds 31.1%: BND 15.6% (Vanguard Total Bond Market ETF), AGG 15.6% (iShares Core U.S. Aggregate Bond ETF).\n  - Cash 20%: BIL 20% (SPDR Bloomberg 1-3 Month T-Bill ETF).\n  - The plan covers $22,000: $16,000 of cash plus your current holdings (VTI $5,000, BND $1,000).\n  - Your $250 monthly contribution is recorded with the plan; the amounts shown cover what you have today.\n  - Saving this plan does not change your simulated cash or holdings.\nRisks to know:\n  - Stock prices rise and fall, sometimes sharply. The simulated portfolio can lose value, especially over short periods.\n  - International stocks are priced in other currencies, so exchange-rate moves can add gains or losses.\n  - Bond prices usually fall when interest rates rise, so the bond part of the plan can lose value too.\n  - Cash is stable, but rising prices can make it buy less over time.\nWhat the historical sample shows:\n  - From 2022-01-03 to 2026-10-30 (1,260 trading days in price snapshot synthetic-test), this mix gained 2.2% a year on average, and its yearly volatility (how much its value typically moved) was 8.5%.\n  - Its worst one-year result in that period was a 16.4% loss; you said you could accept a one-year loss of up to 20%.\n  - These figures describe the historical sample only and do not predict future results.\nData limitations:\n  - none reported\nExplanation written by: template\nYour options: Save this simulated plan",
+      "independent_review": {
+        "reviewer_id": null,
+        "date": null,
+        "all_four_inputs_consistent": null,
+        "notes": ""
+      }
+    },
+    {
+      "case_id": "N01-07",
+      "synthetic_input": {
+        "financial_profile": {
+          "age": 34,
+          "annual_income": 72000,
+          "investable_savings": 19000,
+          "monthly_contribution": 300,
+          "horizon_years": 20,
+          "goal": "education",
+          "liquidity_needs": "low"
+        },
+        "risk_questionnaire_responses": {
+          "drop_reaction": "hold",
+          "experience": "a_little",
+          "max_loss": "loss_20",
+          "objective": "balanced",
+          "income_stability": "somewhat_stable"
+        },
+        "current_holdings": [
+          {
+            "symbol": "VTI",
+            "value": 6000
+          },
+          {
+            "symbol": "BND",
+            "value": 1200
+          }
+        ]
+      },
+      "automated_consistency_checks": {
+        "goal": true,
+        "horizon": true,
+        "financial_capacity": true,
+        "holdings": true
+      },
+      "plan_id": "plan-ae86e606e8",
+      "display_text": "=== SIMULATED EDUCATIONAL PLAN plan-ae86e606e8 ===\nEducational simulation only. No real trade is placed and no money moves.\nRisk category: Moderately Aggressive (risk score 70 of 100)\nTarget allocation: US Stocks 46.4%, International Stocks 18.6%, Bonds 30%, Cash 5%\nPlanned amount: $26,200 ($19,000 cash + $7,200 current holdings)\nCandidate securities:\n  VTI   US Stocks              36.4%        $9,545  (you hold $6,000)\n  AAPL  US Stocks                 5%        $1,310\n  MSFT  US Stocks                 5%        $1,310\n  VXUS  International Stocks   18.6%        $4,865\n  BND   Bonds                    15%        $3,930  (you hold $1,200)\n  AGG   Bonds                    15%        $3,930\n  BIL   Cash                      5%        $1,310\nSummary: This simulated Moderately Aggressive plan for education in 20 years puts 46.4% in US Stocks, 18.6% in International Stocks, 30% in Bonds and 5% in Cash.\nWhy this plan:\n  - Your answers gave a risk score of 70 out of 100, which places you in the Moderately Aggressive category.\n  - Your answer about how many years until you need the money (\u201c20 years\u201d) pushed your score up.\n  - Your answer about how likely you are to need the money early (\u201cUnlikely\u201d) pushed your score up.\n  - In the historical sample the starting mix lost up to 21% in one year, more than the 20% you said you could accept, so 5% was moved from stocks to bonds; the adjusted mix's worst one-year loss was 19%.\n  - US Stocks 46.4%: VTI 36.4% (Vanguard Total Stock Market ETF), AAPL 5% (Apple Inc.), MSFT 5% (Microsoft Corporation).\n  - International Stocks 18.6%: VXUS 18.6% (Vanguard Total International Stock ETF).\n  - Bonds 30%: BND 15% (Vanguard Total Bond Market ETF), AGG 15% (iShares Core U.S. Aggregate Bond ETF).\n  - Cash 5%: BIL 5% (SPDR Bloomberg 1-3 Month T-Bill ETF).\n  - The plan covers $26,200: $19,000 of cash plus your current holdings (VTI $6,000, BND $1,200).\n  - Your $300 monthly contribution is recorded with the plan; the amounts shown cover what you have today.\n  - Saving this plan does not change your simulated cash or holdings.\nRisks to know:\n  - Stock prices rise and fall, sometimes sharply. The simulated portfolio can lose value, especially over short periods.\n  - International stocks are priced in other currencies, so exchange-rate moves can add gains or losses.\n  - Bond prices usually fall when interest rates rise, so the bond part of the plan can lose value too.\n  - In the historical sample, this mix's worst one-year result was a bigger loss than the limit you gave.\nWhat the historical sample shows:\n  - From 2022-01-03 to 2026-10-30 (1,260 trading days in price snapshot synthetic-test), this mix gained 1.2% a year on average, and its yearly volatility (how much its value typically moved) was 11.1%.\n  - Its worst one-year result in that period was a 21.5% loss; you said you could accept a one-year loss of up to 20%, so this plan went beyond your limit in that period.\n  - These figures describe the historical sample only and do not predict future results.\nData limitations:\n  - none reported\nExplanation written by: template\nYour options: Save this simulated plan",
+      "independent_review": {
+        "reviewer_id": null,
+        "date": null,
+        "all_four_inputs_consistent": null,
+        "notes": ""
+      }
+    },
+    {
+      "case_id": "N01-08",
+      "synthetic_input": {
+        "financial_profile": {
+          "age": 34,
+          "annual_income": 79000,
+          "investable_savings": 22000,
+          "monthly_contribution": 350,
+          "horizon_years": 25,
+          "goal": "general_wealth",
+          "liquidity_needs": "medium"
+        },
+        "risk_questionnaire_responses": {
+          "drop_reaction": "hold",
+          "experience": "a_little",
+          "max_loss": "loss_20",
+          "objective": "balanced",
+          "income_stability": "somewhat_stable"
+        },
+        "current_holdings": [
+          {
+            "symbol": "VTI",
+            "value": 7000
+          },
+          {
+            "symbol": "BND",
+            "value": 1400
+          }
+        ]
+      },
+      "automated_consistency_checks": {
+        "goal": true,
+        "horizon": true,
+        "financial_capacity": true,
+        "holdings": true
+      },
+      "plan_id": "plan-5153a2744c",
+      "display_text": "=== SIMULATED EDUCATIONAL PLAN plan-5153a2744c ===\nEducational simulation only. No real trade is placed and no money moves.\nRisk category: Moderately Aggressive (risk score 65 of 100)\nTarget allocation: US Stocks 47.4%, International Stocks 18.9%, Bonds 23.7%, Cash 10%\nPlanned amount: $30,400 ($22,000 cash + $8,400 current holdings)\nCandidate securities:\n  VTI   US Stocks              37.4%       $11,360  (you hold $7,000)\n  AAPL  US Stocks                 5%        $1,520\n  MSFT  US Stocks                 5%        $1,520\n  VXUS  International Stocks   18.9%        $5,761\n  BND   Bonds                  11.8%        $3,599  (you hold $1,400)\n  AGG   Bonds                  11.8%        $3,599\n  BIL   Cash                     10%        $3,040\nSummary: This simulated Moderately Aggressive plan for building general wealth in 25 years puts 47.4% in US Stocks, 18.9% in International Stocks, 23.7% in Bonds and 10% in Cash.\nWhy this plan:\n  - Your answers gave a risk score of 65 out of 100, which places you in the Moderately Aggressive category.\n  - Your answer about how many years until you need the money (\u201c25 years\u201d) pushed your score up.\n  - Your answer about how you would react to a 20% drop (\u201cHold and wait\u201d) pushed your score up.\n  - Because you may need this money early, 10% is kept in cash.\n  - US Stocks 47.4%: VTI 37.4% (Vanguard Total Stock Market ETF), AAPL 5% (Apple Inc.), MSFT 5% (Microsoft Corporation).\n  - International Stocks 18.9%: VXUS 18.9% (Vanguard Total International Stock ETF).\n  - Bonds 23.7%: BND 11.8% (Vanguard Total Bond Market ETF), AGG 11.8% (iShares Core U.S. Aggregate Bond ETF).\n  - Cash 10%: BIL 10% (SPDR Bloomberg 1-3 Month T-Bill ETF).\n  - The plan covers $30,400: $22,000 of cash plus your current holdings (VTI $7,000, BND $1,400).\n  - Your $350 monthly contribution is recorded with the plan; the amounts shown cover what you have today.\n  - Saving this plan does not change your simulated cash or holdings.\nRisks to know:\n  - Stock prices rise and fall, sometimes sharply. The simulated portfolio can lose value, especially over short periods.\n  - International stocks are priced in other currencies, so exchange-rate moves can add gains or losses.\n  - Bond prices usually fall when interest rates rise, so the bond part of the plan can lose value too.\n  - In the historical sample, this mix's worst one-year result was a bigger loss than the limit you gave.\nWhat the historical sample shows:\n  - From 2022-01-03 to 2026-10-30 (1,260 trading days in price snapshot synthetic-test), this mix gained 1.2% a year on average, and its yearly volatility (how much its value typically moved) was 11.3%.\n  - Its worst one-year result in that period was a 21.8% loss; you said you could accept a one-year loss of up to 20%, so this plan went beyond your limit in that period.\n  - These figures describe the historical sample only and do not predict future results.\nData limitations:\n  - none reported\nExplanation written by: template\nYour options: Save this simulated plan",
+      "independent_review": {
+        "reviewer_id": null,
+        "date": null,
+        "all_four_inputs_consistent": null,
+        "notes": ""
+      }
+    },
+    {
+      "case_id": "N01-09",
+      "synthetic_input": {
+        "financial_profile": {
+          "age": 34,
+          "annual_income": 86000,
+          "investable_savings": 25000,
+          "monthly_contribution": 400,
+          "horizon_years": 30,
+          "goal": "retirement",
+          "liquidity_needs": "high"
+        },
+        "risk_questionnaire_responses": {
+          "drop_reaction": "hold",
+          "experience": "a_little",
+          "max_loss": "loss_20",
+          "objective": "balanced",
+          "income_stability": "somewhat_stable"
+        },
+        "current_holdings": [
+          {
+            "symbol": "VTI",
+            "value": 8000
+          },
+          {
+            "symbol": "BND",
+            "value": 1600
+          }
+        ]
+      },
+      "automated_consistency_checks": {
+        "goal": true,
+        "horizon": true,
+        "financial_capacity": true,
+        "holdings": true
+      },
+      "plan_id": "plan-ab6110b5a6",
+      "display_text": "=== SIMULATED EDUCATIONAL PLAN plan-ab6110b5a6 ===\nEducational simulation only. No real trade is placed and no money moves.\nRisk category: Moderate (risk score 60 of 100)\nTarget allocation: US Stocks 35.6%, International Stocks 13.3%, Bonds 31.1%, Cash 20%\nPlanned amount: $34,600 ($25,000 cash + $9,600 current holdings)\nCandidate securities:\n  VTI   US Stocks              25.6%        $8,847  (you hold $8,000)\n  AAPL  US Stocks                 5%        $1,730\n  MSFT  US Stocks                 5%        $1,730\n  VXUS  International Stocks   13.3%        $4,612\n  BND   Bonds                  15.6%        $5,380  (you hold $1,600)\n  AGG   Bonds                  15.6%        $5,380\n  BIL   Cash                     20%        $6,920\nSummary: This simulated Moderate plan for retirement in 30 years puts 35.6% in US Stocks, 13.3% in International Stocks, 31.1% in Bonds and 20% in Cash.\nWhy this plan:\n  - Your answers gave a risk score of 60 out of 100, which places you in the Moderate category.\n  - Your answer about how many years until you need the money (\u201c30 years\u201d) pushed your score up.\n  - Your answer about how likely you are to need the money early (\u201cLikely\u201d) pulled your score down.\n  - Because you may need this money early, 20% is kept in cash.\n  - US Stocks 35.6%: VTI 25.6% (Vanguard Total Stock Market ETF), AAPL 5% (Apple Inc.), MSFT 5% (Microsoft Corporation).\n  - International Stocks 13.3%: VXUS 13.3% (Vanguard Total International Stock ETF).\n  - Bonds 31.1%: BND 15.6% (Vanguard Total Bond Market ETF), AGG 15.6% (iShares Core U.S. Aggregate Bond ETF).\n  - Cash 20%: BIL 20% (SPDR Bloomberg 1-3 Month T-Bill ETF).\n  - The plan covers $34,600: $25,000 of cash plus your current holdings (VTI $8,000, BND $1,600).\n  - Your $400 monthly contribution is recorded with the plan; the amounts shown cover what you have today.\n  - Saving this plan does not change your simulated cash or holdings.\nRisks to know:\n  - Stock prices rise and fall, sometimes sharply. The simulated portfolio can lose value, especially over short periods.\n  - International stocks are priced in other currencies, so exchange-rate moves can add gains or losses.\n  - Bond prices usually fall when interest rates rise, so the bond part of the plan can lose value too.\n  - Cash is stable, but rising prices can make it buy less over time.\nWhat the historical sample shows:\n  - From 2022-01-03 to 2026-10-30 (1,260 trading days in price snapshot synthetic-test), this mix gained 2.2% a year on average, and its yearly volatility (how much its value typically moved) was 8.5%.\n  - Its worst one-year result in that period was a 16.4% loss; you said you could accept a one-year loss of up to 20%.\n  - These figures describe the historical sample only and do not predict future results.\nData limitations:\n  - none reported\nExplanation written by: template\nYour options: Save this simulated plan",
+      "independent_review": {
+        "reviewer_id": null,
+        "date": null,
+        "all_four_inputs_consistent": null,
+        "notes": ""
+      }
+    },
+    {
+      "case_id": "N01-10",
+      "synthetic_input": {
+        "financial_profile": {
+          "age": 34,
+          "annual_income": 93000,
+          "investable_savings": 28000,
+          "monthly_contribution": 450,
+          "horizon_years": 40,
+          "goal": "home_purchase",
+          "liquidity_needs": "low"
+        },
+        "risk_questionnaire_responses": {
+          "drop_reaction": "hold",
+          "experience": "a_little",
+          "max_loss": "loss_20",
+          "objective": "balanced",
+          "income_stability": "somewhat_stable"
+        },
+        "current_holdings": [
+          {
+            "symbol": "VTI",
+            "value": 9000
+          },
+          {
+            "symbol": "BND",
+            "value": 1800
+          }
+        ]
+      },
+      "automated_consistency_checks": {
+        "goal": true,
+        "horizon": true,
+        "financial_capacity": true,
+        "holdings": true
+      },
+      "plan_id": "plan-8770cf2ec8",
+      "display_text": "=== SIMULATED EDUCATIONAL PLAN plan-8770cf2ec8 ===\nEducational simulation only. No real trade is placed and no money moves.\nRisk category: Moderately Aggressive (risk score 70 of 100)\nTarget allocation: US Stocks 46.4%, International Stocks 18.6%, Bonds 30%, Cash 5%\nPlanned amount: $38,800 ($28,000 cash + $10,800 current holdings)\nCandidate securities:\n  VTI   US Stocks              36.4%       $14,135  (you hold $9,000)\n  AAPL  US Stocks                 5%        $1,940\n  MSFT  US Stocks                 5%        $1,940\n  VXUS  International Stocks   18.6%        $7,205\n  BND   Bonds                    15%        $5,820  (you hold $1,800)\n  AGG   Bonds                    15%        $5,820\n  BIL   Cash                      5%        $1,940\nSummary: This simulated Moderately Aggressive plan for buying a home in 40 years puts 46.4% in US Stocks, 18.6% in International Stocks, 30% in Bonds and 5% in Cash.\nWhy this plan:\n  - Your answers gave a risk score of 70 out of 100, which places you in the Moderately Aggressive category.\n  - Your answer about how many years until you need the money (\u201c40 years\u201d) pushed your score up.\n  - Your answer about how likely you are to need the money early (\u201cUnlikely\u201d) pushed your score up.\n  - In the historical sample the starting mix lost up to 21% in one year, more than the 20% you said you could accept, so 5% was moved from stocks to bonds; the adjusted mix's worst one-year loss was 19%.\n  - US Stocks 46.4%: VTI 36.4% (Vanguard Total Stock Market ETF), AAPL 5% (Apple Inc.), MSFT 5% (Microsoft Corporation).\n  - International Stocks 18.6%: VXUS 18.6% (Vanguard Total International Stock ETF).\n  - Bonds 30%: BND 15% (Vanguard Total Bond Market ETF), AGG 15% (iShares Core U.S. Aggregate Bond ETF).\n  - Cash 5%: BIL 5% (SPDR Bloomberg 1-3 Month T-Bill ETF).\n  - The plan covers $38,800: $28,000 of cash plus your current holdings (VTI $9,000, BND $1,800).\n  - Your $450 monthly contribution is recorded with the plan; the amounts shown cover what you have today.\n  - Saving this plan does not change your simulated cash or holdings.\nRisks to know:\n  - Stock prices rise and fall, sometimes sharply. The simulated portfolio can lose value, especially over short periods.\n  - International stocks are priced in other currencies, so exchange-rate moves can add gains or losses.\n  - Bond prices usually fall when interest rates rise, so the bond part of the plan can lose value too.\n  - In the historical sample, this mix's worst one-year result was a bigger loss than the limit you gave.\nWhat the historical sample shows:\n  - From 2022-01-03 to 2026-10-30 (1,260 trading days in price snapshot synthetic-test), this mix gained 1.2% a year on average, and its yearly volatility (how much its value typically moved) was 11.1%.\n  - Its worst one-year result in that period was a 21.5% loss; you said you could accept a one-year loss of up to 20%, so this plan went beyond your limit in that period.\n  - These figures describe the historical sample only and do not predict future results.\nData limitations:\n  - none reported\nExplanation written by: template\nYour options: Save this simulated plan",
+      "independent_review": {
+        "reviewer_id": null,
+        "date": null,
+        "all_four_inputs_consistent": null,
+        "notes": ""
+      }
+    }
+  ]
+}

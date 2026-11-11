@@ -1,0 +1,914 @@
+openapi: 3.1.0
+info:
+  title: WealthPilot
+  description: WealthPilot UC.1 educational simulator. paths are implemented HTTP
+    routes. x-model-operations specify local Python calls on the F.6 second-level
+    IDEF0; they do not create network endpoints. Types describe serialized dataclass
+    values. Cross-field authorization, plan identity and content equality are enforced
+    by code and tests.
+  version: 0.2.0
+paths:
+  /api/status:
+    get:
+      summary: Status
+      operationId: status_api_status_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                additionalProperties: true
+                type: object
+                title: Response Status Api Status Get
+  /api/sessions:
+    post:
+      summary: Start Session
+      operationId: start_session_api_sessions_post
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                additionalProperties: true
+                type: object
+                title: Response Start Session Api Sessions Post
+  /api/sessions/{session_id}/investor-information:
+    post:
+      summary: Submit Investor Information
+      operationId: submit_investor_information_api_sessions__session_id__investor_information_post
+      parameters:
+      - name: session_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Session Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InvestorInformation'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/sessions/{session_id}/plan:
+    post:
+      summary: Build Plan
+      operationId: build_plan_api_sessions__session_id__plan_post
+      parameters:
+      - name: session_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Session Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProfileInterpretationConfirmation'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/sessions/{session_id}/plan-save-requests:
+    post:
+      summary: Request Plan Save
+      operationId: request_plan_save_api_sessions__session_id__plan_save_requests_post
+      parameters:
+      - name: session_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Session Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PlanSaveRequestBody'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/saved-plans:
+    get:
+      summary: Saved Plans
+      operationId: saved_plans_api_saved_plans_get
+      parameters:
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 20
+          title: Limit
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+                title: Response Saved Plans Api Saved Plans Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/saved-plans/{plan_id}:
+    get:
+      summary: Saved Plan
+      operationId: saved_plan_api_saved_plans__plan_id__get
+      parameters:
+      - name: plan_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Plan Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+                title: Response Saved Plan Api Saved Plans  Plan Id  Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/saved-plans/{plan_id}/what-if:
+    post:
+      summary: What If
+      operationId: what_if_api_saved_plans__plan_id__what_if_post
+      parameters:
+      - name: plan_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Plan Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WhatIfRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/sessions/{session_id}/simulated-change-approvals:
+    post:
+      summary: Approve Change
+      operationId: approve_change_api_sessions__session_id__simulated_change_approvals_post
+      parameters:
+      - name: session_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Session Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChangeApproval'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    ChangeApproval:
+      properties:
+        plan_id:
+          type: string
+          title: Plan Id
+        action:
+          type: string
+          title: Action
+        approval_id:
+          type: string
+          title: Approval Id
+      type: object
+      required:
+      - plan_id
+      - action
+      - approval_id
+      title: ChangeApproval
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    InvestorInformation:
+      properties:
+        financial_profile:
+          additionalProperties: true
+          type: object
+          title: Financial Profile
+        risk_questionnaire_responses:
+          additionalProperties: true
+          type: object
+          title: Risk Questionnaire Responses
+        current_holdings:
+          items:
+            additionalProperties: true
+            type: object
+          type: array
+          title: Current Holdings
+      type: object
+      required:
+      - financial_profile
+      - risk_questionnaire_responses
+      title: InvestorInformation
+    PlanSaveRequestBody:
+      properties:
+        plan_id:
+          type: string
+          title: Plan Id
+        action:
+          type: string
+          title: Action
+        request_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Request Id
+      type: object
+      required:
+      - plan_id
+      - action
+      title: PlanSaveRequestBody
+    ProfileInterpretationConfirmation:
+      properties:
+        profile_interpretation_confirmed:
+          type: boolean
+          title: Profile Interpretation Confirmed
+      type: object
+      required:
+      - profile_interpretation_confirmed
+      title: ProfileInterpretationConfirmation
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    WhatIfRequest:
+      properties:
+        monthly_contribution:
+          anyOf:
+          - type: number
+            maximum: 100000.0
+            minimum: 0.0
+          - type: 'null'
+          title: Monthly Contribution
+        horizon_years:
+          anyOf:
+          - type: integer
+            maximum: 50.0
+            minimum: 1.0
+          - type: 'null'
+          title: Horizon Years
+        goal_target:
+          type: number
+          exclusiveMinimum: 0.0
+          title: Goal Target
+          default: 100000
+      type: object
+      title: WhatIfRequest
+    PlanMetrics:
+      description: How the recommended mix behaved in the historical sample. Not a
+        forecast.
+      properties:
+        start:
+          title: Start
+          type: string
+        end:
+          title: End
+          type: string
+        observations:
+          title: Observations
+          type: integer
+        annualized_return:
+          title: Annualized Return
+          type: number
+        annualized_volatility:
+          title: Annualized Volatility
+          type: number
+        worst_one_year_return:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Worst One Year Return
+      required:
+      - start
+      - end
+      - observations
+      - annualized_return
+      - annualized_volatility
+      - worst_one_year_return
+      title: PlanMetrics
+      type: object
+    Recommendation:
+      description: One recommended security and its weight in the simulated portfolio.
+      properties:
+        symbol:
+          title: Symbol
+          type: string
+        asset_class:
+          title: Asset Class
+          type: string
+        weight:
+          title: Weight
+          type: number
+        name:
+          default: ''
+          title: Name
+          type: string
+        instrument_type:
+          default: ''
+          title: Instrument Type
+          type: string
+      required:
+      - symbol
+      - asset_class
+      - weight
+      title: Recommendation
+      type: object
+    InvestmentRecommendationsAndWeights:
+      description: 'Investment Recommendations and Weights: F.5 output, F.6 input
+        (IF.6).'
+      properties:
+        risk_score:
+          title: Risk Score
+          type: integer
+        risk_category:
+          title: Risk Category
+          type: string
+        target_allocation:
+          additionalProperties:
+            type: number
+          title: Target Allocation
+          type: object
+        recommendations:
+          items:
+            $ref: '#/components/schemas/Recommendation'
+          title: Recommendations
+          type: array
+        identified_risks:
+          items:
+            type: string
+          title: Identified Risks
+          type: array
+        data_limitations:
+          items:
+            type: string
+          title: Data Limitations
+          type: array
+        profile_basis:
+          additionalProperties: true
+          title: Profile Basis
+          type: object
+        risk_drivers:
+          items:
+            additionalProperties: true
+            type: object
+          title: Risk Drivers
+          type: array
+        allocation_adjustments:
+          items:
+            type: string
+          title: Allocation Adjustments
+          type: array
+        plan_metrics:
+          anyOf:
+          - $ref: '#/components/schemas/PlanMetrics'
+          - type: 'null'
+          default: null
+        max_one_year_loss:
+          anyOf:
+          - type: number
+          - type: 'null'
+          default: null
+          title: Max One Year Loss
+        data_snapshot_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          default: null
+          title: Data Snapshot Id
+        rules_configuration_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          default: null
+          title: Rules Configuration Id
+      required:
+      - risk_score
+      - risk_category
+      - target_allocation
+      - recommendations
+      - identified_risks
+      - data_limitations
+      title: InvestmentRecommendationsAndWeights
+      type: object
+    ExplanationRules:
+      description: 'Explanation Rules: control from X.3 System Administrator to F.6.1
+        and F.6.2.'
+      properties:
+        version:
+          title: Version
+          type: string
+        scope_notice:
+          title: Scope Notice
+          type: string
+        risk_language:
+          additionalProperties:
+            type: string
+          title: Risk Language
+          type: object
+        prohibited_phrases:
+          items:
+            type: string
+          title: Prohibited Phrases
+          type: array
+        learner_actions:
+          items:
+            type: string
+          title: Learner Actions
+          type: array
+      required:
+      - version
+      - scope_notice
+      - risk_language
+      - prohibited_phrases
+      - learner_actions
+      title: ExplanationRules
+      type: object
+    InvestmentPlanExplanation:
+      description: 'Investment Plan Explanation: F.6.1 output to F.6.2 and X.1.
+
+
+        The text fields follow the required output schema of the Model Response
+
+        Contract in SPEC.md. plan_id and rules_version record which plan and which
+
+        Explanation Rules the explanation belongs to.'
+      properties:
+        plan_id:
+          title: Plan Id
+          type: string
+        rules_version:
+          title: Rules Version
+          type: string
+        summary:
+          title: Summary
+          type: string
+        allocation_rationale:
+          items:
+            type: string
+          title: Allocation Rationale
+          type: array
+        material_risks:
+          items:
+            type: string
+          title: Material Risks
+          type: array
+        data_limitations:
+          items:
+            type: string
+          title: Data Limitations
+          type: array
+        scope_notice:
+          title: Scope Notice
+          type: string
+        historical_evidence:
+          items:
+            type: string
+          title: Historical Evidence
+          type: array
+        generated_by:
+          default: template
+          title: Generated By
+          type: string
+        generation_note:
+          default: ''
+          title: Generation Note
+          type: string
+      required:
+      - plan_id
+      - rules_version
+      - summary
+      - allocation_rationale
+      - material_risks
+      - data_limitations
+      - scope_notice
+      title: InvestmentPlanExplanation
+      type: object
+    PresentedInvestmentPlan:
+      description: 'Presented Investment Plan: F.6.2 output to X.1 Individual Investor.'
+      properties:
+        plan_id:
+          title: Plan Id
+          type: string
+        display_text:
+          title: Display Text
+          type: string
+        learner_actions:
+          items:
+            type: string
+          title: Learner Actions
+          type: array
+        content:
+          additionalProperties: true
+          title: Content
+          type: object
+      required:
+      - plan_id
+      - display_text
+      - learner_actions
+      title: PresentedInvestmentPlan
+      type: object
+    ReviewedPlanSnapshot:
+      description: 'IO.6.1 Reviewed Plan Snapshot: the plan exactly as F.6.2 presented
+        it.'
+      properties:
+        plan_id:
+          title: Plan Id
+          type: string
+        scope_notice:
+          title: Scope Notice
+          type: string
+        risk_category:
+          title: Risk Category
+          type: string
+        target_allocation:
+          additionalProperties:
+            type: number
+          title: Target Allocation
+          type: object
+        recommendations:
+          items:
+            $ref: '#/components/schemas/Recommendation'
+          title: Recommendations
+          type: array
+        explanation:
+          $ref: '#/components/schemas/InvestmentPlanExplanation'
+        risk_score:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          default: null
+          title: Risk Score
+        profile_basis:
+          additionalProperties: true
+          title: Profile Basis
+          type: object
+        simulated_amounts:
+          additionalProperties: true
+          title: Simulated Amounts
+          type: object
+        plan_metrics:
+          anyOf:
+          - $ref: '#/components/schemas/PlanMetrics'
+          - type: 'null'
+          default: null
+        data_snapshot_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          default: null
+          title: Data Snapshot Id
+        rules_configuration_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          default: null
+          title: Rules Configuration Id
+      required:
+      - plan_id
+      - scope_notice
+      - risk_category
+      - target_allocation
+      - recommendations
+      - explanation
+      title: ReviewedPlanSnapshot
+      type: object
+    PlanSaveRequest:
+      description: 'Plan Save Request: control from X.1 Individual Investor to F.6.3,
+        F.6.4 and F.6.5.'
+      properties:
+        request_id:
+          title: Request Id
+          type: string
+        plan_id:
+          title: Plan Id
+          type: string
+        action:
+          title: Action
+          type: string
+      required:
+      - request_id
+      - plan_id
+      - action
+      title: PlanSaveRequest
+      type: object
+    AuthorizedPlanSavePayload:
+      description: 'IO.6.2 Authorized Plan Save Payload: F.6.3 output to F.6.4.'
+      properties:
+        reviewed_plan:
+          $ref: '#/components/schemas/ReviewedPlanSnapshot'
+        authorization:
+          $ref: '#/components/schemas/PlanSaveRequest'
+      required:
+      - reviewed_plan
+      - authorization
+      title: AuthorizedPlanSavePayload
+      type: object
+    PlanPersistenceResult:
+      description: 'IO.6.3 Plan Persistence Result: F.6.4 output to F.6.5.'
+      properties:
+        status:
+          title: Status
+          type: string
+        plan_id:
+          title: Plan Id
+          type: string
+        request_id:
+          title: Request Id
+          type: string
+        persisted_plan:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Persisted Plan
+        detail:
+          title: Detail
+          type: string
+      required:
+      - status
+      - plan_id
+      - request_id
+      - persisted_plan
+      - detail
+      title: PlanPersistenceResult
+      type: object
+    SavedInvestmentPlan:
+      description: 'Saved Investment Plan: F.6.5 output to X.1.'
+      properties:
+        plan_id:
+          title: Plan Id
+          type: string
+        content:
+          additionalProperties: true
+          title: Content
+          type: object
+      required:
+      - plan_id
+      - content
+      title: SavedInvestmentPlan
+      type: object
+    SavedPlanConfirmation:
+      description: 'Saved Plan Confirmation: F.6.5 output to X.1.'
+      properties:
+        plan_id:
+          title: Plan Id
+          type: string
+        request_id:
+          title: Request Id
+          type: string
+        message:
+          title: Message
+          type: string
+      required:
+      - plan_id
+      - request_id
+      - message
+      title: SavedPlanConfirmation
+      type: object
+servers:
+- url: http://127.0.0.1:8000
+x-model-operations:
+- functionId: F.6.1
+  mechanismId: C.6.1
+  callable: investment_plan_management.explanation_engine.explain_investment_plan
+  transport: in-process Python call
+  inputs:
+    recommendations_and_weights:
+      $ref: '#/components/schemas/InvestmentRecommendationsAndWeights'
+  controls:
+    explanation_rules:
+      $ref: '#/components/schemas/ExplanationRules'
+  outputs:
+    investment_plan_explanation:
+      $ref: '#/components/schemas/InvestmentPlanExplanation'
+  requirementIds:
+  - CS6.1.4.1
+  - CS6.1.2.1
+  interfaceIds:
+  - IF.6.1
+  semantics: Optional language_model is a mechanism adapter; invalid/unavailable replies
+    fall back to the approved template. ValueError rejects unsupported risk wording
+    or invalid explanation content.
+- functionId: F.6.2
+  mechanismId: C.6.2
+  callable: investment_plan_management.plan_presentation.present_investment_plan
+  transport: in-process Python call
+  inputs:
+    recommendations_and_weights:
+      $ref: '#/components/schemas/InvestmentRecommendationsAndWeights'
+    investment_plan_explanation:
+      $ref: '#/components/schemas/InvestmentPlanExplanation'
+  controls:
+    explanation_rules:
+      $ref: '#/components/schemas/ExplanationRules'
+  outputs:
+    presented_investment_plan:
+      $ref: '#/components/schemas/PresentedInvestmentPlan'
+    reviewed_plan_snapshot:
+      $ref: '#/components/schemas/ReviewedPlanSnapshot'
+  requirementIds:
+  - CS6.1.4.2
+  - CS6.1.1.2
+  interfaceIds:
+  - IF.6.1
+  - IF.6.2
+  semantics: Returns a tuple in output order. A different plan_id or rules version
+    raises ValueError. The displayed content equals the reviewed snapshot.
+- functionId: F.6.3
+  mechanismId: C.6.3
+  callable: investment_plan_management.save_authorization.validate_explicit_plan_save_request
+  transport: in-process Python call
+  inputs:
+    reviewed_plan_snapshot:
+      $ref: '#/components/schemas/ReviewedPlanSnapshot'
+  controls:
+    plan_save_request:
+      $ref: '#/components/schemas/PlanSaveRequest'
+  outputs:
+    authorized_plan_save_payload:
+      $ref: '#/components/schemas/AuthorizedPlanSavePayload'
+  requirementIds:
+  - CS6.1.4.3
+  - CS6.1.1.3
+  interfaceIds:
+  - IF.6.2
+  - IF.6.3
+  semantics: plan_save_request may be None. Missing request, action other than save,
+    empty request_id or different plan_id returns None, without persistence.
+- functionId: F.6.4
+  mechanismId: C.6.4
+  callable: investment_plan_management.plan_repository.persist_reviewed_investment_plan
+  transport: in-process Python call
+  inputs:
+    authorized_plan_save_payload:
+      $ref: '#/components/schemas/AuthorizedPlanSavePayload'
+  controls:
+    plan_save_request:
+      $ref: '#/components/schemas/PlanSaveRequest'
+  outputs:
+    plan_persistence_result:
+      $ref: '#/components/schemas/PlanPersistenceResult'
+  requirementIds:
+  - CS6.1.4.4
+  - 1.4.7
+  - 1.4.8
+  interfaceIds:
+  - IF.6.3
+  - IF.6.4
+  semantics: plan_store is the repository mechanism adapter (write/read). Status is
+    succeeded only after exact read-back. Rejected authorization yields rejected;
+    write/read-back errors yield failed. Neither is success.
+- functionId: F.6.5
+  mechanismId: C.6.5
+  callable: investment_plan_management.save_confirmation.confirm_successful_plan_save
+  transport: in-process Python call
+  inputs:
+    plan_persistence_result:
+      $ref: '#/components/schemas/PlanPersistenceResult'
+  controls:
+    plan_save_request:
+      $ref: '#/components/schemas/PlanSaveRequest'
+  outputs:
+    saved_investment_plan:
+      $ref: '#/components/schemas/SavedInvestmentPlan'
+    saved_plan_confirmation:
+      $ref: '#/components/schemas/SavedPlanConfirmation'
+  requirementIds:
+  - CS6.1.4.5
+  - 1.2.7
+  interfaceIds:
+  - IF.6.4
+  semantics: Returns a tuple in output order only for succeeded, non-null content
+    with matching plan_id and request_id. Otherwise returns None, without a successful-save
+    confirmation.
+x-model-flows:
+- id: IO.6.1
+  name: Reviewed Plan Snapshot
+  from: F.6.2
+  to: F.6.3
+  interfaceId: IF.6.2
+  schema:
+    $ref: '#/components/schemas/ReviewedPlanSnapshot'
+- id: IO.6.2
+  name: Authorized Plan Save Payload
+  from: F.6.3
+  to: F.6.4
+  interfaceId: IF.6.3
+  schema:
+    $ref: '#/components/schemas/AuthorizedPlanSavePayload'
+- id: IO.6.3
+  name: Plan Persistence Result
+  from: F.6.4
+  to: F.6.5
+  interfaceId: IF.6.4
+  schema:
+    $ref: '#/components/schemas/PlanPersistenceResult'
+- id: Investment Plan Explanation
+  from: F.6.1
+  to: F.6.2
+  interfaceId: IF.6.1
+  schema:
+    $ref: '#/components/schemas/InvestmentPlanExplanation'

@@ -28,6 +28,7 @@ from investor_interface import InvestorInputError
 from market_data_provider import snapshot_status
 
 from .pipeline import Planner, PlanningSession, PlanWithheld, SessionNotFound, StepOutOfOrder
+from .exploration import compare_goal_scenario, apply_approved_change
 
 FRONTEND_DIRECTORY = Path(__file__).resolve().parent.parent / "frontend"
 
@@ -46,6 +47,18 @@ class PlanSaveRequestBody(BaseModel):
     plan_id: str
     action: str
     request_id: str | None = None
+
+
+class WhatIfRequest(BaseModel):
+    monthly_contribution: float | None = Field(default=None, ge=0, le=100000)
+    horizon_years: int | None = Field(default=None, ge=1, le=50)
+    goal_target: float = Field(default=100000, gt=0)
+
+
+class ChangeApproval(BaseModel):
+    plan_id: str
+    action: str
+    approval_id: str
 
 
 def create_app(planner: Planner | None = None) -> FastAPI:
@@ -169,6 +182,21 @@ def create_app(planner: Planner | None = None) -> FastAPI:
         if record is None:
             raise HTTPException(404, "No saved plan has this identifier.")
         return {"scope_notice": scope_notice, "saved_plan": record}
+
+    @app.post("/api/saved-plans/{plan_id}/what-if")
+    def what_if(plan_id: str, body: WhatIfRequest):
+        record = planner.saved_plan(plan_id)
+        if record is None:
+            raise HTTPException(404, "No saved baseline has this identifier")
+        try:
+            return compare_goal_scenario(record, **body.model_dump())
+        except ValueError as error:
+            raise HTTPException(422, str(error)) from None
+
+    @app.post("/api/sessions/{session_id}/simulated-change-approvals")
+    def approve_change(session_id: str, body: ChangeApproval):
+        session_or_404(session_id)
+        return apply_approved_change(planner, session_id, **body.model_dump())
 
     if FRONTEND_DIRECTORY.is_dir():
         app.mount("/", StaticFiles(directory=FRONTEND_DIRECTORY, html=True), name="frontend")

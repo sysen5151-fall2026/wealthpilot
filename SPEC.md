@@ -1,5 +1,11 @@
 # SPEC.md
 
+## Coursework acceptance method — 2026-11-11
+
+The student reports that the TA permits AI simulation for this course. The executable N-01–N-08 checks therefore use **AI-authored role cards and scripted answers exercised against real application responses**, with two operator processes and two recovery exercises. This is a coursework protocol check, not recruited human participants, independent human review, or measured novice usability. In particular, scripted explanation answers do not establish human comprehension, and automated completion does not measure unassisted human use. Original human-oriented acceptance criteria below remain reference targets; this execution mode is an explicit adaptation, not evidence that those human trials occurred. Course acceptance of this adaptation is for the TA to assess.
+
+Run `python -m pytest -q -rs` for all checks and `python scripts/coursework_exercise.py` to regenerate the role report. The report records the method once, followed by actual observations. Current verified local result: **131 passed, 0 skipped**. Configuration sign-off, live Innoslate allocation and hosted CI status are separate.
+
 ## Needs and Acceptance Criteria
 
 ### N-01 — Coherent Planning
@@ -97,7 +103,7 @@ This contract governs historical market data admitted to WealthPilot planning an
 ### Boundary and source
 - Data are provided by **X.2 Market Data Provider**.
 - WealthPilot uses **historical** data for the educational simulator; real-time execution quotes are out of scope.
-- The current scaffold uses hard-coded sample prices. A later implementation that connects an external provider must document the actual provider and endpoint in `docs/adr/environment.md`.
+- The application reads the fingerprinted Yahoo Finance snapshot documented below. Synthetic prices are used only by automated tests; no live trading data source is connected.
 
 ### Required logical fields
 
@@ -128,7 +134,7 @@ If the Market Data Provider is unavailable, WealthPilot does not fabricate histo
 
 ### Current implementation status
 - `scripts/fetch_price_snapshot.py` downloads daily adjusted closes from Yahoo Finance (yfinance) once and writes `data/prices/prices-<date>.csv` with a manifest holding the source, date range and SHA-256 fingerprint. WealthPilot reads only the snapshot (`market_data_provider/`) and refuses one whose fingerprint does not match.
-- Every admission rule above is applied per symbol; a symbol that fails is left out and named in a historical-data limitation. With no admissible data the plan is withheld.
+- Required-field, ISO date, uniqueness, finite positive-price and fingerprint checks are enforced. The UC.1 pipeline passes the configured minimum observations to admission. A failed symbol is excluded and disclosed. If no symbols remain, or admitted symbols have fewer than the configured number of common dates, the plan is withheld. This is a conservative interval-coverage policy. The 30 seeded N-05 cases are recorded in `evidence/acceptance/n05-contract-audit.json`.
 - The minimum observation count is `security_screening_criteria.min_observations` in `config/rules.json`: 750 trading days, about three years (reason in `docs/rules-rationale.md`).
 
 ---

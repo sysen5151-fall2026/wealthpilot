@@ -1,0 +1,440 @@
+{
+  "need": "N-05",
+  "scope": "fixed synthetic contract cases and HTTP/display-payload disclosure; not a user study",
+  "configuration_id": "WP-RULES-0.2",
+  "minimum_observations": 750,
+  "cases": [
+    {
+      "case": "valid",
+      "checks_passed": true,
+      "admitted_symbols": [
+        "VTI",
+        "AAPL",
+        "MSFT",
+        "TQQQ",
+        "VXUS",
+        "BND",
+        "AGG",
+        "BIL"
+      ],
+      "plan_status": "presented",
+      "limitations": []
+    },
+    {
+      "case": "valid-unsorted",
+      "checks_passed": true,
+      "admitted_symbols": [
+        "VTI",
+        "AAPL",
+        "MSFT",
+        "TQQQ",
+        "VXUS",
+        "BND",
+        "AGG",
+        "BIL"
+      ],
+      "plan_status": "presented",
+      "limitations": []
+    },
+    {
+      "case": "missing-symbol",
+      "checks_passed": true,
+      "admitted_symbols": [
+        "VTI",
+        "MSFT",
+        "TQQQ",
+        "VXUS",
+        "BND",
+        "AGG",
+        "BIL"
+      ],
+      "plan_status": "presented",
+      "limitations": [
+        "AAPL: no data in snapshot synthetic-test; not used."
+      ]
+    },
+    {
+      "case": "blank-symbol",
+      "checks_passed": true,
+      "admitted_symbols": [
+        "VTI",
+        "MSFT",
+        "TQQQ",
+        "VXUS",
+        "BND",
+        "AGG",
+        "BIL"
+      ],
+      "plan_status": "presented",
+      "limitations": [
+        "1260 historical row(s) have a missing symbol; those rows are not used.",
+        "AAPL: no data in snapshot synthetic-test; not used."
+      ]
+    },
+    {
+      "case": "duplicate-date",
+      "checks_passed": true,
+      "admitted_symbols": [
+        "VTI",
+        "MSFT",
+        "TQQQ",
+        "VXUS",
+        "BND",
+        "AGG",
+        "BIL"
+      ],
+      "plan_status": "presented",
+      "limitations": [
+        "AAPL: duplicate observation on 2022-01-03; not used."
+      ]
+    },
+    {
+      "case": "short-history",
+      "checks_passed": true,
+      "admitted_symbols": [
+        "VTI",
+        "MSFT",
+        "TQQQ",
+        "VXUS",
+        "BND",
+        "AGG",
+        "BIL"
+      ],
+      "plan_status": "presented",
+      "limitations": [
+        "AAPL: only 749 daily prices, fewer than the 750 required for this exercise; not used."
+      ]
+    },
+    {
+      "case": "date-empty",
+      "checks_passed": true,
+      "admitted_symbols": [
+        "VTI",
+        "MSFT",
+        "TQQQ",
+        "VXUS",
+        "BND",
+        "AGG",
+        "BIL"
+      ],
+      "plan_status": "presented",
+      "limitations": [
+        "AAPL: malformed or missing date or adjusted_close ('', '100.000000'); not used."
+      ]
+    },
+    {
+      "case": "date-null",
+      "checks_passed": true,
+      "admitted_symbols": [
+        "VTI",
+        "MSFT",
+        "TQQQ",
+        "VXUS",
+        "BND",
+        "AGG",
+        "BIL"
+      ],
+      "plan_status": "presented",
+      "limitations": [
+        "AAPL: malformed or missing date or adjusted_close ('', '100.000000'); not used."
+      ]
+    },
+    {
+      "case": "date-invalid",
+      "checks_passed": true,
+      "admitted_symbols": [
+        "VTI",
+        "MSFT",
+        "TQQQ",
+        "VXUS",
+        "BND",
+        "AGG",
+        "BIL"
+      ],
+      "plan_status": "presented",
+      "limitations": [
+        "AAPL: malformed or missing date or adjusted_close ('2026-02-30', '100.000000'); not used."
+      ]
+    },
+    {
+      "case": "date-compact",
+      "checks_passed": true,
+      "admitted_symbols": [
+        "VTI",
+        "MSFT",
+        "TQQQ",
+        "VXUS",
+        "BND",
+        "AGG",
+        "BIL"
+      ],
+      "plan_status": "presented",
+      "limitations": [
+        "AAPL: malformed or missing date or adjusted_close ('20261030', '100.000000'); not used."
+      ]
+    },
+    {
+      "case": "date-timestamp",
+      "checks_passed": true,
+      "admitted_symbols": [
+        "VTI",
+        "MSFT",
+        "TQQQ",
+        "VXUS",
+        "BND",
+        "AGG",
+        "BIL"
+      ],
+      "plan_status": "presented",
+      "limitations": [
+        "AAPL: malformed or missing date or adjusted_close ('2026-10-30T00:00:00', '100.000000'); not used."
+      ]
+    },
+    {
+      "case": "price-empty",
+      "checks_passed": true,
+      "admitted_symbols": [
+        "VTI",
+        "MSFT",
+        "TQQQ",
+        "VXUS",
+        "BND",
+        "AGG",
+        "BIL"
+      ],
+      "plan_status": "presented",
+      "limitations": [
+        "AAPL: malformed or missing date or adjusted_close ('2022-01-03', ''); not used."
+      ]
+    },
+    {
+      "case": "price-null",
+      "checks_passed": true,
+      "admitted_symbols": [
+        "VTI",
+        "MSFT",
+        "TQQQ",
+        "VXUS",
+        "BND",
+        "AGG",
+        "BIL"
+      ],
+      "plan_status": "presented",
+      "limitations": [
+        "AAPL: malformed or missing date or adjusted_close ('2022-01-03', ''); not used."
+      ]
+    },
+    {
+      "case": "price-text",
+      "checks_passed": true,
+      "admitted_symbols": [
+        "VTI",
+        "MSFT",
+        "TQQQ",
+        "VXUS",
+        "BND",
+        "AGG",
+        "BIL"
+      ],
+      "plan_status": "presented",
+      "limitations": [
+        "AAPL: malformed or missing date or adjusted_close ('2022-01-03', 'unknown'); not used."
+      ]
+    },
+    {
+      "case": "price-zero",
+      "checks_passed": true,
+      "admitted_symbols": [
+        "VTI",
+        "MSFT",
+        "TQQQ",
+        "VXUS",
+        "BND",
+        "AGG",
+        "BIL"
+      ],
+      "plan_status": "presented",
+      "limitations": [
+        "AAPL: adjusted_close 0 on 2022-01-03 is not a positive number; not used."
+      ]
+    },
+    {
+      "case": "price-negative",
+      "checks_passed": true,
+      "admitted_symbols": [
+        "VTI",
+        "MSFT",
+        "TQQQ",
+        "VXUS",
+        "BND",
+        "AGG",
+        "BIL"
+      ],
+      "plan_status": "presented",
+      "limitations": [
+        "AAPL: adjusted_close -1 on 2022-01-03 is not a positive number; not used."
+      ]
+    },
+    {
+      "case": "price-nan",
+      "checks_passed": true,
+      "admitted_symbols": [
+        "VTI",
+        "MSFT",
+        "TQQQ",
+        "VXUS",
+        "BND",
+        "AGG",
+        "BIL"
+      ],
+      "plan_status": "presented",
+      "limitations": [
+        "AAPL: adjusted_close NaN on 2022-01-03 is not a positive number; not used."
+      ]
+    },
+    {
+      "case": "price-inf",
+      "checks_passed": true,
+      "admitted_symbols": [
+        "VTI",
+        "MSFT",
+        "TQQQ",
+        "VXUS",
+        "BND",
+        "AGG",
+        "BIL"
+      ],
+      "plan_status": "presented",
+      "limitations": [
+        "AAPL: adjusted_close inf on 2022-01-03 is not a positive number; not used."
+      ]
+    },
+    {
+      "case": "price-minus-inf",
+      "checks_passed": true,
+      "admitted_symbols": [
+        "VTI",
+        "MSFT",
+        "TQQQ",
+        "VXUS",
+        "BND",
+        "AGG",
+        "BIL"
+      ],
+      "plan_status": "presented",
+      "limitations": [
+        "AAPL: adjusted_close -inf on 2022-01-03 is not a positive number; not used."
+      ]
+    },
+    {
+      "case": "missing-column-symbol",
+      "checks_passed": true,
+      "admitted_symbols": [],
+      "plan_status": "withheld",
+      "limitations": [
+        "The historical CSV is missing a required symbol, date or adjusted_close field; no data are used."
+      ]
+    },
+    {
+      "case": "missing-column-date",
+      "checks_passed": true,
+      "admitted_symbols": [],
+      "plan_status": "withheld",
+      "limitations": [
+        "The historical CSV is missing a required symbol, date or adjusted_close field; no data are used."
+      ]
+    },
+    {
+      "case": "missing-column-adjusted_close",
+      "checks_passed": true,
+      "admitted_symbols": [],
+      "plan_status": "withheld",
+      "limitations": [
+        "The historical CSV is missing a required symbol, date or adjusted_close field; no data are used."
+      ]
+    },
+    {
+      "case": "non-utf8",
+      "checks_passed": true,
+      "admitted_symbols": [],
+      "plan_status": "withheld",
+      "limitations": [
+        "The historical CSV is unreadable or malformed; no observations are fabricated."
+      ]
+    },
+    {
+      "case": "fingerprint-mismatch",
+      "checks_passed": true,
+      "admitted_symbols": [],
+      "plan_status": "withheld",
+      "limitations": [
+        "The snapshot synthetic-test does not match its recorded fingerprint, so it is not used."
+      ]
+    },
+    {
+      "case": "missing-data-file",
+      "checks_passed": true,
+      "admitted_symbols": [],
+      "plan_status": "withheld",
+      "limitations": [
+        "The snapshot file prices-synthetic.csv named in the manifest is missing."
+      ]
+    },
+    {
+      "case": "manifest-null-file",
+      "checks_passed": true,
+      "admitted_symbols": [],
+      "plan_status": "withheld",
+      "limitations": [
+        "The snapshot manifest is unreadable or incomplete, so no historical data are used."
+      ]
+    },
+    {
+      "case": "manifest-array",
+      "checks_passed": true,
+      "admitted_symbols": [],
+      "plan_status": "withheld",
+      "limitations": [
+        "The snapshot manifest is unreadable or incomplete, so no historical data are used."
+      ]
+    },
+    {
+      "case": "manifest-invalid-json",
+      "checks_passed": true,
+      "admitted_symbols": [],
+      "plan_status": "withheld",
+      "limitations": [
+        "The snapshot manifest is unreadable or incomplete, so no historical data are used."
+      ]
+    },
+    {
+      "case": "missing-manifest",
+      "checks_passed": true,
+      "admitted_symbols": [],
+      "plan_status": "withheld",
+      "limitations": [
+        "No historical price snapshot is installed, so the plan cannot be built. Run scripts/fetch_price_snapshot.py once to create one."
+      ]
+    },
+    {
+      "case": "disjoint-interval",
+      "checks_passed": true,
+      "admitted_symbols": [
+        "VTI",
+        "AAPL",
+        "MSFT",
+        "TQQQ",
+        "VXUS",
+        "BND",
+        "AGG",
+        "BIL"
+      ],
+      "plan_status": "withheld",
+      "limitations": [
+        "Only 0 common daily observations; 750 are required for this exercise."
+      ]
+    }
+  ],
+  "passed": 30,
+  "total": 30
+}

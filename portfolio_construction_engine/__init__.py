@@ -41,6 +41,7 @@ def generate_investment_recommendations(
     *,
     target_asset_allocation: TargetAssetAllocation,
     portfolio_construction_rules: dict,
+    minimum_observations: int = 2,
 ) -> InvestmentRecommendationsAndWeights:
     """Weight the screened candidates so each asset class gets its target share.
 
@@ -72,7 +73,7 @@ def generate_investment_recommendations(
     series = {c.symbol: c.series for c in screened.candidates}
     dates, values = mix_value_path(series, {r.symbol: r.weight for r in recommendations})
     metrics = None
-    if len(dates) >= 2:
+    if len(dates) >= max(2, minimum_observations):
         metrics = PlanMetrics(
             start=dates[0],
             end=dates[-1],
@@ -82,7 +83,10 @@ def generate_investment_recommendations(
             worst_one_year_return=_round_or_none(worst_one_year_return(values)),
         )
     else:
-        limitations.append("The recommended securities share too few trading days to measure the plan's history.")
+        limitations.append(
+            f"The recommended securities share only {len(dates)} trading days, fewer than the "
+            f"{max(2, minimum_observations)} required to measure the plan's history; historical metrics are withheld."
+        )
     risk = target_asset_allocation.risk_assessment
     return InvestmentRecommendationsAndWeights(
         risk_score=risk.risk_score,

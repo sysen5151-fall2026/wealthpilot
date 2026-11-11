@@ -16,7 +16,7 @@ Transcribed from the Innoslate model (Financial Project, read 2026-11-03). One r
 | F.6.4 Persist Reviewed Investment Plan | C.6.4 Plan Repository Component | `investment_plan_management/plan_repository.py` | `persist_reviewed_investment_plan`, `SqlitePlanStore` | CS6.1.4.4, CS6.1.1.3; SR-05 | `test_CS6_1_4_4_*` |
 | F.6.5 Confirm Successful Plan Save | C.6.5 Save Confirmation Component | `investment_plan_management/save_confirmation.py` | `confirm_successful_plan_save` | CS6.1.4.5, CS6.1.1.3, CS6.1.2.3, CS6.1.2.4 | `test_CS6_1_4_5_*` |
 
-Test files: `tests/test_uc1_functions.py` (F.1 to F.5, data contract, configuration), `tests/test_cs6_requirements.py` and `tests/test_explanation_language_model.py` (C.6), `tests/test_api.py` (UC.1 through the HTTP interface, named by SR), `tests/test_fetch_snapshot.py` (the snapshot script). Not covered by automated tests yet: CS6.2.1 (2-second timing over 100 runs), CS6.2.2 (novice comprehension study), and CS6.1.3.1 to CS6.1.3.3 (verified by inspecting the conduits in the model).
+Test files: `tests/test_uc1_functions.py` (F.1 to F.5, data contract, configuration), `tests/test_functional_requirements.py` and `tests/test_explanation_language_model.py` (C.6), `tests/test_api.py` (UC.1 through the HTTP interface, named by SR), `tests/test_fetch_snapshot.py` (the snapshot script). Not covered by automated tests yet: CS6.2.1 (2-second timing over 100 runs), CS6.2.2 (novice comprehension study), and CS6.1.3.1 to CS6.1.3.3 (verified by inspecting the conduits in the model).
 
 ## External systems and the orchestration
 
@@ -60,3 +60,21 @@ Test files: `tests/test_uc1_functions.py` (F.1 to F.5, data contract, configurat
 | Saved Plan Confirmation | F.6.5 | X.1 | `SavedPlanConfirmation` |
 
 The F.6 types are defined in `investment_plan_management/io_types.py`; Investment Recommendations and Weights comes from `model_flows/`.
+
+## Milestone 2 navigation and verification scope
+
+The existing C.6 tests have moved to `tests/test_functional_requirements.py`, retaining their requirement names and assertions. `tests/test_model_contract.py` additionally checks recorded signatures, generated schemas, real serialized payloads and internal flow continuity. See `docs/route-table.md` for product entry points, `contracts/api-v1.yaml` for implemented operations, and `docs/requirements-flowdown.md` for allocation evidence and outstanding cloud checks. A local successful run does not establish a successful GitHub Actions run or completed stakeholder acceptance.
+
+## Historical-data acceptance evidence
+
+N-05 / SR-09 / SR-10 → `market_data_provider.provide_historical_market_data`, configured observation/interval guards in `wealthpilot_service/pipeline.py`, and minimum-history protection in `portfolio_construction_engine` → `test_N05_suitable_historical_data` in `tests/test_spec_acceptance.py` → `evidence/acceptance/n05-contract-audit.json` (30 seeded cases). N-01 preparation is checked in `tests/test_n01_readiness.py`; N-01 acceptance still needs independent review.
+
+## Additional coursework prototypes
+
+| Actual operation | Module | Scope and verification |
+| --- | --- | --- |
+| POST /api/saved-plans/{plan_id}/what-if | wealthpilot_service/exploration.py:compare_goal_scenario | Saved baseline preserved; zero-return contribution comparison. tests/test_exploration.py and N-04. |
+| POST /api/sessions/{session_id}/simulated-change-approvals | wealthpilot_service/exploration.py:apply_approved_change | Separate explicit approval; internal SQLite ledger only; no brokerage. tests/test_exploration.py and N-03. |
+| Baseline freeze/restore | scripts/baseline_recovery.py | Two-process reproducibility and two corruption/recovery exercises; N-06. |
+
+These prototype operations do not alter the existing F.6 cloud allocation. Map their functions and requirements in Innoslate before claiming model-to-product coverage beyond the recorded UC.1/F.6 path.

@@ -9,6 +9,11 @@ from investor_interface.console import SAMPLE_INVESTOR
 from system_administration import load_configuration
 
 
+def pytest_addoption(parser):
+    parser.addoption("--run-pending-acceptance", action="store_true", default=False,
+                     help="Legacy compatibility option; coursework checks now run by default.")
+
+
 @pytest.fixture(scope="session")
 def snapshot_directory(tmp_path_factory):
     directory = tmp_path_factory.mktemp("synthetic_prices")

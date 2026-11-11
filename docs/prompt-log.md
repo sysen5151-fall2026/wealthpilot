@@ -61,3 +61,19 @@ Assistant assumptions:
 - No rule value changed. The configuration becomes WP-RULES-0.2 (allocation rules AR-0.2 for the stop rule added on 2026-11-04), with status "reviewed 2026-11-05, team sign-off pending".
 - The Yahoo endpoint recorded in docs/environment.md is the one yfinance 1.7.0 calls, read from the library source.
 Disposition: Pending team sign-off of WP-RULES-0.2.
+
+## 2026-11-08 Milestone 2 evidence and recording preparation
+
+User request: supplement missing submission artifacts and explain how to record a webcam presentation.
+
+Changes: generated contracts/api-v1.yaml from the implemented HTTP API and F.6 dataclass schemas; documented local callable ICOM operations and internal flows; added route-table.md, requirements-flowdown.md and a live-model checklist; renamed the existing C.6 test file to test_functional_requirements.py without weakening assertions; added four executable contract checks; changed unfinished stakeholder acceptance skeletons to explicit default skips with an opt-in to run their retained failures; updated CI to verify implemented requirements and preserve reports; prepared a macOS launch helper and a bilingual recording guide with an English script.
+
+Verification: 34 selected functional/contract tests passed; full default suite 114 passed and 8 pending acceptance items skipped. Browser walkthrough confirmed planning, save confirmation, unchanged simulated cash and holdings, and reopening the saved plan. No hosted CI run, cloud model edit, performance trial, user study, rule approval, recording or course submission is claimed by this update.
+
+## 2026-11-11 Acceptance completion support
+
+User requested help making pending acceptance tests pass legitimately. Implemented N-05's 30-case seeded audit; tightened date/manifest/CSV handling, configured observation admission and common-interval checks; prepared ten N-01 input/output cases and an unfilled independent-review form. A completed genuine review can be validated against the current deterministic baseline. No participant responses, reviewer identity, rule approval or recovery trials were fabricated. N-01 and six other needs remain pending without external evidence or missing capabilities.
+
+## 2026-11-11 AI-role coursework acceptance
+
+The student reported TA permission for AI simulation. Added actual scenario comparison, separate internal simulated-change approval, baseline recovery and executable AI-authored role protocols. Retained original human-oriented criteria and archived skeleton; documented the adapted method in SPEC.md. Local suite: 131 passed, 0 skipped. Browser scenario comparison checked. No human recruitment, independent human review, hosted CI result, rule approval or cloud-model update is claimed.

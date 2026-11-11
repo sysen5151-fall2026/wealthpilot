@@ -1,0 +1,36 @@
+WealthPilot Milestone 2 English speaker script
+
+0:00–0:35
+Hello, I’m Fangziyue Zhang. This is our Milestone Two demonstration of WealthPilot, an educational investment-planning simulator. Today I will connect one modeled function to the running product, its code, and its requirement tests. Our selected function is F.6, Manage Investment Plan Delivery. WealthPilot uses hypothetical inputs and historical data. It does not place real trades or move real money.
+
+0:35–1:15
+This is the physical IDEF0 view. The functions describe what the system does. The mechanisms underneath identify the assets that perform those functions. F.6 is performed by C.6, the Investment Plan Management Subsystem. It receives investment recommendations and weights from F.5. Explanation Rules govern its wording, and a Plan Save Request controls whether the reviewed plan can be saved. Its outputs distinguish the explanation, the presented plan, the saved plan, and the save confirmation.
+
+1:15–2:15
+F.6 decomposes into five functions. F.6.1 explains the plan, and F.6.2 presents it and creates a reviewed snapshot. F.6.3 validates explicit save authorization. F.6.4 persists the authorized snapshot. F.6.5 releases the saved plan and confirmation only after successful persistence. The internal flows are the reviewed snapshot, the authorized save payload, and the persistence result. The explanation also passes from F.6.1 to F.6.2. Here, the function hierarchy shows the five responsibilities. The asset hierarchy shows the five corresponding components under C.6. These are the same function and component identifiers used in the application trace and module documentation.
+
+2:15–3:05
+I will use a fictional investor so that no personal financial information is needed. The investor is planning for retirement in twenty-five years, with twenty-five thousand dollars of cash and five thousand dollars in an existing VTI holding. The questionnaire produces a risk score of seventy for this example. The investor sees the interpretation before choosing to build a plan. This confirmation is separate from authorization to save. The earlier functions prepare the recommendations that become F.6’s input.
+
+3:05–4:20
+The plan now shows the allocation, individual securities, and simulated amounts. The explanation connects the result to the investor’s profile and identifies material risks. Historical figures describe the recorded sample; they are not forecasts. At this point, the investor has reviewed the plan but has not authorized saving. Now I select Save this simulated plan. The application validates that the request refers to the reviewed plan, persists the content, and confirms success. The before-and-after table shows that cash remains twenty-five thousand dollars and the VTI holding remains five thousand dollars. Saving preserves a planning document; it does not execute a portfolio change. I can reopen the saved plan and review the same content.
+
+4:20–5:00
+This trace records the functions and assets as they actually run. The save path follows F.6.3, F.6.4, and F.6.5. In docs/traceability.md, each row links a function to its performing asset, module, requirement identifiers, and named tests. For example, F.6.3 maps to the save authorization module, requirement CS6.1.4.3, and tests for valid and invalid requests. This provides a concrete path from a box in the model to executable behavior.
+
+5:00–6:00
+The module documentation identifies F.6.3 and its performing component, C.6.3. Its signature follows the ICOMs: the reviewed snapshot is the input, and the Plan Save Request is a control. The output is an authorized save payload. A missing request, a view event, an empty request identifier, or a different plan identifier cannot authorize saving. The persistence module then takes the authorized payload and a repository adapter. It reports success only after reading back the complete stored content. The confirmation module checks the persistence result before issuing a successful-save message.
+
+6:00–6:45
+The API contract separates real HTTP routes from internal Python operations. Under x-model-operations, the five F.6 calls list their inputs, controls, outputs, mechanisms, and requirement identifiers. The internal-flow section links each producer to its consumer and payload schema. These internal calls are not invented network endpoints. The route table maps the product action to UC.1: selecting Save this simulated plan invokes the plan-save-requests route, which serves the authorization, persistence, and confirmation steps.
+
+6:45–8:05
+Here I trace the parent save obligation to the component specification. The parent requires saving only after an explicit request. The component-level requirements separate authorization, persistence, and confirmation, with input, output, and interface obligations. Requirement 1.4.8 separately protects simulated portfolio state during saving. For the system-wide example, the educational-simulation safety constraint is allocated to the plan-delivery component using equivalence within that component’s scope. The prohibition on real execution is retained rather than divided into a numerical budget. The component may explain, present, and save an educational plan, but it may not convert that process into real trading. The recorded link and rationale make that allocation reviewable.
+
+8:05–9:30
+These tests are named by requirement identifier. They check the successful path and meaningful failure paths, including invalid authorization, a mismatched plan, write failure, incomplete persistence, and suppression of false confirmation. The state-preservation test compares the simulated portfolio before and after saving. Contract tests also compare the published specification with actual signatures and serialized payloads. All one hundred thirty-one local checks pass, with no skips. The eight coursework acceptance checks use AI-authored role protocols against actual application responses, as permitted for the course according to our TA guidance. The report states that method; it is not a human usability study. Two operator processes reproduce the baseline, and two recovery exercises restore it. Hosted CI must still run after this update is pushed; local output alone is not a GitHub Actions result.
+
+9:30–10:00
+The demonstrated chain is consistent: F.6 decomposes into five modeled responsibilities, the product follows those responsibilities, and the code and tests use the same identifiers and data flows. The key boundary is explicit authorization: the reviewed plan is saved only when requested, confirmation follows successful persistence, and simulated cash and holdings remain unchanged. Thank you.
+
+PRECONDITIONS: Verify the live model and obtain a successful hosted CI run before reading claims about those items. The script assumes F.6 was the classroom selection.

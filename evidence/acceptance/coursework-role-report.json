@@ -1,0 +1,1146 @@
+{
+  "method": {
+    "mode": "AI角色课程验收",
+    "basis": "User reports TA permits AI role exercises in place of human trials.",
+    "execution": "AI-authored role scripts against real HTTP responses; operator roles use separate processes. This is not human recruitment or an empirical human usability study.",
+    "scope": "Fixed course fixtures; rule sign-off and cloud model approval are not implied."
+  },
+  "roles": [
+    {
+      "role_id": "R01",
+      "role_card": {
+        "experience": "novice",
+        "goal": "retirement",
+        "horizon": 1
+      },
+      "plan_id": "plan-fac2a8bb04",
+      "N01_checks": {
+        "goal": true,
+        "horizon": true,
+        "capacity": true,
+        "holdings": true
+      },
+      "N02_answers": {
+        "factors": [
+          "My 1-year time horizon affects my risk assessment and allocation.",
+          "My low need for early access affects how much risk the plan can take."
+        ],
+        "risk": "The stock part can fall in value, so I can lose money in this exercise.",
+        "grounding": "Stock prices rise and fall, sometimes sharply. The simulated portfolio can lose value, especially over short periods."
+      },
+      "N03_observed": {
+        "before_confirmation_saved_count": 0,
+        "save_preserved_state": true,
+        "separate_approval_enforced": true,
+        "duplicate_approval_not_reapplied": true
+      },
+      "N03_answer": "Saving stores my plan. A later internal portfolio change requires a separate explicit approval.",
+      "N04_observed": {
+        "baseline_hash_unchanged": true,
+        "comparison": {
+          "baseline_plan_id": "plan-fac2a8bb04",
+          "baseline_fingerprint": "a63dae785773143d37c36ab57fad09fdcfb36368877660286c358491948a03d9",
+          "method": "opening resources + 12 × monthly contribution × years; zero assumed return on both sides",
+          "scope_notice": "Educational comparison only; no return forecast or portfolio change.",
+          "goal": "retirement",
+          "baseline": {
+            "monthly_contribution": 0.0,
+            "horizon_years": 1,
+            "planned_resources": 1000.0,
+            "goal_target": 100000.0,
+            "goal_coverage": 0.01
+          },
+          "scenario": {
+            "monthly_contribution": 100.0,
+            "horizon_years": 1,
+            "planned_resources": 2200.0,
+            "goal_target": 100000.0,
+            "goal_coverage": 0.022
+          },
+          "difference": 1200.0,
+          "direction": "higher",
+          "explanation": "Using the same zero-return method and goal target, planned resources are higher by $1,200.00. The saved baseline is unchanged."
+        }
+      },
+      "N04_answer": "The baseline is unchanged. Adding $100 per month gives $1,200 more planned resources using the same method.",
+      "N07_answer": "This is an educational practice system. It did not execute a real trade or move real funds.",
+      "N08_completion": {
+        "completed": true,
+        "assistance_events": [],
+        "barriers": [],
+        "steps": [
+          "start",
+          "enter_profile",
+          "review_risk",
+          "confirm",
+          "review_plan",
+          "save",
+          "reopen"
+        ]
+      }
+    },
+    {
+      "role_id": "R02",
+      "role_card": {
+        "experience": "novice",
+        "goal": "home_purchase",
+        "horizon": 3
+      },
+      "plan_id": "plan-2219edeeb4",
+      "N01_checks": {
+        "goal": true,
+        "horizon": true,
+        "capacity": true,
+        "holdings": true
+      },
+      "N02_answers": {
+        "factors": [
+          "My 3-year time horizon affects my risk assessment and allocation.",
+          "My medium need for early access affects how much risk the plan can take."
+        ],
+        "risk": "The stock part can fall in value, so I can lose money in this exercise.",
+        "grounding": "Stock prices rise and fall, sometimes sharply. The simulated portfolio can lose value, especially over short periods."
+      },
+      "N03_observed": {
+        "before_confirmation_saved_count": 0,
+        "save_preserved_state": true,
+        "separate_approval_enforced": true,
+        "duplicate_approval_not_reapplied": true
+      },
+      "N03_answer": "Saving stores my plan. A later internal portfolio change requires a separate explicit approval.",
+      "N04_observed": {
+        "baseline_hash_unchanged": true,
+        "comparison": {
+          "baseline_plan_id": "plan-2219edeeb4",
+          "baseline_fingerprint": "1eaca492b1cc1ac81f6eca955fcb6d95b2362295faf61cdccadb58016ec17a0f",
+          "method": "opening resources + 12 × monthly contribution × years; zero assumed return on both sides",
+          "scope_notice": "Educational comparison only; no return forecast or portfolio change.",
+          "goal": "home_purchase",
+          "baseline": {
+            "monthly_contribution": 50.0,
+            "horizon_years": 3,
+            "planned_resources": 7000.0,
+            "goal_target": 100000.0,
+            "goal_coverage": 0.07
+          },
+          "scenario": {
+            "monthly_contribution": 150.0,
+            "horizon_years": 3,
+            "planned_resources": 10600.0,
+            "goal_target": 100000.0,
+            "goal_coverage": 0.106
+          },
+          "difference": 3600.0,
+          "direction": "higher",
+          "explanation": "Using the same zero-return method and goal target, planned resources are higher by $3,600.00. The saved baseline is unchanged."
+        }
+      },
+      "N04_answer": "The baseline is unchanged. Adding $100 per month gives $3,600 more planned resources using the same method.",
+      "N07_answer": "This is an educational practice system. It did not execute a real trade or move real funds.",
+      "N08_completion": {
+        "completed": true,
+        "assistance_events": [],
+        "barriers": [],
+        "steps": [
+          "start",
+          "enter_profile",
+          "review_risk",
+          "confirm",
+          "review_plan",
+          "save",
+          "reopen"
+        ]
+      }
+    },
+    {
+      "role_id": "R03",
+      "role_card": {
+        "experience": "novice",
+        "goal": "education",
+        "horizon": 5
+      },
+      "plan_id": "plan-e0d70057f4",
+      "N01_checks": {
+        "goal": true,
+        "horizon": true,
+        "capacity": true,
+        "holdings": true
+      },
+      "N02_answers": {
+        "factors": [
+          "My 5-year time horizon affects my risk assessment and allocation.",
+          "My high need for early access affects how much risk the plan can take."
+        ],
+        "risk": "The stock part can fall in value, so I can lose money in this exercise.",
+        "grounding": "Stock prices rise and fall, sometimes sharply. The simulated portfolio can lose value, especially over short periods."
+      },
+      "N03_observed": {
+        "before_confirmation_saved_count": 0,
+        "save_preserved_state": true,
+        "separate_approval_enforced": true,
+        "duplicate_approval_not_reapplied": true
+      },
+      "N03_answer": "Saving stores my plan. A later internal portfolio change requires a separate explicit approval.",
+      "N04_observed": {
+        "baseline_hash_unchanged": true,
+        "comparison": {
+          "baseline_plan_id": "plan-e0d70057f4",
+          "baseline_fingerprint": "5ed739defef795bbb220ee13e48db2e60714fe42d7148c49c6c2013442e6d36b",
+          "method": "opening resources + 12 × monthly contribution × years; zero assumed return on both sides",
+          "scope_notice": "Educational comparison only; no return forecast or portfolio change.",
+          "goal": "education",
+          "baseline": {
+            "monthly_contribution": 100.0,
+            "horizon_years": 5,
+            "planned_resources": 15400.0,
+            "goal_target": 100000.0,
+            "goal_coverage": 0.154
+          },
+          "scenario": {
+            "monthly_contribution": 200.0,
+            "horizon_years": 5,
+            "planned_resources": 21400.0,
+            "goal_target": 100000.0,
+            "goal_coverage": 0.214
+          },
+          "difference": 6000.0,
+          "direction": "higher",
+          "explanation": "Using the same zero-return method and goal target, planned resources are higher by $6,000.00. The saved baseline is unchanged."
+        }
+      },
+      "N04_answer": "The baseline is unchanged. Adding $100 per month gives $6,000 more planned resources using the same method.",
+      "N07_answer": "This is an educational practice system. It did not execute a real trade or move real funds.",
+      "N08_completion": {
+        "completed": true,
+        "assistance_events": [],
+        "barriers": [],
+        "steps": [
+          "start",
+          "enter_profile",
+          "review_risk",
+          "confirm",
+          "review_plan",
+          "save",
+          "reopen"
+        ]
+      }
+    },
+    {
+      "role_id": "R04",
+      "role_card": {
+        "experience": "novice",
+        "goal": "general_wealth",
+        "horizon": 8
+      },
+      "plan_id": "plan-834b3dbbb5",
+      "N01_checks": {
+        "goal": true,
+        "horizon": true,
+        "capacity": true,
+        "holdings": true
+      },
+      "N02_answers": {
+        "factors": [
+          "My 8-year time horizon affects my risk assessment and allocation.",
+          "My low need for early access affects how much risk the plan can take."
+        ],
+        "risk": "The stock part can fall in value, so I can lose money in this exercise.",
+        "grounding": "Stock prices rise and fall, sometimes sharply. The simulated portfolio can lose value, especially over short periods."
+      },
+      "N03_observed": {
+        "before_confirmation_saved_count": 0,
+        "save_preserved_state": true,
+        "separate_approval_enforced": true,
+        "duplicate_approval_not_reapplied": true
+      },
+      "N03_answer": "Saving stores my plan. A later internal portfolio change requires a separate explicit approval.",
+      "N04_observed": {
+        "baseline_hash_unchanged": true,
+        "comparison": {
+          "baseline_plan_id": "plan-834b3dbbb5",
+          "baseline_fingerprint": "72df74c730212fdf1e7bf5d1547ae744fccffa349bca94423cb8a11f078d024b",
+          "method": "opening resources + 12 × monthly contribution × years; zero assumed return on both sides",
+          "scope_notice": "Educational comparison only; no return forecast or portfolio change.",
+          "goal": "general_wealth",
+          "baseline": {
+            "monthly_contribution": 150.0,
+            "horizon_years": 8,
+            "planned_resources": 28000.0,
+            "goal_target": 100000.0,
+            "goal_coverage": 0.28
+          },
+          "scenario": {
+            "monthly_contribution": 250.0,
+            "horizon_years": 8,
+            "planned_resources": 37600.0,
+            "goal_target": 100000.0,
+            "goal_coverage": 0.376
+          },
+          "difference": 9600.0,
+          "direction": "higher",
+          "explanation": "Using the same zero-return method and goal target, planned resources are higher by $9,600.00. The saved baseline is unchanged."
+        }
+      },
+      "N04_answer": "The baseline is unchanged. Adding $100 per month gives $9,600 more planned resources using the same method.",
+      "N07_answer": "This is an educational practice system. It did not execute a real trade or move real funds.",
+      "N08_completion": {
+        "completed": true,
+        "assistance_events": [],
+        "barriers": [],
+        "steps": [
+          "start",
+          "enter_profile",
+          "review_risk",
+          "confirm",
+          "review_plan",
+          "save",
+          "reopen"
+        ]
+      }
+    },
+    {
+      "role_id": "R05",
+      "role_card": {
+        "experience": "novice",
+        "goal": "retirement",
+        "horizon": 10
+      },
+      "plan_id": "plan-44ba3cd789",
+      "N01_checks": {
+        "goal": true,
+        "horizon": true,
+        "capacity": true,
+        "holdings": true
+      },
+      "N02_answers": {
+        "factors": [
+          "My 10-year time horizon affects my risk assessment and allocation.",
+          "My medium need for early access affects how much risk the plan can take."
+        ],
+        "risk": "The stock part can fall in value, so I can lose money in this exercise.",
+        "grounding": "Stock prices rise and fall, sometimes sharply. The simulated portfolio can lose value, especially over short periods."
+      },
+      "N03_observed": {
+        "before_confirmation_saved_count": 0,
+        "save_preserved_state": true,
+        "separate_approval_enforced": true,
+        "duplicate_approval_not_reapplied": true
+      },
+      "N03_answer": "Saving stores my plan. A later internal portfolio change requires a separate explicit approval.",
+      "N04_observed": {
+        "baseline_hash_unchanged": true,
+        "comparison": {
+          "baseline_plan_id": "plan-44ba3cd789",
+          "baseline_fingerprint": "acfbc7dbd2a3cb97bee81170deeb5f86638a47c554dc6005548959a1f6587305",
+          "method": "opening resources + 12 × monthly contribution × years; zero assumed return on both sides",
+          "scope_notice": "Educational comparison only; no return forecast or portfolio change.",
+          "goal": "retirement",
+          "baseline": {
+            "monthly_contribution": 200.0,
+            "horizon_years": 10,
+            "planned_resources": 41800.0,
+            "goal_target": 100000.0,
+            "goal_coverage": 0.418
+          },
+          "scenario": {
+            "monthly_contribution": 300.0,
+            "horizon_years": 10,
+            "planned_resources": 53800.0,
+            "goal_target": 100000.0,
+            "goal_coverage": 0.538
+          },
+          "difference": 12000.0,
+          "direction": "higher",
+          "explanation": "Using the same zero-return method and goal target, planned resources are higher by $12,000.00. The saved baseline is unchanged."
+        }
+      },
+      "N04_answer": "The baseline is unchanged. Adding $100 per month gives $12,000 more planned resources using the same method.",
+      "N07_answer": "This is an educational practice system. It did not execute a real trade or move real funds.",
+      "N08_completion": {
+        "completed": true,
+        "assistance_events": [],
+        "barriers": [],
+        "steps": [
+          "start",
+          "enter_profile",
+          "review_risk",
+          "confirm",
+          "review_plan",
+          "save",
+          "reopen"
+        ]
+      }
+    },
+    {
+      "role_id": "R06",
+      "role_card": {
+        "experience": "novice",
+        "goal": "home_purchase",
+        "horizon": 15
+      },
+      "plan_id": "plan-7e4549845e",
+      "N01_checks": {
+        "goal": true,
+        "horizon": true,
+        "capacity": true,
+        "holdings": true
+      },
+      "N02_answers": {
+        "factors": [
+          "My 15-year time horizon affects my risk assessment and allocation.",
+          "My high need for early access affects how much risk the plan can take."
+        ],
+        "risk": "The stock part can fall in value, so I can lose money in this exercise.",
+        "grounding": "Stock prices rise and fall, sometimes sharply. The simulated portfolio can lose value, especially over short periods."
+      },
+      "N03_observed": {
+        "before_confirmation_saved_count": 0,
+        "save_preserved_state": true,
+        "separate_approval_enforced": true,
+        "duplicate_approval_not_reapplied": true
+      },
+      "N03_answer": "Saving stores my plan. A later internal portfolio change requires a separate explicit approval.",
+      "N04_observed": {
+        "baseline_hash_unchanged": true,
+        "comparison": {
+          "baseline_plan_id": "plan-7e4549845e",
+          "baseline_fingerprint": "a228c7f405e66f988912863ea1f516324c03be82c61b3c77a0d3dfe2856496c1",
+          "method": "opening resources + 12 × monthly contribution × years; zero assumed return on both sides",
+          "scope_notice": "Educational comparison only; no return forecast or portfolio change.",
+          "goal": "home_purchase",
+          "baseline": {
+            "monthly_contribution": 250.0,
+            "horizon_years": 15,
+            "planned_resources": 67000.0,
+            "goal_target": 100000.0,
+            "goal_coverage": 0.67
+          },
+          "scenario": {
+            "monthly_contribution": 350.0,
+            "horizon_years": 15,
+            "planned_resources": 85000.0,
+            "goal_target": 100000.0,
+            "goal_coverage": 0.85
+          },
+          "difference": 18000.0,
+          "direction": "higher",
+          "explanation": "Using the same zero-return method and goal target, planned resources are higher by $18,000.00. The saved baseline is unchanged."
+        }
+      },
+      "N04_answer": "The baseline is unchanged. Adding $100 per month gives $18,000 more planned resources using the same method.",
+      "N07_answer": "This is an educational practice system. It did not execute a real trade or move real funds.",
+      "N08_completion": {
+        "completed": true,
+        "assistance_events": [],
+        "barriers": [],
+        "steps": [
+          "start",
+          "enter_profile",
+          "review_risk",
+          "confirm",
+          "review_plan",
+          "save",
+          "reopen"
+        ]
+      }
+    },
+    {
+      "role_id": "R07",
+      "role_card": {
+        "experience": "novice",
+        "goal": "education",
+        "horizon": 20
+      },
+      "plan_id": "plan-ae86e606e8",
+      "N01_checks": {
+        "goal": true,
+        "horizon": true,
+        "capacity": true,
+        "holdings": true
+      },
+      "N02_answers": {
+        "factors": [
+          "My 20-year time horizon affects my risk assessment and allocation.",
+          "My low need for early access affects how much risk the plan can take."
+        ],
+        "risk": "The stock part can fall in value, so I can lose money in this exercise.",
+        "grounding": "Stock prices rise and fall, sometimes sharply. The simulated portfolio can lose value, especially over short periods."
+      },
+      "N03_observed": {
+        "before_confirmation_saved_count": 0,
+        "save_preserved_state": true,
+        "separate_approval_enforced": true,
+        "duplicate_approval_not_reapplied": true
+      },
+      "N03_answer": "Saving stores my plan. A later internal portfolio change requires a separate explicit approval.",
+      "N04_observed": {
+        "baseline_hash_unchanged": true,
+        "comparison": {
+          "baseline_plan_id": "plan-ae86e606e8",
+          "baseline_fingerprint": "df70e5c1f5da37cc6ce5fb857f4357d63d7a3753f13e1f979557a9cfd00aa869",
+          "method": "opening resources + 12 × monthly contribution × years; zero assumed return on both sides",
+          "scope_notice": "Educational comparison only; no return forecast or portfolio change.",
+          "goal": "education",
+          "baseline": {
+            "monthly_contribution": 300.0,
+            "horizon_years": 20,
+            "planned_resources": 98200.0,
+            "goal_target": 100000.0,
+            "goal_coverage": 0.982
+          },
+          "scenario": {
+            "monthly_contribution": 400.0,
+            "horizon_years": 20,
+            "planned_resources": 122200.0,
+            "goal_target": 100000.0,
+            "goal_coverage": 1.222
+          },
+          "difference": 24000.0,
+          "direction": "higher",
+          "explanation": "Using the same zero-return method and goal target, planned resources are higher by $24,000.00. The saved baseline is unchanged."
+        }
+      },
+      "N04_answer": "The baseline is unchanged. Adding $100 per month gives $24,000 more planned resources using the same method.",
+      "N07_answer": "This is an educational practice system. It did not execute a real trade or move real funds.",
+      "N08_completion": {
+        "completed": true,
+        "assistance_events": [],
+        "barriers": [],
+        "steps": [
+          "start",
+          "enter_profile",
+          "review_risk",
+          "confirm",
+          "review_plan",
+          "save",
+          "reopen"
+        ]
+      }
+    },
+    {
+      "role_id": "R08",
+      "role_card": {
+        "experience": "novice",
+        "goal": "general_wealth",
+        "horizon": 25
+      },
+      "plan_id": "plan-5153a2744c",
+      "N01_checks": {
+        "goal": true,
+        "horizon": true,
+        "capacity": true,
+        "holdings": true
+      },
+      "N02_answers": {
+        "factors": [
+          "My 25-year time horizon affects my risk assessment and allocation.",
+          "My medium need for early access affects how much risk the plan can take."
+        ],
+        "risk": "The stock part can fall in value, so I can lose money in this exercise.",
+        "grounding": "Stock prices rise and fall, sometimes sharply. The simulated portfolio can lose value, especially over short periods."
+      },
+      "N03_observed": {
+        "before_confirmation_saved_count": 0,
+        "save_preserved_state": true,
+        "separate_approval_enforced": true,
+        "duplicate_approval_not_reapplied": true
+      },
+      "N03_answer": "Saving stores my plan. A later internal portfolio change requires a separate explicit approval.",
+      "N04_observed": {
+        "baseline_hash_unchanged": true,
+        "comparison": {
+          "baseline_plan_id": "plan-5153a2744c",
+          "baseline_fingerprint": "c73fa42d0ae76751dc225ff5355f9b36d04e83623418f9899f39a59f4d18f578",
+          "method": "opening resources + 12 × monthly contribution × years; zero assumed return on both sides",
+          "scope_notice": "Educational comparison only; no return forecast or portfolio change.",
+          "goal": "general_wealth",
+          "baseline": {
+            "monthly_contribution": 350.0,
+            "horizon_years": 25,
+            "planned_resources": 135400.0,
+            "goal_target": 100000.0,
+            "goal_coverage": 1.354
+          },
+          "scenario": {
+            "monthly_contribution": 450.0,
+            "horizon_years": 25,
+            "planned_resources": 165400.0,
+            "goal_target": 100000.0,
+            "goal_coverage": 1.654
+          },
+          "difference": 30000.0,
+          "direction": "higher",
+          "explanation": "Using the same zero-return method and goal target, planned resources are higher by $30,000.00. The saved baseline is unchanged."
+        }
+      },
+      "N04_answer": "The baseline is unchanged. Adding $100 per month gives $30,000 more planned resources using the same method.",
+      "N07_answer": "This is an educational practice system. It did not execute a real trade or move real funds.",
+      "N08_completion": {
+        "completed": true,
+        "assistance_events": [],
+        "barriers": [],
+        "steps": [
+          "start",
+          "enter_profile",
+          "review_risk",
+          "confirm",
+          "review_plan",
+          "save",
+          "reopen"
+        ]
+      }
+    },
+    {
+      "role_id": "R09",
+      "role_card": {
+        "experience": "novice",
+        "goal": "retirement",
+        "horizon": 30
+      },
+      "plan_id": "plan-ab6110b5a6",
+      "N01_checks": {
+        "goal": true,
+        "horizon": true,
+        "capacity": true,
+        "holdings": true
+      },
+      "N02_answers": {
+        "factors": [
+          "My 30-year time horizon affects my risk assessment and allocation.",
+          "My high need for early access affects how much risk the plan can take."
+        ],
+        "risk": "The stock part can fall in value, so I can lose money in this exercise.",
+        "grounding": "Stock prices rise and fall, sometimes sharply. The simulated portfolio can lose value, especially over short periods."
+      },
+      "N03_observed": {
+        "before_confirmation_saved_count": 0,
+        "save_preserved_state": true,
+        "separate_approval_enforced": true,
+        "duplicate_approval_not_reapplied": true
+      },
+      "N03_answer": "Saving stores my plan. A later internal portfolio change requires a separate explicit approval.",
+      "N04_observed": {
+        "baseline_hash_unchanged": true,
+        "comparison": {
+          "baseline_plan_id": "plan-ab6110b5a6",
+          "baseline_fingerprint": "db3f7ce23bc0a195a8c279b69cfdb6f003583e52b8fe656212df2d0151c40250",
+          "method": "opening resources + 12 × monthly contribution × years; zero assumed return on both sides",
+          "scope_notice": "Educational comparison only; no return forecast or portfolio change.",
+          "goal": "retirement",
+          "baseline": {
+            "monthly_contribution": 400.0,
+            "horizon_years": 30,
+            "planned_resources": 178600.0,
+            "goal_target": 100000.0,
+            "goal_coverage": 1.786
+          },
+          "scenario": {
+            "monthly_contribution": 500.0,
+            "horizon_years": 30,
+            "planned_resources": 214600.0,
+            "goal_target": 100000.0,
+            "goal_coverage": 2.146
+          },
+          "difference": 36000.0,
+          "direction": "higher",
+          "explanation": "Using the same zero-return method and goal target, planned resources are higher by $36,000.00. The saved baseline is unchanged."
+        }
+      },
+      "N04_answer": "The baseline is unchanged. Adding $100 per month gives $36,000 more planned resources using the same method.",
+      "N07_answer": "This is an educational practice system. It did not execute a real trade or move real funds.",
+      "N08_completion": {
+        "completed": true,
+        "assistance_events": [],
+        "barriers": [],
+        "steps": [
+          "start",
+          "enter_profile",
+          "review_risk",
+          "confirm",
+          "review_plan",
+          "save",
+          "reopen"
+        ]
+      }
+    },
+    {
+      "role_id": "R10",
+      "role_card": {
+        "experience": "novice",
+        "goal": "home_purchase",
+        "horizon": 40
+      },
+      "plan_id": "plan-8770cf2ec8",
+      "N01_checks": {
+        "goal": true,
+        "horizon": true,
+        "capacity": true,
+        "holdings": true
+      },
+      "N02_answers": {
+        "factors": [
+          "My 40-year time horizon affects my risk assessment and allocation.",
+          "My low need for early access affects how much risk the plan can take."
+        ],
+        "risk": "The stock part can fall in value, so I can lose money in this exercise.",
+        "grounding": "Stock prices rise and fall, sometimes sharply. The simulated portfolio can lose value, especially over short periods."
+      },
+      "N03_observed": {
+        "before_confirmation_saved_count": 0,
+        "save_preserved_state": true,
+        "separate_approval_enforced": true,
+        "duplicate_approval_not_reapplied": true
+      },
+      "N03_answer": "Saving stores my plan. A later internal portfolio change requires a separate explicit approval.",
+      "N04_observed": {
+        "baseline_hash_unchanged": true,
+        "comparison": {
+          "baseline_plan_id": "plan-8770cf2ec8",
+          "baseline_fingerprint": "4960b02d6ef5f323c12c9a46951eb9612a8b42a0ac2ffd962cf73a686f8b7fdb",
+          "method": "opening resources + 12 × monthly contribution × years; zero assumed return on both sides",
+          "scope_notice": "Educational comparison only; no return forecast or portfolio change.",
+          "goal": "home_purchase",
+          "baseline": {
+            "monthly_contribution": 450.0,
+            "horizon_years": 40,
+            "planned_resources": 254800.0,
+            "goal_target": 100000.0,
+            "goal_coverage": 2.548
+          },
+          "scenario": {
+            "monthly_contribution": 550.0,
+            "horizon_years": 40,
+            "planned_resources": 302800.0,
+            "goal_target": 100000.0,
+            "goal_coverage": 3.028
+          },
+          "difference": 48000.0,
+          "direction": "higher",
+          "explanation": "Using the same zero-return method and goal target, planned resources are higher by $48,000.00. The saved baseline is unchanged."
+        }
+      },
+      "N04_answer": "The baseline is unchanged. Adding $100 per month gives $48,000 more planned resources using the same method.",
+      "N07_answer": "This is an educational practice system. It did not execute a real trade or move real funds.",
+      "N08_completion": {
+        "completed": true,
+        "assistance_events": [],
+        "barriers": [],
+        "steps": [
+          "start",
+          "enter_profile",
+          "review_risk",
+          "confirm",
+          "review_plan",
+          "save",
+          "reopen"
+        ]
+      }
+    }
+  ],
+  "interface_boundary_review": {
+    "passed": true,
+    "reviewed": [
+      "static entry page",
+      "planner response",
+      "save response",
+      "saved plan view",
+      "what-if controls"
+    ]
+  },
+  "operators": [
+    {
+      "configuration_id": "WP-RULES-0.2",
+      "configuration_sha256": "3d6b22d884601926a15fa00b843d0dddd64d95303e427332139371ae04c2ce65",
+      "ledger": [
+        {
+          "after": {
+            "cash": 0.0,
+            "holdings": [
+              {
+                "symbol": "VTI",
+                "value": 1560.0
+              },
+              {
+                "symbol": "AAPL",
+                "value": 260.0
+              },
+              {
+                "symbol": "MSFT",
+                "value": 260.0
+              },
+              {
+                "symbol": "VXUS",
+                "value": 780.0
+              },
+              {
+                "symbol": "BND",
+                "value": 910.0
+              },
+              {
+                "symbol": "AGG",
+                "value": 910.0
+              },
+              {
+                "symbol": "BIL",
+                "value": 520.0
+              }
+            ]
+          },
+          "before": {
+            "cash": 4000.0,
+            "holdings": [
+              {
+                "symbol": "VTI",
+                "value": 1000.0
+              },
+              {
+                "symbol": "BND",
+                "value": 200.0
+              }
+            ]
+          },
+          "plan_id": "plan-2219edeeb4"
+        }
+      ],
+      "portfolios": [
+        {
+          "cash": 0.0,
+          "holdings": [
+            {
+              "symbol": "VTI",
+              "value": 1560.0
+            },
+            {
+              "symbol": "AAPL",
+              "value": 260.0
+            },
+            {
+              "symbol": "MSFT",
+              "value": 260.0
+            },
+            {
+              "symbol": "VXUS",
+              "value": 780.0
+            },
+            {
+              "symbol": "BND",
+              "value": 910.0
+            },
+            {
+              "symbol": "AGG",
+              "value": 910.0
+            },
+            {
+              "symbol": "BIL",
+              "value": 520.0
+            }
+          ]
+        }
+      ],
+      "saved_plans": [
+        {
+          "plan_id": "plan-2219edeeb4",
+          "version_sha256": "1eaca492b1cc1ac81f6eca955fcb6d95b2362295faf61cdccadb58016ec17a0f"
+        }
+      ]
+    },
+    {
+      "configuration_id": "WP-RULES-0.2",
+      "configuration_sha256": "3d6b22d884601926a15fa00b843d0dddd64d95303e427332139371ae04c2ce65",
+      "ledger": [
+        {
+          "after": {
+            "cash": 0.0,
+            "holdings": [
+              {
+                "symbol": "VTI",
+                "value": 1560.0
+              },
+              {
+                "symbol": "AAPL",
+                "value": 260.0
+              },
+              {
+                "symbol": "MSFT",
+                "value": 260.0
+              },
+              {
+                "symbol": "VXUS",
+                "value": 780.0
+              },
+              {
+                "symbol": "BND",
+                "value": 910.0
+              },
+              {
+                "symbol": "AGG",
+                "value": 910.0
+              },
+              {
+                "symbol": "BIL",
+                "value": 520.0
+              }
+            ]
+          },
+          "before": {
+            "cash": 4000.0,
+            "holdings": [
+              {
+                "symbol": "VTI",
+                "value": 1000.0
+              },
+              {
+                "symbol": "BND",
+                "value": 200.0
+              }
+            ]
+          },
+          "plan_id": "plan-2219edeeb4"
+        }
+      ],
+      "portfolios": [
+        {
+          "cash": 0.0,
+          "holdings": [
+            {
+              "symbol": "VTI",
+              "value": 1560.0
+            },
+            {
+              "symbol": "AAPL",
+              "value": 260.0
+            },
+            {
+              "symbol": "MSFT",
+              "value": 260.0
+            },
+            {
+              "symbol": "VXUS",
+              "value": 780.0
+            },
+            {
+              "symbol": "BND",
+              "value": 910.0
+            },
+            {
+              "symbol": "AGG",
+              "value": 910.0
+            },
+            {
+              "symbol": "BIL",
+              "value": 520.0
+            }
+          ]
+        }
+      ],
+      "saved_plans": [
+        {
+          "plan_id": "plan-2219edeeb4",
+          "version_sha256": "1eaca492b1cc1ac81f6eca955fcb6d95b2362295faf61cdccadb58016ec17a0f"
+        }
+      ]
+    }
+  ],
+  "recovery_exercises": [
+    {
+      "exercise": 1,
+      "restored_matching_state": true,
+      "state": {
+        "configuration_id": "WP-RULES-0.2",
+        "configuration_sha256": "3d6b22d884601926a15fa00b843d0dddd64d95303e427332139371ae04c2ce65",
+        "saved_plans": [
+          {
+            "plan_id": "plan-2219edeeb4",
+            "version_sha256": "1eaca492b1cc1ac81f6eca955fcb6d95b2362295faf61cdccadb58016ec17a0f"
+          }
+        ],
+        "portfolios": [
+          {
+            "cash": 0.0,
+            "holdings": [
+              {
+                "symbol": "VTI",
+                "value": 1560.0
+              },
+              {
+                "symbol": "AAPL",
+                "value": 260.0
+              },
+              {
+                "symbol": "MSFT",
+                "value": 260.0
+              },
+              {
+                "symbol": "VXUS",
+                "value": 780.0
+              },
+              {
+                "symbol": "BND",
+                "value": 910.0
+              },
+              {
+                "symbol": "AGG",
+                "value": 910.0
+              },
+              {
+                "symbol": "BIL",
+                "value": 520.0
+              }
+            ]
+          }
+        ],
+        "ledger": [
+          {
+            "plan_id": "plan-2219edeeb4",
+            "before": {
+              "cash": 4000.0,
+              "holdings": [
+                {
+                  "symbol": "VTI",
+                  "value": 1000.0
+                },
+                {
+                  "symbol": "BND",
+                  "value": 200.0
+                }
+              ]
+            },
+            "after": {
+              "cash": 0.0,
+              "holdings": [
+                {
+                  "symbol": "VTI",
+                  "value": 1560.0
+                },
+                {
+                  "symbol": "AAPL",
+                  "value": 260.0
+                },
+                {
+                  "symbol": "MSFT",
+                  "value": 260.0
+                },
+                {
+                  "symbol": "VXUS",
+                  "value": 780.0
+                },
+                {
+                  "symbol": "BND",
+                  "value": 910.0
+                },
+                {
+                  "symbol": "AGG",
+                  "value": 910.0
+                },
+                {
+                  "symbol": "BIL",
+                  "value": 520.0
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "exercise": 2,
+      "restored_matching_state": true,
+      "state": {
+        "configuration_id": "WP-RULES-0.2",
+        "configuration_sha256": "3d6b22d884601926a15fa00b843d0dddd64d95303e427332139371ae04c2ce65",
+        "saved_plans": [
+          {
+            "plan_id": "plan-2219edeeb4",
+            "version_sha256": "1eaca492b1cc1ac81f6eca955fcb6d95b2362295faf61cdccadb58016ec17a0f"
+          }
+        ],
+        "portfolios": [
+          {
+            "cash": 0.0,
+            "holdings": [
+              {
+                "symbol": "VTI",
+                "value": 1560.0
+              },
+              {
+                "symbol": "AAPL",
+                "value": 260.0
+              },
+              {
+                "symbol": "MSFT",
+                "value": 260.0
+              },
+              {
+                "symbol": "VXUS",
+                "value": 780.0
+              },
+              {
+                "symbol": "BND",
+                "value": 910.0
+              },
+              {
+                "symbol": "AGG",
+                "value": 910.0
+              },
+              {
+                "symbol": "BIL",
+                "value": 520.0
+              }
+            ]
+          }
+        ],
+        "ledger": [
+          {
+            "plan_id": "plan-2219edeeb4",
+            "before": {
+              "cash": 4000.0,
+              "holdings": [
+                {
+                  "symbol": "VTI",
+                  "value": 1000.0
+                },
+                {
+                  "symbol": "BND",
+                  "value": 200.0
+                }
+              ]
+            },
+            "after": {
+              "cash": 0.0,
+              "holdings": [
+                {
+                  "symbol": "VTI",
+                  "value": 1560.0
+                },
+                {
+                  "symbol": "AAPL",
+                  "value": 260.0
+                },
+                {
+                  "symbol": "MSFT",
+                  "value": 260.0
+                },
+                {
+                  "symbol": "VXUS",
+                  "value": 780.0
+                },
+                {
+                  "symbol": "BND",
+                  "value": 910.0
+                },
+                {
+                  "symbol": "AGG",
+                  "value": 910.0
+                },
+                {
+                  "symbol": "BIL",
+                  "value": 520.0
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

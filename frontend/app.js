@@ -439,6 +439,15 @@
       <h1>Saved plan</h1>
       <p class="muted">${esc(record.scope_notice)}</p>
       ${planBody(record, null)}
+      <section class="sheet"><h2>Compare a planning assumption</h2>
+      <p>Compare contributions with your saved baseline using zero assumed investment return. This is an educational resource comparison, not a forecast.</p>
+      <label for="scenario-monthly">Scenario monthly contribution (USD)</label>
+      <input id="scenario-monthly" type="number" min="0" max="100000" value="${esc((record.profile_basis?.monthly_contribution || 0)+100)}">
+      <label for="scenario-target">Hypothetical goal target (USD)</label>
+      <input id="scenario-target" type="number" min="1" value="100000">
+      <button type="button" class="button" data-action="compare-scenario">Compare with saved baseline</button>
+      ${state.whatIf ? `<div role="status"><p>${esc(state.whatIf.explanation)}</p><p>Baseline resources: ${esc(usd(state.whatIf.baseline.planned_resources))}; scenario resources: ${esc(usd(state.whatIf.scenario.planned_resources))}.</p><p>Goal coverage: ${esc(pct(state.whatIf.baseline.goal_coverage,1))} → ${esc(pct(state.whatIf.scenario.goal_coverage,1))}. Same goal and method; baseline remains unchanged.</p></div>` : ""}
+      ${state.scenarioError ? `<p role="alert">${esc(state.scenarioError)}</p>` : ""}</section>
       <div class="actions"><button type="button" class="button" data-action="close-saved">Back to saved plans</button></div>`;
   }
 
@@ -601,6 +610,7 @@
     try {
       const { data } = await api(`/api/saved-plans/${encodeURIComponent(planId)}`);
       state.savedDetail = { ...data.saved_plan, scope_notice: data.scope_notice };
+      state.whatIf = null; state.scenarioError = null;
       render();
       window.scrollTo(0, 0);
     } catch (error) {
@@ -609,6 +619,16 @@
   }
 
   // Events
+
+  async function compareScenario() {
+    try {
+      const {status,data} = await api(`/api/saved-plans/${encodeURIComponent(state.savedDetail.plan_id)}/what-if`, {
+        method:"POST", body:{monthly_contribution:Number(document.getElementById("scenario-monthly").value),goal_target:Number(document.getElementById("scenario-target").value)}
+      });
+      if(status !== 200) throw new Error(typeof data.detail === "string" ? data.detail : "Check the scenario values and change at least one assumption.");
+      state.whatIf=data;state.scenarioError=null;render();
+    } catch(error) {state.scenarioError=error.message;render();}
+  }
 
   document.addEventListener("click", (event) => {
     const nav = event.target.closest("[data-nav]");
@@ -637,6 +657,7 @@
     else if (action === "save") savePlan();
     else if (action === "restart") { state.plan = state.save = state.withheld = null; go("about"); }
     else if (action === "open-saved") openSaved(button.dataset.plan);
+    else if (action === "compare-scenario") compareScenario();
     else if (action === "close-saved") { state.savedDetail = null; render(); }
   });
 

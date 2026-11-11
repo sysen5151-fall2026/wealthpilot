@@ -12,6 +12,7 @@ import hashlib
 import json
 import math
 import os
+import re
 from collections import defaultdict
 from datetime import date
 from pathlib import Path
@@ -28,6 +29,7 @@ def provide_historical_market_data(
     market_data_request: MarketDataRequest,
     *,
     snapshot_directory: Path = DEFAULT_SNAPSHOT_DIRECTORY,
+    minimum_observations: int = 1,
 ) -> HistoricalMarketData:
     """Return the admitted price series for the requested symbols, with any limitations.
 
@@ -43,29 +45,52 @@ def provide_historical_market_data(
         )
     try:
         manifest = json.loads(manifest_path.read_text())
+        if not isinstance(manifest, dict):
+            raise ValueError("manifest must be an object")
+        if not all(isinstance(manifest.get(k), str) and manifest[k].strip() for k in ("file", "sha256", "snapshot_id")):
+            raise ValueError("required manifest identifiers missing")
         data_path = snapshot_directory / manifest["file"]
         fingerprint, snapshot_id = manifest["sha256"], manifest["snapshot_id"]
     except (OSError, ValueError, KeyError, TypeError):
         return _unavailable("The snapshot manifest is unreadable or incomplete, so no historical data are used.")
     if not data_path.is_file():
         return _unavailable(f"The snapshot file {manifest['file']} named in the manifest is missing.")
-    if hashlib.sha256(data_path.read_bytes()).hexdigest() != fingerprint:
+    try:
+        contents = data_path.read_bytes()
+    except OSError:
+        return _unavailable("The historical snapshot cannot be read, so the affected analysis is withheld.")
+    if hashlib.sha256(contents).hexdigest() != fingerprint:
         return _unavailable(
             f"The snapshot {snapshot_id} does not match its recorded fingerprint, so it is not used."
         )
 
     rows_by_symbol = defaultdict(list)
-    with data_path.open(newline="") as handle:
-        for row in csv.DictReader(handle):
-            rows_by_symbol[(row.get("symbol") or "").strip()].append(row)
+    malformed_symbols = 0
+    try:
+        with data_path.open(newline="") as handle:
+            reader = csv.DictReader(handle)
+            if not {"symbol", "date", "adjusted_close"} <= set(reader.fieldnames or []):
+                return _unavailable("The historical CSV is missing a required symbol, date or adjusted_close field; no data are used.")
+            for row in reader:
+                symbol = (row.get("symbol") or "").strip()
+                if not symbol:
+                    malformed_symbols += 1
+                    continue
+                rows_by_symbol[symbol].append(row)
+    except (OSError, UnicodeError, csv.Error):
+        return _unavailable("The historical CSV is unreadable or malformed; no observations are fabricated.")
 
     series, limitations = {}, []
+    if malformed_symbols:
+        limitations.append(f"{malformed_symbols} historical row(s) have a missing symbol; those rows are not used.")
     for symbol in market_data_request.symbols:
         rows = rows_by_symbol.get(symbol)
         if not rows:
             limitations.append(f"{symbol}: no data in snapshot {snapshot_id}; not used.")
             continue
         admitted, problem = _admit(symbol, rows)
+        if problem is None and len(admitted.dates) < minimum_observations:
+            problem = f"only {len(admitted.dates)} daily prices, fewer than the {minimum_observations} required for this exercise"
         if problem:
             limitations.append(f"{symbol}: {problem}; not used.")
         else:
@@ -106,6 +131,8 @@ def _admit(symbol: str, rows: list[dict]) -> tuple[PriceSeries | None, str | Non
     for row in rows:
         raw_date, raw_close = row.get("date"), row.get("adjusted_close")
         try:
+            if not isinstance(raw_date, str) or not re.fullmatch(r"\d{4}-\d{2}-\d{2}", raw_date):
+                raise ValueError("date must be YYYY-MM-DD")
             day = date.fromisoformat(raw_date or "").isoformat()
             close = float(raw_close)
         except (TypeError, ValueError):

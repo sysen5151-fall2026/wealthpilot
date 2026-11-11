@@ -11,7 +11,7 @@ from dataclasses import replace
 from http.server import BaseHTTPRequestHandler, HTTPServer
 
 import pytest
-from test_cs6_requirements import RULES, make_recommendations
+from test_functional_requirements import RULES, make_recommendations
 
 from investment_plan_management import (
     LanguageModelError,

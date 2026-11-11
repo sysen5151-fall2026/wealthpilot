@@ -205,10 +205,20 @@ class Planner:
 
         request = request_historical_market_data(session.risk, allocation_rules=config.allocation_rules)
         session.record("F.3 | C.3", "Determine Target Asset Allocation", "Market Data Request: " + ", ".join(request.symbols))
-        data = provide_historical_market_data(request, snapshot_directory=self.snapshot_directory)
+        data = provide_historical_market_data(
+            request, snapshot_directory=self.snapshot_directory,
+            minimum_observations=config.security_screening_criteria["min_observations"],
+        )
         session.record("X.2", "Provide Historical Market Data", _describe_data(data, request))
         if not data.series:
             raise PlanWithheld("No historical market data could be admitted, so the analysis is withheld.", data.limitations)
+        common_dates = set.intersection(*(set(s.dates) for s in data.series.values()))
+        minimum = config.security_screening_criteria["min_observations"]
+        if len(common_dates) < minimum:
+            raise PlanWithheld(
+                "Historical data do not cover a sufficient common analysis interval, so the plan is withheld.",
+                [*data.limitations, f"Only {len(common_dates)} common daily observations; {minimum} are required for this exercise."],
+            )
 
         target = determine_target_asset_allocation(
             session.risk,
@@ -237,6 +247,7 @@ class Planner:
                 screened,
                 target_asset_allocation=target,
                 portfolio_construction_rules=config.portfolio_construction_rules,
+                minimum_observations=config.security_screening_criteria["min_observations"],
             )
         except ValueError as error:
             reasons = [f"{e.symbol}: {e.reason}" for e in screened.exclusions]

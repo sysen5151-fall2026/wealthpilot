@@ -59,8 +59,9 @@ The model's answer is used only if it passes every check of the SPEC.md Model Re
 ### Tests
 
 ```bash
-pytest -v --deselect tests/test_spec_acceptance.py    # requirement tests, expected green
-pytest tests/test_spec_acceptance.py                   # stakeholder-need acceptance tests, intentionally red
+python -m pytest -v -rs    # full implementation and AI-role coursework checks
+python -m pytest tests/test_functional_requirements.py tests/test_model_contract.py -v
+python scripts/coursework_exercise.py  # regenerate detailed exercise evidence
 ```
 
 Tests use synthetic prices in temporary folders, never `data/prices/`.
@@ -68,7 +69,7 @@ Tests use synthetic prices in temporary folders, never `data/prices/`.
 ### Rules and what is not built yet
 
 - `config/rules.json` holds every rule value (questionnaire points, category bands, mixes, screening limits, weights, wording). The AI assistant proposed them; they were reviewed on 2026-11-05 against the installed price snapshot, and `docs/rules-rationale.md` gives the reason for each. Its `status` line, shown at the bottom of every page, says "team sign-off pending" until the team approves them.
-- Only UC.1 is implemented. What-if scenarios, simulated portfolio changes and administration use cases are not.
+- UC.1 is implemented. Saved-plan what-if comparison, separate internal simulated-change approval and baseline recovery now have course prototypes. These additions do not establish complete UC.2–UC.5 implementations or cloud model allocation.
 - In-progress sessions live in memory, so restarting the server ends them; saved plans stay in `data/wealthpilot.db` (git ignores it).
 - The app has no sign-in and is meant to run on one computer (it listens on 127.0.0.1 only). See `docs/deployment.md` before hosting it anywhere else.
 
@@ -84,11 +85,28 @@ Tests use synthetic prices in temporary folders, never `data/prices/`.
 - `tests/`: requirement-named tests; `.github/workflows/tests.yml` runs them.
 - `docs/traceability.md`: function to module, requirements and tests. `docs/walking-skeleton.md`: UC.1 step to code. `docs/prompt-log.md`: AI-assistance log.
 
-## Task 2 / Chapter 3 Repository Artifacts
+## Earlier Task 2 artifacts
 
 - `SPEC.md` — stakeholder needs, traces to stakeholder requirements, acceptance criteria, Data Contract, and Model Response Contract.
-- `tests/test_spec_acceptance.py` — intentionally failing acceptance-test skeletons for N-01 through N-08.
-- `.github/workflows/tests.yml` — CI workflow that runs the Task 2 acceptance tests.
+- `tests/test_spec_acceptance.py` — executable AI-role coursework checks for N-01 through N-08; original human-study skeleton archived in docs/original-human-acceptance-reference.py.
+- `.github/workflows/tests.yml` — Milestone 2 workflow running the full implementation and coursework verification suite.
 - `docs/prompt-log.md` — cumulative prompt log, including AI-assisted repository and walking-skeleton updates.
 
-The acceptance suite is intentionally **red** at this project increment. Later build increments should replace the placeholder failures with executable evidence as the corresponding capabilities are implemented.
+The coursework execution method and its limits are stated in SPEC.md. AI-role results do not establish empirical human comprehension or usability.
+
+## Milestone 2 recording package
+
+- On macOS, double-click `Launch_WealthPilot.command` (or run `zsh Launch_WealthPilot.command` from this folder). It creates a local environment, installs the pinned development dependencies and starts the app.
+- `contracts/api-v1.yaml`: actual HTTP operations and F.6 internal callable ICOMs. Regenerate with `python scripts/export_api_contract.py`; contract tests detect drift.
+- `docs/route-table.md`: product action → HTTP route → UC.1 step → function/asset.
+- `tests/test_functional_requirements.py`: renamed existing C.6 requirement tests, with their real assertions retained.
+- `docs/requirements-flowdown.md`: implementation traces, a proposed equivalence rationale and remaining model checks.
+- `docs/model-recording-checklist.md`: cloud views and relationships to verify before recording.
+- `docs/recording-guide.md`: Chinese screen cues with an English ten-minute script.
+- `evidence/local-pytest.xml`: local verification report; not a GitHub Actions result.
+
+A remote CI run requires a repository writer to commit/push this package. Preserve `.github/` when uploading. This update does not approve pending rules, claim unperformed user trials, or change the cloud model.
+
+## Coursework acceptance update
+
+Current verified local result: **131 passed, 0 skipped**. See `COURSE_ACCEPTANCE_UPDATE.md` and `evidence/acceptance/coursework-role-report.json`. Hosted GitHub Actions must still run after a writer pushes the updated files.
