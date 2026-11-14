@@ -1,0 +1,205 @@
+{
+  "frozen_at_utc": "2026-11-14T14:34:02.245315+00:00",
+  "units": "seconds",
+  "triangular_order": [
+    "minimum",
+    "maximum",
+    "mode"
+  ],
+  "decision": "Update simulation: explicit cache lifecycle and pilot-calibrated processing durations; retain original forecast as historical evidence. Production default remains uncached.",
+  "calibration_rule": "minimum=0.5 times pilot minimum; maximum=1.5 times pilot maximum; mode=pilot median. Guard bands are engineering choices, not statistical confidence limits.",
+  "pilot_runs_sha256": "3c4a9a461411a166ac982f01bddf9297c0db2f333d82759fdfbdb804aab33db5",
+  "pilot_used_for_calibration_only": true,
+  "heldout_validation_run_after_freeze": true,
+  "cache_hit_probability": 0.9,
+  "miss_probability_basis": "Prescribed sensitivity workload, not empirical production estimate. Deliberate eviction before cached runs 1,11,...91.",
+  "parameters": {
+    "UC.1.8": [
+      1.0708e-05,
+      7.4562e-05,
+      3.11665e-05
+    ],
+    "UC.1.11": [
+      2e-06,
+      2.4249e-05,
+      5.2915e-06
+    ],
+    "UC.1.12": [
+      0.009427271,
+      0.1219435005,
+      0.019550021
+    ],
+    "UC.1.13": [
+      0.0008890205,
+      0.0047533125,
+      0.001873438
+    ],
+    "UC.1.14": [
+      0.00196275,
+      0.0143398125,
+      0.0042043535
+    ],
+    "UC.1.15": [
+      0.0016509585,
+      0.0062109375,
+      0.0035296875
+    ],
+    "UC.1.16": [
+      4.9354e-05,
+      0.0002646255,
+      0.0001277295
+    ],
+    "UC.1.17": [
+      8.53335e-05,
+      0.000457563,
+      0.0001839585
+    ],
+    "UC.1.19": [
+      0.0003795415,
+      0.00333075,
+      0.001063458
+    ],
+    "SIM.C.12.1": [
+      0.0001444375,
+      0.000758937,
+      0.000346875
+    ],
+    "SIM.C.12.2": [
+      1.665e-07,
+      1.5e-06,
+      5e-07
+    ],
+    "SIM.C.12.3": [
+      0.0093945415,
+      0.02953275,
+      0.019242854
+    ],
+    "SIM.C.12.4": [
+      0.0001570415,
+      0.0008926245,
+      0.0003800625
+    ],
+    "SIM.C.12.5": [
+      0.0018796665,
+      0.006330312,
+      0.003901021
+    ],
+    "SIM.C.12.6": [
+      1.665e-07,
+      1.2495e-06,
+      4.795e-07
+    ],
+    "UC.1.9": [
+      0.001,
+      0.01,
+      0.003
+    ]
+  },
+  "numeric_basis": {
+    "UC.1.8": {
+      "n": 200,
+      "min_ms": 0.021416,
+      "median_ms": 0.0311665,
+      "max_ms": 0.049708
+    },
+    "UC.1.11": {
+      "n": 200,
+      "min_ms": 0.004,
+      "median_ms": 0.005291499999999999,
+      "max_ms": 0.016166
+    },
+    "UC.1.12": {
+      "n": 100,
+      "min_ms": 18.854542,
+      "median_ms": 19.550021,
+      "max_ms": 81.295667
+    },
+    "UC.1.13": {
+      "n": 200,
+      "min_ms": 1.778041,
+      "median_ms": 1.8734380000000002,
+      "max_ms": 3.168875
+    },
+    "UC.1.14": {
+      "n": 200,
+      "min_ms": 3.9255,
+      "median_ms": 4.2043535,
+      "max_ms": 9.559875
+    },
+    "UC.1.15": {
+      "n": 200,
+      "min_ms": 3.301917,
+      "median_ms": 3.5296875,
+      "max_ms": 4.140625
+    },
+    "UC.1.16": {
+      "n": 200,
+      "min_ms": 0.098708,
+      "median_ms": 0.1277295,
+      "max_ms": 0.176417
+    },
+    "UC.1.17": {
+      "n": 200,
+      "min_ms": 0.170667,
+      "median_ms": 0.1839585,
+      "max_ms": 0.305042
+    },
+    "UC.1.19": {
+      "n": 200,
+      "min_ms": 0.759083,
+      "median_ms": 1.063458,
+      "max_ms": 2.2205
+    },
+    "SIM.C.12.1": {
+      "n": 100,
+      "min_ms": 0.288875,
+      "median_ms": 0.346875,
+      "max_ms": 0.505958
+    },
+    "SIM.C.12.2": {
+      "n": 10,
+      "min_ms": 0.000333,
+      "median_ms": 0.0005,
+      "max_ms": 0.001
+    },
+    "SIM.C.12.3": {
+      "n": 10,
+      "min_ms": 18.789083,
+      "median_ms": 19.242854,
+      "max_ms": 19.6885
+    },
+    "SIM.C.12.4": {
+      "n": 10,
+      "min_ms": 0.314083,
+      "median_ms": 0.3800625,
+      "max_ms": 0.595083
+    },
+    "SIM.C.12.5": {
+      "n": 100,
+      "min_ms": 3.759333,
+      "median_ms": 3.901021,
+      "max_ms": 4.220208
+    },
+    "SIM.C.12.6": {
+      "n": 90,
+      "min_ms": 0.000333,
+      "median_ms": 0.0004795,
+      "max_ms": 0.000833
+    }
+  },
+  "UC.1.9_basis": "Retained initial 1/10/3 ms presentation allowance, not a separately measured browser stage; validate risk display with the complete HTTP and frame interval.",
+  "zero_actions": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    10,
+    18,
+    20
+  ],
+  "zero_basis": "Excluded human response time and implementation-bundled conceptual steps; measured browser group intervals reported separately without duplicate summation.",
+  "SIM.C.12": "zero-duration container, executes child lifecycle"
+}

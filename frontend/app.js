@@ -66,18 +66,22 @@
     try { sessionStorage.setItem(DRAFT_KEY, JSON.stringify(state.draft)); } catch (error) { /* not essential */ }
   }
 
+  let ch10Current = null;
   async function api(path, options = {}) {
+    const ch10Start=performance.now();
     let response;
     try {
       response = await fetch(API + path, {
         method: options.method || "GET",
-        headers: options.body ? { "Content-Type": "application/json" } : undefined,
+        headers: { ...(options.body ? { "Content-Type": "application/json" } : {}), ...(ch10Current ? { "X-Ch10-Scenario":ch10Current.scenario, "X-Ch10-Run":String(ch10Current.run) } : {}) },
         body: options.body ? JSON.stringify(options.body) : undefined,
       });
     } catch (error) {
       throw new Error("WealthPilot's server is not responding. Check that it is still running (python app.py --serve), then try again.");
     }
+    const ch10Headers=performance.now();
     const data = await response.json().catch(() => ({}));
+    if(ch10Current)ch10Current.requests.push({path,request_start_ms:ch10Start,headers_ms:ch10Headers,json_end_ms:performance.now(),status:response.status});
     if (response.status === 404 && path.startsWith("/api/sessions/")) {
       state.sessionId = null;
       throw new Error("This planning session has ended, for example because the server restarted. Start planning again; your answers are kept.");
@@ -677,4 +681,32 @@
       render();
     })
     .catch((error) => { state.errors = [error.message]; render(); });
+  // Chapter 10 experiment controls exist only in the copied project with ?ch10=1.
+  if (new URLSearchParams(location.search).has('ch10')) {
+    const panel=document.createElement('section');panel.style.cssText='position:fixed;top:8px;right:8px;z-index:10000;background:#fff;color:#111;padding:12px;border:1px solid #888;max-width:360px';
+    const button=document.createElement('button');button.textContent='Run Chapter 10 browser measurements';const progress=document.createElement('p');progress.textContent='200 scripted runs; keep this tab visible.';panel.append(button,progress);document.body.append(panel);
+    const frame=()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));
+    const timed=async(name,fn,rows)=>{const entry=performance.now();await fn();await frame();rows.push({stage:name,entry_ms:entry,exit_ms:performance.now()});};
+    button.onclick=async()=>{
+      button.disabled=true;
+      try {
+        const cfg=await (await fetch('/ch10/fixture')).json();const counts={baseline:0,cached:0};
+        for (let i=0;i<cfg.order.length;i++) {
+          if(document.visibilityState!=='visible')throw Error('Tab hidden; stop and rerun in foreground.');
+          const mode=cfg.order[i];const run=++counts[mode];ch10Current={scenario:mode,run,requests:[]};const phases=[];
+          state.view='planner';state.step='intro';state.draft={profile:{},answers:{},holdings:[]};
+          const scriptedInputs=[]; for (const [stage,key,value] of [['UC.1.3','profile',cfg.fixture.financial_profile],['UC.1.5','answers',cfg.fixture.risk_questionnaire_responses],['UC.1.7','holdings',cfg.fixture.current_holdings]]) {const entry=performance.now();state.draft[key]=structuredClone(value);scriptedInputs.push({stage,entry_ms:entry,exit_ms:performance.now()});}
+          const begin=performance.now();await timed('initiate_and_show_input',start,phases);
+          go('answers');const completeInput=performance.now();await timed('submit_inputs_and_show_risk',submitAnswers,phases);if(!state.risk||state.errors.length)throw Error('Risk output missing');
+          await timed('confirm_and_show_plan',confirmProfile,phases);const planDisplayed=performance.now();if(!state.plan||state.plan.status!=='presented')throw Error('Plan output missing');
+          await timed('save_and_show_confirmation',savePlan,phases);if(state.save.status!=='saved')throw Error('Save failed');
+          if(JSON.stringify(state.save.simulated_portfolio_before)!==JSON.stringify(state.save.simulated_portfolio_after))throw Error('Portfolio changed');
+          const end=performance.now();const row={scenario:mode,run,visibility:document.visibilityState,userAgent:navigator.userAgent,scriptedInputs,phases,requests:ch10Current.requests,total_scripted_browser_ms:end-begin,complete_inputs_to_plan_frame_ms:planDisplayed-completeInput,save_ok:true,portfolio_unchanged:true};ch10Current=null;
+          const ack=await fetch('/ch10/records',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(row)});if(!ack.ok)throw Error('Evidence persistence failed');progress.textContent=`Completed ${i+1}/200 — baseline ${counts.baseline}, cached ${counts.cached}`;
+        }
+        progress.textContent='Complete: 200/200 browser runs saved with server boundary timings.';
+      }catch(e){progress.textContent='Stopped: '+e.message;button.disabled=false;ch10Current=null;}
+    };
+  }
+
 })();
