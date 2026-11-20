@@ -18,6 +18,7 @@ from investment_plan_management import (
     LmStudioModel,
     explain_investment_plan,
     language_model_from_environment,
+    present_investment_plan,
 )
 from investment_plan_management.explanation_engine import contract_input
 
@@ -85,12 +86,16 @@ def broken(field, value):
         broken("scope_notice", "Just a plan."),
         broken("summary", "This plan is guaranteed to grow."),
         broken("summary", "Your risk score is 80, so the plan puts 60% in US Stocks."),
+        broken("summary", "This practice plan puts 40% in US Stocks and 60% in Bonds for a Moderate investor."),
+        broken("summary", "This plan puts 100% in US Stocks."),
+        broken("allocation_rationale", ["AAPL and MSFT each make up 40% of the plan, and BND makes up 30%."]),
         broken("allocation_rationale", ["Put $5,000 into AAPL."]),
         lambda plan: ["not", "an", "object"],
     ],
     ids=[
         "missing-summary", "empty-summary", "no-risk", "rationale-not-list", "dropped-limitation",
-        "wrong-scope-notice", "prohibited-phrase", "contradicts-score", "invented-amount", "not-an-object",
+        "wrong-scope-notice", "prohibited-phrase", "contradicts-score", "reversed-allocation",
+        "wrong-full-allocation", "wrong-security-weight", "invented-amount", "not-an-object",
     ],
 )
 def test_CS6_1_4_1_response_that_breaks_the_contract_falls_back_to_the_template(make_response):
@@ -102,6 +107,9 @@ def test_CS6_1_4_1_response_that_breaks_the_contract_falls_back_to_the_template(
     assert explanation.generated_by == "template"
     assert explanation.generation_note.startswith("The language model's response was rejected")
     assert replace(explanation, generation_note="") == template
+    presented, reviewed = present_investment_plan(plan, explanation, explanation_rules=RULES)
+    assert template.summary in presented.display_text
+    assert reviewed.target_allocation == plan.target_allocation
 
 
 def test_CS6_1_4_1_unreachable_model_falls_back_to_the_template():

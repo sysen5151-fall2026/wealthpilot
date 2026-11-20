@@ -17,7 +17,8 @@ The two paths of the SPEC.md Model Response Contract:
 - If a language model is given (language_model.py), it is asked to word the
   same facts. Its response is used only if it passes every check of the
   contract: all fields present, limitations preserved, the approved scope
-  notice, no prohibited phrase, and no number that is not in the facts.
+  notice, no prohibited phrase, known numbers, and agreement with explicit
+  allocation and holding weight claims.
   Otherwise the template is returned and generation_note says why.
 """
 
@@ -48,6 +49,7 @@ RESPONSE_SCHEMA = {
 MAX_SENTENCE_LENGTH = 600
 MAX_ITEMS = 12
 NUMBER = re.compile(r"\d[\d,]*(?:\.\d+)?")
+PERCENT = r"(?P<weight>\d+(?:\.\d+)?)\s*%"
 STRUCTURAL_NUMBERS = {0.0, 1.0, 100.0}  # "one year", "out of 100"
 
 
@@ -291,9 +293,36 @@ def response_problem(response, plan: InvestmentRecommendationsAndWeights, rules:
             return f"it uses the prohibited phrase '{phrase}'"
     allowed = _numbers_in_facts(facts)
     for text in texts:
+        if problem := _weight_problem(text, plan):
+            return problem
         for number in _numbers_in_text(text):
             if number not in allowed:
                 return f"it states the number {number:g}, which is not in the plan"
+    return None
+
+
+def _weight_problem(text: str, plan: InvestmentRecommendationsAndWeights) -> str | None:
+    """Check explicit percentage claims against the named asset class or security."""
+    weights = {name.casefold(): weight for name, weight in plan.target_allocation.items()}
+    weights.update({item.symbol.casefold(): item.weight for item in plan.recommendations})
+    if not weights:
+        return None
+    names = "|".join(re.escape(name) for name in sorted(weights, key=len, reverse=True))
+    label = rf"\b(?:{names})\b"
+    labels = rf"(?P<labels>{label}(?:(?:,\s*|\s+and\s+){label})*)"
+    claims = (
+        rf"{PERCENT}\s+(?:in|to|for|is allocated to)\s+{labels}",
+        rf"{labels}(?:\s+(?:each\s+)?(?:make(?:s)? up|account(?:s)? for|"
+        rf"represent(?:s)?|at|is|are|has|have)\s+|\s*[:=]\s*){PERCENT}",
+    )
+    for pattern in claims:
+        for claim in re.finditer(pattern, text, flags=re.IGNORECASE):
+            stated = float(claim['weight'])
+            precision = len(claim['weight'].partition('.')[2])
+            for name in re.findall(label, claim['labels'], flags=re.IGNORECASE):
+                planned = weights[name.casefold()] * 100
+                if stated != round(planned, precision):
+                    return f"the weight stated for {name} disagrees with the plan"
     return None
 
 
