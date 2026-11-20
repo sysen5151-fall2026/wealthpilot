@@ -54,7 +54,7 @@ export WEALTHPILOT_LLM_MODEL="<model identifier shown in LM Studio>"
 python app.py --serve
 ```
 
-The model's answer is used only if it passes every check of the SPEC.md Model Response Contract; otherwise the template is used and the plan says why. `WEALTHPILOT_LLM_BASE_URL` (default `http://localhost:1234/v1`) and `WEALTHPILOT_LLM_TIMEOUT` (seconds, default 30) change the connection.
+The model's answer is used only if it passes the implemented checks of the SPEC.md Model Response Contract. Otherwise the template is used and the plan says why. `WEALTHPILOT_LLM_BASE_URL` (default `http://localhost:1234/v1`) must use `localhost`, `127.0.0.1`, or `::1`. Model redirects are rejected. `WEALTHPILOT_LLM_TIMEOUT` sets the timeout in seconds (default 30).
 
 ### Tests
 

@@ -17,6 +17,7 @@ import json
 import os
 import urllib.error
 import urllib.request
+from urllib.parse import urlsplit
 from typing import Protocol
 
 DEFAULT_BASE_URL = "http://localhost:1234/v1"
@@ -34,6 +35,11 @@ class LanguageModel(Protocol):
     def complete_json(self, system: str, user: str, schema: dict) -> dict: ...
 
 
+class _NoRedirects(urllib.request.HTTPRedirectHandler):
+    def redirect_request(self, req, fp, code, msg, headers, newurl):
+        return None
+
+
 class LmStudioModel:
     """A model loaded in LM Studio, called through its OpenAI-compatible chat endpoint."""
 
@@ -42,10 +48,21 @@ class LmStudioModel:
         self.base_url = base_url.rstrip("/")
         self.timeout = timeout
         self.name = f"{model} (LM Studio)"
-        # LM Studio runs on this machine, so a system proxy must never be used.
-        self._opener = urllib.request.build_opener(urllib.request.ProxyHandler({}))
+        self._opener = urllib.request.build_opener(urllib.request.ProxyHandler({}), _NoRedirects())
 
     def complete_json(self, system: str, user: str, schema: dict) -> dict:
+        try:
+            endpoint = urlsplit(self.base_url)
+        except ValueError as error:
+            raise LanguageModelError("the local model endpoint is invalid") from error
+        if (
+            endpoint.scheme not in {"http", "https"}
+            or endpoint.hostname not in {"localhost", "127.0.0.1", "::1"}
+            or endpoint.username is not None
+            or endpoint.query
+            or endpoint.fragment
+        ):
+            raise LanguageModelError("the model endpoint must stay on the local host")
         body = {
             "model": self.model,
             "messages": [{"role": "system", "content": system}, {"role": "user", "content": user}],

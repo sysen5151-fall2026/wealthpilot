@@ -18,7 +18,7 @@ These entries trace to [C.6.1 Explanation Engine](https://cloud.innoslate.com/co
 | Untrusted upstream text enters model context | Use the approved structured plan contract. Review input fields and keep raw provider text and user messages outside the inference payload unless separately approved and validated. |
 | Response schema changes | Keep the response shape checks and malformed-response regressions. Rerun contract tests on model or adapter changes. |
 | Runtime or model dependency becomes unavailable | Record the tested runtime and model version when selected. Review support and keep the deterministic template available for replay. |
-| Investor context crosses the host boundary | Review the configured endpoint and inspect requests with synthetic input. A hosted deployment requires an approved payload and data boundary before use. |
+| Investor context crosses the host boundary | The pilot model adapter rejects non-loopback endpoints before any request and refuses redirects. A hosted deployment requires an approved payload and data boundary before use. |
 
 ## RA-01 development monitoring
 

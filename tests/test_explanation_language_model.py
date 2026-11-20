@@ -145,6 +145,8 @@ class FakeLmStudio(BaseHTTPRequestHandler):
         status, payload = type(self).replies.pop(0)
         data = json.dumps(payload).encode()
         self.send_response(status)
+        if status == 307:
+            self.send_header("Location", "/redirected")
         self.send_header("Content-Type", "application/json")
         self.send_header("Content-Length", str(len(data)))
         self.end_headers()
@@ -202,6 +204,29 @@ def test_lm_studio_failures_raise_language_model_error(lm_studio, reply):
 def test_lm_studio_not_running_raises_language_model_error():
     with pytest.raises(LanguageModelError):
         LmStudioModel("qwen-test", base_url="http://127.0.0.1:9/v1", timeout=2).complete_json("s", "u", {})
+
+
+def test_inference_with_a_nonlocal_endpoint_returns_the_template(monkeypatch):
+    plan = make_recommendations()
+    model = LmStudioModel("qwen-test", base_url="https://models.example.invalid/v1")
+    def unexpected_request(*args, **kwargs):
+        pytest.fail("The inference adapter attempted to send the plan")
+    monkeypatch.setattr(model._opener, "open", unexpected_request)
+
+    result = explain_investment_plan(plan, explanation_rules=RULES, language_model=model)
+
+    assert result.generated_by == "template"
+    assert "must stay on the local host" in result.generation_note
+
+
+def test_local_model_redirect_is_not_followed(lm_studio):
+    FakeLmStudio.replies = [(307, {}), (200, chat_reply('{"summary": "ok"}'))]
+    model = LmStudioModel("qwen-test", base_url=lm_studio)
+
+    with pytest.raises(LanguageModelError, match="HTTP 307"):
+        model.complete_json("system", "user", {})
+
+    assert len(FakeLmStudio.requests) == 1
 
 
 def test_language_model_is_used_only_when_configured():
