@@ -24,7 +24,7 @@ These entries trace to [C.6.1 Explanation Engine](https://cloud.innoslate.com/co
 
 The strategy is **Mitigate**. The 4/5 likelihood assumes optional inference is enabled with the original contract-only checks. It is an engineering judgment for the pre-mitigation scenario. The template default reduces exposure to generated explanations. RA-M1 checks recognized explicit numeric allocation and holding claims, and the deterministic fallback supplies the explanation when validation rejects a claim.
 
-The standard numeric reversal triggered fallback in the independent synthetic replay. Word-form percentages, an incorrect risk category, an unplanned symbol and purchase advice passed through. The TA separately reported that five of six reversed-allocation paraphrases passed through. Those fixture-specific outcomes describe coverage gaps. They do not estimate field likelihood.
+Codex ran five synthetic replies on checkout `6820e61`. The standard numeric reversal triggered fallback. Word-form percentages, an incorrect risk category, an unplanned symbol and purchase advice passed through. To reproduce the earlier conversation result, Codex generated a new set of six reversal variants and ran them against implementation `de34bf4` using `test_RA_01_reversal_wording_uses_fallback`. The numeric control passed, and five differently worded replies were accepted by the guardrail. The full suite reports 167 passed and five expected failures. These are fixture-level observations. See the [prompt log](prompt-log.md).
 
 ## RA-01 development monitoring
 

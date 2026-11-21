@@ -77,3 +77,11 @@ User requested help making pending acceptance tests pass legitimately. Implement
 ## 2026-11-11 AI-role coursework acceptance
 
 The student reported TA permission for AI simulation. Added actual scenario comparison, separate internal simulated-change approval, baseline recovery and executable AI-authored role protocols. Retained original human-oriented criteria and archived skeleton; documented the adapted method in SPEC.md. Local suite: 131 passed, 0 skipped. Browser scenario comparison checked. No human recruitment, independent human review, hosted CI result, rule approval or cloud-model update is claimed.
+
+## 2026-11-21 — WealthPilot Task 6 evidence correction
+
+User request: complete the remaining corrections after the Innoslate updates. The supplied review clarified that the earlier five-of-six observation came from an AI probe in the project conversation.
+
+Codex generated six ways to state an erroneous 40% US Stocks / 60% Bonds allocation for a plan with the opposite weights: explicit percentages, two word-form orderings, fractions, a ratio per hundred, and two numbers with one shared percent unit. Codex added them to `tests/test_explanation_language_model.py::test_RA_01_reversal_wording_uses_fallback` and ran the local suite on implementation `de34bf4` with those tests added. The explicit case triggered the deterministic fallback. The other five passed through the guardrail and are tracked as strict expected failures. This is a reproducible new set rather than a reconstruction of the exact earlier wording. Result: 167 passed and five expected failures. A separate Codex run at `6820e61` used five replies and is documented in the risk register.
+
+For trade scoring, Codex tokenized the five required response fields from the deterministic synthetic plan fixture as compact JSON (tiktoken 0.14.0 / o200k_base, 180 tokens) and checked the public model and OpenAI provider benchmark sources in ADR-0002. Comprehension, fidelity and the template display time remain study assumptions. No hosted requests or learner trials were run.

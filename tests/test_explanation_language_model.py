@@ -122,6 +122,51 @@ def test_CS6_1_4_1_unreachable_model_falls_back_to_the_template():
     assert "connection refused" in explanation.generation_note
 
 
+@pytest.mark.parametrize(
+    "summary",
+    [
+        pytest.param(
+            "This practice plan puts 40% in US Stocks and 60% in Bonds for a Moderate investor.",
+            id="explicit-percentages",
+        ),
+        pytest.param(
+            "The US Stocks allocation is forty percent and the Bonds allocation is sixty percent.",
+            id="words-after-asset",
+            marks=pytest.mark.xfail(strict=True, reason="Word-form percentages escape the guardrail"),
+        ),
+        pytest.param(
+            "This plan is weighted forty percent toward US Stocks and sixty percent toward Bonds.",
+            id="words-before-asset",
+            marks=pytest.mark.xfail(strict=True, reason="Word-form percentages escape the guardrail"),
+        ),
+        pytest.param(
+            "The portfolio has a two-fifths US Stocks share and a three-fifths Bonds share.",
+            id="fractions",
+            marks=pytest.mark.xfail(strict=True, reason="Fractional shares escape the guardrail"),
+        ),
+        pytest.param(
+            "For every one hundred dollars in this plan, forty go to US Stocks and sixty to Bonds.",
+            id="per-hundred",
+            marks=pytest.mark.xfail(strict=True, reason="Ratios expressed in words escape the guardrail"),
+        ),
+        pytest.param(
+            "US Stocks and Bonds receive 40 and 60 percent, respectively.",
+            id="shared-unit",
+            marks=pytest.mark.xfail(strict=True, reason="A shared percent unit escapes the guardrail"),
+        ),
+    ],
+)
+def test_RA_01_reversal_wording_uses_fallback(summary):
+    plan = make_recommendations()
+    response = good_response(plan)
+    response["summary"] = summary
+
+    explanation = explain_investment_plan(plan, explanation_rules=RULES, language_model=FakeModel(response))
+
+    assert explanation.generated_by == "template"
+    assert "60% in US Stocks and 40% in Bonds" in explanation.summary
+
+
 def test_CS6_1_1_1_facts_given_to_the_model_follow_the_spec_input_schema():
     plan = make_recommendations()
     template = explain_investment_plan(plan, explanation_rules=RULES)
