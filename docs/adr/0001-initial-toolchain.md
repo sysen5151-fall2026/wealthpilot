@@ -1,5 +1,5 @@
 # ADR-0001: Initial Toolchain
-Status: Proposed — team confirmation required
+Status: Historical scaffold record. ADR-0002 supersedes the proposed model deployment choice for the pilot.
 Context: The Chapter 1 WealthPilot scaffold needs a language, a runtime, and a decision on whether the in-product language model is local or hosted.
 Decision: Use Python 3.12 with a local virtual environment. Use a locally hosted model through LM Studio.
 Rationale: Local hosting keeps investor profile data on the machine during the course prototype.

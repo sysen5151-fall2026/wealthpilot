@@ -3,7 +3,7 @@
 - **Language / version:** Python 3.12 (CI); Python 3.13 on the development Mac
 - **Runtime:** local virtual environment. `python app.py --serve` starts a FastAPI 0.161.1 app on uvicorn 0.53.0 at http://127.0.0.1:8000; saved plans and simulated portfolios are kept in SQLite (`data/wealthpilot.db`, Python standard library). The browser front end (`frontend/`) loads no outside scripts or fonts.
 - **Model runner:** LM Studio (local, OpenAI-compatible API, default `http://localhost:1234/v1`), optional
-- **Model:** not yet selected. With `WEALTHPILOT_LLM_MODEL` unset, F.6.1 uses its deterministic template
+- **Pilot explanation mode:** on-host deterministic template under [ADR-0002](adr/0002-explanation-deployment.md). An optional configured model uses a loopback endpoint with redirects disabled.
 - **Editor:** VS Code
 - **Assistants used in project work:** Claude Code (Chapter 1 scaffold); ChatGPT (Task 2 requirements/repository review and UC.1 walking-skeleton alignment); Claude, claude-opus-5-5 (F.6 code on 2026-11-03, the UC.1 browser app on 2026-11-04, the rules review on 2026-11-05)
 
@@ -32,4 +32,4 @@ This section records the actual provider and endpoint, as the SPEC.md Historical
 
 ## Current implementation status
 
-UC.1 runs end to end in the browser and in the console. F.1 to F.5 apply `config/rules.json` (WP-RULES-0.2; reasons in `docs/rules-rationale.md`). X.2 serves the installed Yahoo Finance snapshot through the data contract. F.6.1 explains with the template, or with an LM Studio model when one is configured. F.6.4 saves to SQLite. The requirement tests (`tests/test_functional_requirements.py`, `test_uc1_functions.py`, `test_api.py`, `test_explanation_language_model.py`, `test_fetch_snapshot.py`) are green. The N-01–N-08 coursework checks now run by default with the AI-role protocol described in SPEC.md. Current local verification: 131 passed, 0 skipped. Human comprehension and usability have not been empirically measured.
+UC.1 runs end to end in the browser and in the console. F.1 to F.5 apply `config/rules.json` (WP-RULES-0.2; reasons in `docs/rules-rationale.md`). X.2 serves the installed Yahoo Finance snapshot through the data contract. F.6.1 explains with the template, or with an LM Studio model when one is configured. F.6.4 saves to SQLite. The requirement tests (`tests/test_functional_requirements.py`, `test_uc1_functions.py`, `test_api.py`, `test_explanation_language_model.py`, `test_fetch_snapshot.py`) are green. The N-01–N-08 coursework checks now run by default with the AI-role protocol described in SPEC.md. Current local verification: 166 passed, 0 skipped. Human comprehension and usability have not been empirically measured.
