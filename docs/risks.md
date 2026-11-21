@@ -1,6 +1,6 @@
 # WealthPilot product risk register
 
-The ratings are provisional engineering estimates for team review. Likelihood, cost, schedule, and technical impact use the 1–5 scales in the [Innoslate risk table](https://cloud.innoslate.com/cornell/p/813/database/entity/319203). Overall impact is the rounded mean of the three impacts. The priority score is likelihood × overall impact. The [5×5 risk matrix](https://cloud.innoslate.com/cornell/p/813/diagrams/risk/319203) shows the three system scenarios at their pre-mitigation positions.
+The team confirmed these pre-mitigation ratings as engineering judgments for the course simulation. Likelihood, cost, schedule, and technical impact use the 1–5 scales in the [Innoslate risk table](https://cloud.innoslate.com/cornell/p/813/database/entity/319203). Overall impact is the rounded mean of the three impacts. The priority score is likelihood × overall impact. The [5×5 risk matrix](https://cloud.innoslate.com/cornell/p/813/diagrams/risk/319203) shows the three system scenarios at their pre-mitigation positions.
 
 | Risk | Failure and consequence | L / C / S / T | Impact | Score | Treatment and evidence |
 | --- | --- | --- | --- | --- | --- |

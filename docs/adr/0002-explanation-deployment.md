@@ -10,7 +10,17 @@
 
 Score comprehension (SA-01), factual fidelity (SA-02), p95 explanation-to-display latency (SA-03), off-host data exposure (SA-04), and lifecycle cost with an affordability check (SA-05). Treat the template as a third reference path.
 
-The in-process template baseline was 0.0959 ms p95 in 100 repeats of one synthetic fixture. The [local inference spike](../evidence/explanation-deployment-spike.md) returned six model explanations on CPU. All six took more than the provisional 2.0 s explanation-to-display budget before browser display. The hosted candidate has no approved payload boundary or provider configuration for the pilot. These feasibility findings support the local template pilot configuration. Paired measurements, comprehension results and full lifecycle cost remain open, so a complete numerical ranking is unavailable.
+The course simulation assumes 1,000 explanations and a $250 ceiling. The team confirmed swing points of 80, 100, 40, 50, and 30 for SA-01 through SA-05, respectively.
+
+| Option | Comprehension | Fidelity | Display p95 | Off-host fields | Lifecycle cost | Weighted score |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| Local model | 82% | 96% | 8.0 s | 0% | $160 | 74.1% |
+| Hosted API | 90% | 96% | 1.4 s | 40% | $100 | 76.0% |
+| Deterministic template | 80% | 100% | 0.25 s | 0% | $60 | 90.6% |
+
+All table inputs are scenario assumptions. Normalize the swing points by their sum. Comprehension and fidelity values equal their rates. Latency and cost use declining linear values, floored at zero, with anchors of 2.0 s and $250. Data exposure value equals one minus the off-host field share. Reducing the latency swing to 15 gives local inference 80.9% and the hosted API 80.2%. The template ranks first with latency swings of 15, 40, and 80.
+
+Separately, the [local inference spike](../evidence/explanation-deployment-spike.md) returned six model explanations in 8.64 to 18.68 s on CPU before browser display. The in-process template baseline was 0.0959 ms p95 over 100 repeats of one synthetic fixture. The hosted candidate would need an approved payload boundary and provider configuration. A deployment beyond the course simulation would still need user comprehension, end-to-end timing and cost validation.
 
 ## Implementation implications
 
