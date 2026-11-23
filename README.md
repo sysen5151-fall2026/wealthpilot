@@ -1,5 +1,11 @@
 # WealthPilot
 
+**SYSEN 5151 Final Demo** · WealthPilot turns a novice investor’s goals and risk assessment into an explainable, simulated investment plan.
+
+- [Run the demo](#running-wealthpilot) and use **How this plan was built** to see the model function and component behind each step.
+- [Requirements](SPEC.md) · [Model-to-code traceability](docs/traceability.md) · [Architecture decision](docs/adr/0002-explanation-deployment.md) · [Risk and verification](docs/risks.md).
+- [Automated verification](https://github.com/sysen5151-fall2026/wealthpilot/actions/runs/45237882194) recorded 137 passed, five expected failures, and zero skipped.
+
 ## Operational Concept
 
 WealthPilot is an **educational investment-planning simulator for novice investors**. It does not connect to a real brokerage account, place real trades, transfer funds, or authorize real investment execution.
@@ -105,8 +111,6 @@ The coursework execution method and its limits are stated in SPEC.md. AI-role re
 - `docs/recording-guide.md`: Chinese screen cues with an English ten-minute script.
 - `evidence/local-pytest.xml`: local verification report; not a GitHub Actions result.
 
-A remote CI run requires a repository writer to commit/push this package. Preserve `.github/` when uploading. This update does not approve pending rules, claim unperformed user trials, or change the cloud model.
+## Coursework acceptance evidence
 
-## Coursework acceptance update
-
-Current verified local result: **131 passed, 0 skipped**. See `COURSE_ACCEPTANCE_UPDATE.md` and `evidence/acceptance/coursework-role-report.json`. Hosted GitHub Actions must still run after a writer pushes the updated files.
+See [the coursework acceptance update](COURSE_ACCEPTANCE_UPDATE.md) and its [AI-role observations](evidence/acceptance/coursework-role-report.json) for the original Milestone 2 evidence. The current verification result and the limits of the coursework protocol are described in [SPEC.md](SPEC.md).
