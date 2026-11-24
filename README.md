@@ -4,7 +4,7 @@
 
 - [Run the demo](#running-wealthpilot) and use **How this plan was built** to see the model function and component behind each step.
 - [Requirements](SPEC.md) · [Model-to-code traceability](docs/traceability.md) · [Architecture decision](docs/adr/0002-explanation-deployment.md) · [Risk and verification](docs/risks.md).
-- [Automated verification](https://github.com/sysen5151-fall2026/wealthpilot/actions/runs/45237882194) recorded 137 passed, five expected failures, and zero skipped.
+- [Automated verification](https://github.com/sysen5151-fall2026/wealthpilot/actions/runs/45239771975) on baseline 3acb8dc recorded 137 passed, five expected failures, and zero skipped.
 
 ## Operational Concept
 
