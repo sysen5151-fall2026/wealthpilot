@@ -4,7 +4,7 @@
 
 The student reports that the TA permits AI simulation for this course. The executable N-01–N-08 checks therefore use **AI-authored role cards and scripted answers exercised against real application responses**, with two operator processes and two recovery exercises. This is a coursework protocol check, not recruited human participants, independent human review, or measured novice usability. In particular, scripted explanation answers do not establish human comprehension, and automated completion does not measure unassisted human use. Original human-oriented acceptance criteria below remain reference targets; this execution mode is an explicit adaptation, not evidence that those human trials occurred. Course acceptance of this adaptation is for the TA to assess.
 
-Run `python -m pytest -q -rs` for all checks and `python scripts/coursework_exercise.py` to regenerate the role report. The report records the method once, followed by actual observations. GitHub Actions run 36 on commit d79ec24 reported **137 passed and five expected failures**, with no skipped tests. The duplicate C.6 test file was removed before this run. Configuration sign-off and live Innoslate allocation are separate.
+Run `python -m pytest -q -rs` for all checks and `python scripts/coursework_exercise.py` to regenerate the role report. The report records the method once, followed by actual observations. [GitHub Actions run 41](https://github.com/sysen5151-fall2026/wealthpilot/actions/runs/45239771975) on commit 3acb8dc reported **137 passed and five expected failures**, with no skipped tests. The duplicate C.6 test file was removed before this run. Configuration sign-off and live Innoslate allocation are separate.
 
 ## Needs and Acceptance Criteria
 
