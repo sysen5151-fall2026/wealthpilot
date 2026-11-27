@@ -35,7 +35,6 @@
     plan: null,
     withheld: null,
     save: null,
-    trace: [],
     busy: false,
     saved: null,
     savedDetail: null,
@@ -86,14 +85,6 @@
       throw new Error(typeof data.detail === "string" ? data.detail : `The server answered with an error (${response.status}).`);
     }
     return { status: response.status, data };
-  }
-
-  function setTrace(trace) {
-    if (Array.isArray(trace)) state.trace = trace;
-    const list = document.getElementById("trace-list");
-    list.innerHTML = state.trace.length
-      ? state.trace.map((step) => `<li><span class="trace-tag${step.tag.startsWith("X.") ? " is-external" : ""}">${esc(step.tag)}</span><span><b>${esc(step.name)}</b>: ${esc(step.output)}</span></li>`).join("")
-      : `<li><span class="trace-tag">–</span><span>Start planning to see each step.</span></li>`;
   }
 
   function go(step) {
@@ -509,7 +500,6 @@
     state.sessionId = data.session_id;
     state.requests = data.requests_for_investor_input;
     state.risk = state.plan = state.withheld = state.save = null;
-    setTrace(data.trace);
   }
 
   async function start() {
@@ -548,7 +538,6 @@
       }
       state.risk = data.risk_assessment;
       state.plan = state.withheld = state.save = null;
-      setTrace(data.trace);
       go("risk");
     } catch (error) {
       state.busy = false; state.errors = [error.message]; render();
@@ -564,7 +553,6 @@
       });
       state.busy = false;
       state.save = null;
-      setTrace(data.trace);
       if (data.status === "withheld") { state.withheld = data; state.plan = null; }
       else { state.plan = data; state.withheld = null; }
       go("plan");
@@ -583,7 +571,6 @@
       state.busy = false;
       state.save = data;
       state.saved = null;
-      setTrace(data.trace);
       render();
       const target = main.querySelector(".confirmation, .save-panel .errors");
       if (target) target.scrollIntoView({ block: "center" });
@@ -668,7 +655,6 @@
 
   // Start
 
-  setTrace([]);
   render();
   api("/api/status")
     .then(({ data }) => {

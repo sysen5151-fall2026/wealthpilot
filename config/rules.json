@@ -1,6 +1,6 @@
 {
   "configuration_id": "WP-RULES-0.2",
-  "status": "reviewed 2026-11-05, team sign-off pending",
+  "status": "reviewed 2026-11-05, team sign-off 2026-11-26",
   "rationale": "docs/rules-rationale.md",
   "investment_planning_constraints": {
     "version": "IPC-0.1",

@@ -2,7 +2,7 @@
 
 `config/rules.json` holds every control that X.3 System Administrator and ENV.1 supply to F.1 to F.6. The AI assistant proposed the values on 2026-11-04 (WP-RULES-0.1-PLACEHOLDER). This review on 2026-11-05 checks each value against the installed price snapshot `yahoo-2026-11-04` (2021-11-04 to 2026-11-04, 1,254 trading days per fund) and records why it was kept.
 
-- **Status:** reviewed 2026-11-05, team sign-off pending. The status line in `config/rules.json` is shown at the bottom of every page.
+- **Status:** reviewed 2026-11-05; team sign-off 2026-11-26 (Yicheng Yang, Fangziyue Zhang). The status line in `config/rules.json` is shown at the bottom of every page.
 - **What changed from 0.1:** no value. The loss-tolerance stop rule added on 2026-11-04 (`loss_tolerance_min_improvement`) is now versioned as AR-0.2, and the configuration is renamed WP-RULES-0.2.
 - **Scope:** these rules drive an educational simulation. They are not investment advice and have not been reviewed by a financial professional.
 

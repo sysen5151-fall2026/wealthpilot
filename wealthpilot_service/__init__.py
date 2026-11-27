@@ -1,9 +1,11 @@
 """C.0 WealthPilot: the orchestration that runs UC.1, for the browser (api.py) and the console.
 
 pipeline.py holds the Planner, which calls F.1 to F.6 in UC.1 order and
-records a trace line per step tagged with the function and its asset (for
-example [F.6.3 | C.6.3]). run_investment_planning_session runs UC.1 once in
-the terminal with the sample investor from investor_interface/console.py.
+records each step internally, tagged with the function and its asset (for
+example F.6.3 | C.6.3). The tags stay in code and tests; the browser, the API
+and the console show only what the investor needs. Model-to-code tracing is
+documented in docs/traceability.md. run_investment_planning_session runs UC.1
+once in the terminal with the sample investor from investor_interface/console.py.
 """
 
 from pathlib import Path
@@ -79,14 +81,6 @@ def run_investment_planning_session(
         language_model=language_model,
     )
     session = planner.start_session()
-    printed = 0
-
-    def show_trace() -> None:
-        nonlocal printed
-        if echo:
-            for step in session.trace[printed:]:
-                print(f"[{step.tag}] {step.name} -> {step.output}")
-        printed = len(session.trace)
 
     risk = planner.submit_investor_information(
         session.session_id,
@@ -94,27 +88,23 @@ def run_investment_planning_session(
         risk_questionnaire_responses=investor["risk_questionnaire_responses"],
         current_holdings=investor["current_holdings"],
     )
-    show_trace()
     if echo:
         show_risk_assessment(risk)
     try:
         planner.build_plan(session.session_id, profile_interpretation_confirmed=True)
     except PlanWithheld as withheld:
-        show_trace()
         if echo:
             show_withheld(withheld.reason, withheld.limitations)
         raise
-    show_trace()
     presented = session.presented
     if echo:
         show_presented_plan(presented)
 
     if not save_requested:
         if echo:
-            print("[X.1] Request Plan Save -> no request sent, so F.6.3 to F.6.5 save nothing")
+            print("\nNo save request was sent, so nothing was saved.")
         return SessionOutcome(presented, None, None)
     outcome = planner.request_save(session.session_id, plan_id=presented.plan_id, action=EXPLICIT_SAVE)
-    show_trace()
     if echo and outcome.saved_plan:
         show_saved_plan(outcome.saved_plan, outcome.confirmation)
     return SessionOutcome(presented, outcome.saved_plan, outcome.confirmation)

@@ -72,9 +72,6 @@ def create_app(planner: Planner | None = None) -> FastAPI:
         except SessionNotFound:
             raise HTTPException(404, "This session is not known. Start again.") from None
 
-    def trace(session: PlanningSession) -> list[dict]:
-        return [asdict(step) for step in session.trace]
-
     @app.get("/api/status")
     def status() -> dict:
         model = planner.language_model
@@ -94,12 +91,11 @@ def create_app(planner: Planner | None = None) -> FastAPI:
             "session_id": session.session_id,
             "scope_notice": scope_notice,
             "requests_for_investor_input": planner.requests_for_investor_input(),
-            "trace": trace(session),
         }
 
     @app.post("/api/sessions/{session_id}/investor-information")
     def submit_investor_information(session_id: str, body: InvestorInformation):
-        session = session_or_404(session_id)
+        session_or_404(session_id)
         try:
             risk = planner.submit_investor_information(
                 session_id,
@@ -122,7 +118,6 @@ def create_app(planner: Planner | None = None) -> FastAPI:
                 "categories": planner.configuration.risk_scoring_rules["categories"],
                 "rules_version": risk.rules_version,
             },
-            "trace": trace(session),
         }
 
     @app.post("/api/sessions/{session_id}/plan")
@@ -138,7 +133,6 @@ def create_app(planner: Planner | None = None) -> FastAPI:
                 "scope_notice": scope_notice,
                 "reason": withheld.reason,
                 "limitations": withheld.limitations,
-                "trace": trace(session),
             }
         presented = session.presented
         return {
@@ -149,12 +143,11 @@ def create_app(planner: Planner | None = None) -> FastAPI:
                 "candidates": [c.symbol for c in session.screened.candidates],
                 "exclusions": [asdict(e) for e in session.screened.exclusions],
             },
-            "trace": trace(session),
         }
 
     @app.post("/api/sessions/{session_id}/plan-save-requests")
     def request_plan_save(session_id: str, body: PlanSaveRequestBody):
-        session = session_or_404(session_id)
+        session_or_404(session_id)
         try:
             outcome = planner.request_save(
                 session_id, plan_id=body.plan_id, action=body.action, request_id=body.request_id
@@ -169,7 +162,6 @@ def create_app(planner: Planner | None = None) -> FastAPI:
             "confirmation": asdict(outcome.confirmation) if outcome.confirmation else None,
             "simulated_portfolio_before": outcome.simulated_portfolio_before,
             "simulated_portfolio_after": outcome.simulated_portfolio_after,
-            "trace": trace(session),
         }
 
     @app.get("/api/saved-plans")

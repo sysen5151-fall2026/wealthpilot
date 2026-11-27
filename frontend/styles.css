@@ -365,20 +365,6 @@ legend { font-weight: 600; padding: 0; margin-bottom: 0.5rem; }
 .saved-list .allocation-bar { height: 0.6rem; margin: 0.5rem 0 0; max-width: 24rem; }
 .saved-list button { border: 0; background: none; padding: 0; font-weight: 700; color: var(--ink); cursor: pointer; text-decoration: underline; text-underline-offset: 0.2em; }
 
-/* Model trace for the demo: collapsed by default so learners are not distracted. */
-.trace {
-  max-width: calc(var(--measure) + 2 * var(--gutter));
-  margin: 0 auto 1rem;
-  padding: 0 var(--gutter);
-}
-.trace summary { cursor: pointer; font-weight: 700; padding: 0.75rem 0; border-top: 1px solid var(--rule); }
-.trace-hint { font-weight: 400; color: var(--ink-soft); margin-left: 0.5rem; }
-.trace-intro { margin: 0 0 0.75rem; font-size: var(--step--1); color: var(--ink-soft); }
-.trace-list { margin: 0; padding: 0; list-style: none; font-size: var(--step--1); }
-.trace-list li { display: grid; grid-template-columns: 7.5rem 1fr; gap: 0.75rem; padding: 0.4rem 0; border-bottom: 1px solid var(--rule); }
-.trace-tag { font-weight: 700; font-variant-numeric: tabular-nums; white-space: nowrap; }
-.trace-tag.is-external { color: var(--magenta); }
-
 .colophon {
   max-width: calc(var(--measure) + 2 * var(--gutter));
   margin: 0 auto;
@@ -400,7 +386,6 @@ legend { font-weight: 600; padding: 0; margin-bottom: 0.5rem; }
   .factor, .factors-key { grid-template-columns: 1fr; }
   .factors-key > span:first-child { display: none; }
   .score-number { font-size: 3.5rem; }
-  .trace-list li { grid-template-columns: 1fr; gap: 0.1rem; }
   .scale-band span { font-size: 0.6875rem; }
 }
 

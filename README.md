@@ -2,7 +2,7 @@
 
 **SYSEN 5151 Final Demo** · WealthPilot turns a novice investor’s goals and risk assessment into an explainable, simulated investment plan.
 
-- [Run the demo](#running-wealthpilot) and use **How this plan was built** to see the model function and component behind each step.
+- [Run the demo](#running-wealthpilot). The product shows only what the learner needs; model-to-code tracing is in the documents below, not in the interface.
 - [Requirements](SPEC.md) · [Model-to-code traceability](docs/traceability.md) · [Architecture decision](docs/adr/0002-explanation-deployment.md) · [Risk and verification](docs/risks.md).
 - [Automated verification](https://github.com/sysen5151-fall2026/wealthpilot/actions/runs/45239771975) on baseline 3acb8dc recorded 137 passed, five expected failures, and zero skipped.
 
@@ -49,7 +49,7 @@ python app.py              # UC.1 once in the terminal with a sample investor, w
 python app.py --no-save    # the same, but the investor never asks to save, so nothing is saved
 ```
 
-In the browser, a learner goes through the four steps of UC.1: About you, Your answers, Your risk profile (confirm it), and Your plan (save it). "How this plan was built" at the bottom of every page lists each step as it ran, tagged with the function and the asset from the model, for example `F.6.3 | C.6.3`.
+In the browser, a learner goes through the four steps of UC.1: About you, Your answers, Your risk profile (confirm it), and Your plan (save it). The pages show only the learner's inputs, risk profile, plan and save result. The Planner still tags each step internally with the model function and asset (for example `F.6.3 | C.6.3`); that mapping is documented in `docs/traceability.md` and checked by the tests, and is not shown in the product.
 
 ### 4. Optional: explanations from a local language model (LM Studio)
 
@@ -74,7 +74,7 @@ Tests use synthetic prices in temporary folders, never `data/prices/`.
 
 ### Rules and what is not built yet
 
-- `config/rules.json` holds every rule value (questionnaire points, category bands, mixes, screening limits, weights, wording). The AI assistant proposed them; they were reviewed on 2026-11-05 against the installed price snapshot, and `docs/rules-rationale.md` gives the reason for each. Its `status` line, shown at the bottom of every page, says "team sign-off pending" until the team approves them.
+- `config/rules.json` holds every rule value (questionnaire points, category bands, mixes, screening limits, weights, wording). The AI assistant proposed them; they were reviewed on 2026-11-05 against the installed price snapshot, and `docs/rules-rationale.md` gives the reason for each. The team (Yicheng Yang and Fangziyue Zhang) signed them off on 2026-11-26; the `status` line at the bottom of every page shows this.
 - UC.1 is implemented. Saved-plan what-if comparison, separate internal simulated-change approval and baseline recovery now have course prototypes. These additions do not establish complete UC.2–UC.5 implementations or cloud model allocation.
 - In-progress sessions live in memory, so restarting the server ends them; saved plans stay in `data/wealthpilot.db` (git ignores it).
 - The app has no sign-in and is meant to run on one computer (it listens on 127.0.0.1 only). See `docs/deployment.md` before hosting it anywhere else.

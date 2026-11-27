@@ -29,5 +29,4 @@ In Innoslate, show the system-wide requirement, the component requirement under 
 - CS6.2.1 timing over 100 runs: no verified performance result is supplied here.
 - CS6.2.2 empirical novice comprehension is not established by scripted AI-role answers.
 - N-01–N-08 coursework checks execute under the adapted AI-role method in SPEC.md. N-05 runs 30 seeded contract cases. Original human-study targets remain reference obligations.
-- Team sign-off on `config/rules.json` remains pending; maintenance does not constitute approval.
 - Obtain a GitHub Actions run after committing the update. Local pytest output is not hosted CI evidence.

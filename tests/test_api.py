@@ -4,14 +4,18 @@ Each test drives the same calls the front end makes. Names start with the
 SPEC.md system requirement they give evidence for: SR-01 planning inputs,
 SR-02 and SR-03 explanation, SR-04 explicit save, SR-05 saving leaves the
 simulated portfolio unchanged, SR-10 limitation disclosure, SR-13 scope notice
-and SR-14 learner controls.
+and SR-14 learner controls. The last two tests keep model tracing out of the
+product interface (course rule for the final product) while checking that the
+Planner still records the steps in model order internally.
 """
 
+import json
 import re
 
 import pytest
 from fastapi.testclient import TestClient
 
+from investment_plan_management import EXPLICIT_SAVE
 from wealthpilot_service import Planner
 from wealthpilot_service.api import FRONTEND_DIRECTORY, create_app
 
@@ -53,7 +57,6 @@ def test_session_returns_requests_for_investor_input(client):
     body = client.post("/api/sessions").json()
     requests = body["requests_for_investor_input"]
     assert {"financial_profile_fields", "risk_questionnaire", "current_holdings"} <= set(requests)
-    assert [step["tag"] for step in body["trace"]] == ["X.1", "F.1 | C.1"]
 
 
 def test_invalid_answers_are_returned_as_a_list_to_fix(client, investor):
@@ -118,7 +121,6 @@ def test_SR_04_SR_05_nothing_is_saved_without_an_explicit_request_and_saving_mov
     assert saved["confirmation"]["plan_id"] == plan_id
     assert saved["simulated_portfolio_before"] == saved["simulated_portfolio_after"]
     assert saved["simulated_portfolio_after"]["cash"] == 25000
-    assert [step["tag"] for step in saved["trace"][-4:]] == ["X.1", "F.6.3 | C.6.3", "F.6.4 | C.6.4", "F.6.5 | C.6.5"]
 
     listing = client.get("/api/saved-plans").json()["saved_plans"]
     assert [p["plan_id"] for p in listing] == [plan_id]
@@ -175,3 +177,32 @@ def test_SR_14_learner_interface_offers_no_brokerage_controls(client, investor):
 def test_unknown_session_is_reported(client):
     response = client.post("/api/sessions/session-unknown/plan", json={"profile_interpretation_confirmed": True})
     assert response.status_code == 404
+
+
+MODEL_TAG = re.compile(r"\b(?:F|C)\.\d+(?:\.\d+)* \| (?:F|C)\.\d+|model trace|How this plan was built")
+
+
+def test_product_interface_shows_no_model_tracing(client, investor):
+    page = client.get("/").text
+    assert "<main" in page
+    assert not MODEL_TAG.search(page)
+
+    session_id = start(client)
+    responses = [submit(client, session_id, investor).json()]
+    planned = client.post(f"/api/sessions/{session_id}/plan", json={"profile_interpretation_confirmed": True}).json()
+    responses.append(planned)
+    plan_id = planned["presented_plan"]["plan_id"]
+    responses.append(client.post(f"/api/sessions/{session_id}/plan-save-requests", json={"plan_id": plan_id, "action": "save"}).json())
+    for body in responses:
+        assert "trace" not in body
+        assert not MODEL_TAG.search(json.dumps(body))
+
+
+def test_planner_still_records_steps_in_model_order(tmp_path, snapshot_directory, investor):
+    planner = Planner(snapshot_directory=snapshot_directory, database_path=tmp_path / "wealthpilot.db")
+    session = planner.start_session()
+    assert [step.tag for step in session.trace] == ["X.1", "F.1 | C.1"]
+    planner.submit_investor_information(session.session_id, **investor)
+    planner.build_plan(session.session_id, profile_interpretation_confirmed=True)
+    planner.request_save(session.session_id, plan_id=session.presented.plan_id, action=EXPLICIT_SAVE)
+    assert [step.tag for step in session.trace[-4:]] == ["X.1", "F.6.3 | C.6.3", "F.6.4 | C.6.4", "F.6.5 | C.6.5"]

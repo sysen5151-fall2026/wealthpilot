@@ -85,3 +85,10 @@ User request: complete the remaining corrections after the Innoslate updates. Th
 Codex generated six ways to state an erroneous 40% US Stocks / 60% Bonds allocation for a plan with the opposite weights: explicit percentages, two word-form orderings, fractions, a ratio per hundred, and two numbers with one shared percent unit. Codex added them to `tests/test_explanation_language_model.py::test_RA_01_reversal_wording_uses_fallback` and ran the local suite on implementation `de34bf4` with those tests added. The explicit case triggered the deterministic fallback. The other five passed through the guardrail and are tracked as strict expected failures. This is a reproducible new set rather than a reconstruction of the exact earlier wording. Result: 167 passed and five expected failures. A separate Codex run at `6820e61` used five replies and is documented in the risk register.
 
 For trade scoring, Codex tokenized the five required response fields from the deterministic synthetic plan fixture as compact JSON (tiktoken 0.14.0 / o200k_base, 180 tokens) and checked the public model and OpenAI provider benchmark sources in ADR-0002. Comprehension, fidelity and the template display time remain study assumptions. No hosted requests or learner trials were run.
+
+## 2026-11-26 — Yicheng Yang — Claude (Opus 5.5)
+Built from: Canvas Final Product Demo rule "No tracing inside the product"; main@ad412ff; the team's decision to sign off WP-RULES-0.2.
+Prompt: Remove model tracing from the product interface for the final demo and record the team sign-off of config/rules.json.
+Reviewed by: Yicheng Yang.
+Assistant assumptions: Internal F.x | C.x step tags stay in code and tests; docs/traceability.md carries the model-to-code trace.
+Disposition: Removed the trace panel, the API trace field and the console trace; added two interface tests (139 passed, 5 xfailed). Rules status set to "reviewed 2026-11-05, team sign-off 2026-11-26"; README, rules-rationale and requirements-flowdown updated.
